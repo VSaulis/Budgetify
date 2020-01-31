@@ -1,0 +1,22 @@
+<tr>
+    <td [colSpan]="colspan">
+        <div class="pagination-container">
+            <div class="total">Count : {{ count }}</div>
+            <div class="pagination">
+                <ng-container *ngIf="pagesCount > 1">
+                    <ng-container *ngIf="currentPage !== 1">
+                        <a (click)="setPage(1)"><i class="material-icons">first_page</i></a>
+                        <a (click)="setPage(currentPage - 1)"><i class="material-icons">keyboard_arrow_left</i></a>
+                    </ng-container>
+                    <div class="pages">
+                        <a *ngFor="let i of range()" [ngClass]="currentPage === i ? 'active' : ''" (click)="setPage(i)">{{ i }}</a>
+                    </div>
+                    <ng-container *ngIf="currentPage < pagesCount">
+                        <a (click)="setPage(currentPage + 1)"><i class="material-icons">keyboard_arrow_right</i></a>
+                        <a (click)="setPage(pagesCount)"><i class="material-icons">last_page</i></a>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+    </td>
+</tr>

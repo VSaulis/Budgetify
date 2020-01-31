@@ -1,0 +1,54 @@
+@import "../../../../assets/scss/variables/module";
+
+.messages {
+
+    &.visible {
+        margin-bottom: 25px;
+    }
+
+    .message {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 10px 25px 10px 15px;
+        position: relative;
+
+        .close {
+            position: absolute;
+            font-size: 20px;
+            color: $color-white;
+            cursor: pointer;
+            right: 15px;
+            top: calc(50% - 11px);
+        }
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+
+        &.success {
+            background-color: rgba($color-success, 0.7);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+
+            i {
+                font-size: 27px;
+                color: darken($color-success, 10%);
+            }
+        }
+
+        p {
+            flex: 1;
+            color: $color-white;
+            font-size: 12px;
+            font-weight: 500;
+        }
+    }
+}

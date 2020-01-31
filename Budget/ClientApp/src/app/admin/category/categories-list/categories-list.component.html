@@ -1,0 +1,39 @@
+<div class="box">
+    <div class="box-header">
+        <h4>Categories</h4>
+    </div>
+    <div class="box-content">
+        <table>
+            <thead>
+                <tr>
+                    <th class="center small-column">
+                        <div (click)="$event.stopPropagation()"  class="table-choice choice-row">
+                            <input id="category-all" type="checkbox">
+                            <label for="category-all"></label>
+                        </div>
+                    </th>
+                    <th class="center small-column">Id</th>
+                    <th>Name</th>
+                    <th class="center medium-column">Updated</th>
+                    <th class="center medium-column">Created</th>
+                    <th class="center medium-column">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let category of categories">
+                    <td class="center">
+                        <div (click)="$event.stopPropagation()"  class="table-choice choice-row">
+                            <input value="{{category.id}}" id="category-{{category.id}}" type="checkbox">
+                            <label for="category-{{category.id}}"></label>
+                        </div>
+                    </td>
+                    <td class="center">{{category.id}}</td>
+                    <td>{{category.name}}</td>
+                    <td class="center">{{category.updated}}</td>
+                    <td class="center">{{category.created}}</td>
+                    <td class="center"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+@import "../../../../../assets/scss/variables/module";
+
+tr {
+    border-bottom: 1px solid darken($color-white, 10%);
+    height: 40px;
+
+    th {
+        padding: 0 20px;
+        font-size: 11px;
+        color: $color-text;
+        white-space: nowrap;
+        text-align: left;
+
+        &.checkbox-column {
+            width: 40px;
+            max-width: 40px;
+            padding: 0;
+
+            .choice-row {
+                justify-content: center;
+            }
+        }
+
+        .actions-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        &.sortable {
+
+            div {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+
+                span {
+                    margin-right: 5px;
+                    padding-right: 18px;
+                }
+
+                i {
+                    color: inherit;
+                    font-size: 18px;
+                }
+            }
+
+            &.center {
+                div {
+                    justify-content: center;
+                }
+            }
+
+            &.active div span {
+                padding-right: 0;
+            }
+
+            &:hover,
+            &.active {
+                color: $color-primary;
+                cursor: pointer;
+            }
+        }
+    }
+}

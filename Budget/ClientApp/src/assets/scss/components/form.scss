@@ -1,0 +1,139 @@
+.form-fields {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.form-field {
+    width: calc(50% - 10px);
+    margin-bottom: 7.5px;
+    position: relative;
+
+    &.inline {
+        width: calc(50% - 7.5px);
+        margin-bottom: 7.5px;
+
+        &:nth-child(odd) {
+            margin-right: 15px;
+        }
+    }
+
+    &.third-width {
+        width: calc(100% / 3 - 10px);
+        margin-bottom: 7.5px;
+
+        &:nth-child(2n + 0) {
+            margin-right: 15px;
+        }
+    }
+
+    &.full-width {
+        width: 100%;
+        margin-bottom: 7.5px;
+    }
+
+    small {
+        display: none;
+        margin-top: 5px;
+        font-size: 11px;
+        color: $color-danger;
+
+        &.has-error {
+            display: block;
+        }
+
+    }
+
+    label {
+        display: block;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        width: 100%;
+        white-space: nowrap;
+        font-size: 11px;
+        color: $color-text;
+    }
+
+    .form-input {
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+        margin-bottom: 5px;
+
+        .icon {
+            width: 35px;
+            height: 35px;
+            min-width: 35px;
+            min-height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $color-text;
+            color: $color-white;
+            cursor: default;
+
+            i {
+                font-size: 20px;
+            }
+
+            &:hover {
+                background-color: $color-primary !important;
+                cursor: pointer;
+            }
+        }
+
+        input, select, textarea {
+            font-size: 12px;
+            width: 100%;
+            height: 35px;
+            padding: 0 10px;
+            background-color: transparent;
+            color: $color-text;
+            border: 1px solid $color-text;
+
+            &.date-input {
+                width: calc(100% - 35px);
+            }
+
+            &.ng-touched.ng-invalid {
+                border: 1px solid $color-danger;
+
+                &+.icon {
+                    background-color: $color-danger;
+                }
+            }
+
+            &:active,
+            &:focus,
+            &:hover {
+                &:not(:disabled) {
+                    background-color: transparent !important;
+                    color: $color-text;
+                    border: 1px solid $color-text;
+
+                    &+.icon {
+                        background-color: $color-text;
+                    }
+                }
+            }
+        }
+
+        textarea {
+            resize: none;
+            padding-top: 10px;
+            height: 150px !important;
+        }
+    }
+
+    @media screen and (max-width: 450px) {
+
+        &.inline {
+            width: 100%;
+
+            &:nth-child(odd) {
+                margin-right: 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,85 @@
+@import "../../../assets/scss/variables/module";
+
+header.header {
+    width: calc(100% - 270px);
+    height: 60px;
+    padding-left: 20px;
+    position: fixed;
+    top: 0;
+    left: 270px;
+    background-color: $color-white;
+    border-bottom: 1px solid #E7E8F2;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+
+    > div {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h2 {
+        font-size: 14px;
+        font-weight: 500;
+        color: #33343d;
+    }
+
+    .header-box {
+        border-left: 1px solid #E7E8F2;
+        display: flex;
+        height: 100%;
+        width: 60px;
+        padding: 0 25px;
+        align-items: center;
+        justify-content: center;
+
+        &.profile {
+            width: auto;
+
+            .profile-content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: #FDFDFE;
+                }
+
+                img {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 20px;
+                    object-fit: cover;
+                    margin-right: 10px;
+                }
+
+                .details {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
+                    margin-right: 10px;
+
+                    span {
+                        color: #25233a;
+                        font-size: 13px;
+                        margin-bottom: 3px;
+                    }
+
+                    small {
+                        color: #8b8c99;
+                        font-size: 11px;
+                    }
+                }
+            }
+        }
+
+        i {
+            font-size: 22px;
+            color: #a7a9c0;
+        }
+    }
+}

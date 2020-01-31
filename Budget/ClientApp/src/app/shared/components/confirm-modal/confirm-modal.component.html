@@ -1,0 +1,25 @@
+<span (click)="activeModal.close()" class="close-icon"><i class="material-icons">clear</i></span>
+<div class="modal-container">
+    <div class="modal-header">
+        <h3>{{heading}}</h3>
+    </div>
+    <div class="modal-body">
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" (click)="activeModal.close()" class="button secondary outline">
+            <i class="material-icons">reply</i>
+            Cancel
+        </button>
+        <button (click)="confirm()" type="submit" class="button {{buttonClass}} outline">
+            <ng-container *ngIf="buttonClass == buttonClasses.danger">
+                <i class="material-icons">remove</i>
+                <span>Delete</span>
+            </ng-container>
+            <ng-container *ngIf="buttonClass == buttonClasses.primary">
+                <i class="material-icons">save_alt</i>
+                <span>Confirm</span>
+            </ng-container>
+        </button>
+    </div>
+</div>

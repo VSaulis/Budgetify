@@ -1,0 +1,33 @@
+<header class="header">
+    <div>
+        <h2>Dashboard</h2>
+    </div>
+    <div>
+        <div class="header-box">
+            <i class="material-icons">settings</i>
+        </div>
+        <div class="header-box">
+            <i class="material-icons">notifications</i>
+        </div>
+        <div class="header-box profile" ngbDropdown>
+            <div ngbDropdownToggle class="profile-content">
+                <img alt="Profile" src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg">
+                <div class="details">
+                    <span>{{loggedUser.email}}</span>
+                    <small>{{loggedUser.roles}}</small>
+                </div>
+                <i class="material-icons">keyboard_arrow_down</i>
+            </div>
+            <div ngbDropdownMenu class="dropdown-content">
+                <div class="dropdown-item">
+                    <i class="material-icons">person</i>
+                    <span>Profile</span>
+                </div>
+                <div class="dropdown-item">
+                    <i class="material-icons">power_settings_new</i>
+                    <span>Logout</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

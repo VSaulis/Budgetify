@@ -1,0 +1,16 @@
+<div class="authentication-content">
+    <h2>Sign in</h2>
+
+    <form [formGroup]="form" (ngSubmit)="register()" novalidate>
+        <div class="form-group">
+            <div class="form-input-group">
+                <input class="form-input" [appFormControlError]="form.get('email')" formControlName="email">
+            </div>
+            <div class="form-input-group">
+                <input class="form-input" [appFormControlError]="form.get('password')" type="password" formControlName="password">
+            </div>
+        </div>
+        <button type="submit" class="button full-width">Sign in</button>
+    </form>
+
+</div>

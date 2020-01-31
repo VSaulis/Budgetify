@@ -1,0 +1,128 @@
+.modal {
+    width: 100%;
+    min-height: 100%;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    padding: 20px 0;
+    position: fixed;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1100;
+    display: flex;
+
+    &.wide-modal {
+        .modal-dialog {
+            width: 1000px;
+        }
+    }
+
+    .modal-dialog {
+        width: 800px;
+        max-width: calc(100% - 10px);
+        box-shadow: -0.2px 2px 6px 0 rgba($color-black, 0.3);
+        background-color: $color-white;
+        position: relative;
+
+        &.loading {
+
+            .loader-container {
+                display: flex;
+            }
+
+            .modal-content {
+                display: none;
+            }
+        }
+
+        .modal-content {
+
+            .close-icon {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                cursor: pointer;
+                display: flex;
+                z-index: 101;
+                align-items: center;
+                justify-content: center;
+
+                i {
+                    color: $color-text;
+                    font-size: 20px;
+                }
+
+                &:hover,
+                &.active {
+                    i {
+                        color: $color-primary;
+                    }
+                }
+            }
+
+            .modal-container {
+                padding: 20px 45px;
+                min-height: 175px;
+                height: auto;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                flex-direction: column;
+
+                .form {
+                    width: 100%;
+                    height: auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    flex-direction: column;
+                }
+
+                .modal-header {
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    margin-bottom: 15px;
+                    border-bottom: 1px solid darken($color-white, 10%);
+
+                    h3 {
+                        font-size: 17px;
+                        margin: 0;
+                        font-weight: 500;
+                        color: $color-text;
+                    }
+                }
+
+                .modal-footer {
+                    border-top: 1px solid darken($color-white, 10%);
+                    height: 60px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                    width: 100%;
+
+                    .button {
+                        margin-left: 7.5px;
+                    }
+                }
+
+                .modal-body {
+                    margin-bottom: 15px;
+                    width: 100%;
+
+                    > p {
+                        font-size: 12px;
+                        color: $color-text;
+                        line-height: 1.5;
+                        padding-bottom: 15px;
+                        margin: 0 0 25px 0;
+                        border-bottom: 1px solid darken($color-white, 10%);
+                    }
+                }
+            }
+        }
+    }
+}

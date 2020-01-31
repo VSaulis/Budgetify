@@ -1,0 +1,32 @@
+@import "../../assets/scss/variables/module";
+
+.authentication {
+    width: 100%;
+    min-height: 100vh;
+    background-color: $color-white;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    .authentication-container {
+        margin-top: 75px;
+        padding: 15px;
+        height: auto;
+        width: 460px;
+
+        .logo {
+            width: 100%;
+            height: 45px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                height: 100%;
+                width: auto;
+                margin: auto;
+            }
+        }
+    }
+}

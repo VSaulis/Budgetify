@@ -1,0 +1,45 @@
+@import "../../../../assets/scss/variables/module";
+
+.line-loader {
+    height: 4px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: $color-white;
+
+    &.absolute {
+        top: 0;
+        left: 0;
+        position: absolute;
+    }
+
+    &:before {
+        display: block;
+        position: absolute;
+        content: "";
+        left: -200px;
+        width: 200px;
+        height: 4px;
+        background-color: $color-primary;
+        animation: loading 2s linear infinite;
+    }
+}
+
+@keyframes loading {
+    from {
+        left: -30%;
+        width: 30%;
+    }
+    50% {
+        width: 30%;
+    }
+    70% {
+        width: 70%;
+    }
+    80% {
+        left: 50%;
+    }
+    to {
+        left: 100%;
+    }
+}

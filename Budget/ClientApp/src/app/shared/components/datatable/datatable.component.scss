@@ -1,0 +1,83 @@
+@import "../../../../assets/scss/variables/module";
+
+.table-container {
+    position: relative;
+
+    table.table {
+        width: 100%;
+        background-color: $color-white;
+        border-collapse: collapse;
+
+        app-datatable-header {
+            display: table-header-group;
+            vertical-align: middle;
+            border-color: inherit;
+        }
+
+        tbody {
+
+            tr {
+                border-bottom: 1px solid darken($color-white, 10%);
+                height: 45px;
+
+                &:nth-of-type(even) {
+                    background-color: $color-table-row-hover-background;
+                }
+
+                &:hover {
+                    background-color: $color-table-row-hover-background;
+                    cursor: pointer;
+                }
+
+                td {
+                    padding: 0 18px;
+                    color: $color-text;
+                    font-size: 11px;
+                    white-space: nowrap;
+
+                    &.center {
+                        text-align: center;
+                    }
+
+                    &.no-data {
+                        text-align: center;
+                    }
+
+                    &.ellipsis {
+                        > div {
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
+
+                    &.table-actions {
+
+                        > div {
+                            display: flex;
+                            align-items: center;
+                            justify-content: flex-start;
+
+                            i {
+                                color: $color-text;
+                                font-size: 20px;
+                                padding: 3px;
+
+                                &:hover {
+                                    color: $color-primary;
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        app-datatable-footer {
+            display: table-footer-group;
+            vertical-align: middle;
+            border-color: inherit;
+        }
+    }
+}

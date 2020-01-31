@@ -1,0 +1,41 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    outline: none;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background-color: $color-body-background;
+}
+
+h1, h2, h3, h4, p {
+    margin: 0;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+i {
+    display: block !important;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.elevated {
+    box-shadow: -0.2px 2px 6px 0 rgba($color-black, 0.3);
+}
+
+.text-center {
+    text-align: center;
+}
