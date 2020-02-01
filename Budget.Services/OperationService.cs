@@ -32,6 +32,7 @@ namespace Budget.Services
         public async Task<int> EditAsync(EditOperationRequest request)
         {
             var operation = await _operationRepository.GetAsync(operation => operation.Id == request.Id);
+            operation.UserId = request.UserId;
             operation.Date = request.Date;
             operation.Description = request.Description;
             operation.Amount = request.Amount;

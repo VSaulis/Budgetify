@@ -21,6 +21,10 @@ const routes: Routes = [
                 loadChildren: './category/category.module#CategoryModule',
             },
             {
+                path: 'operations',
+                loadChildren: './operation/operation.module#OperationModule',
+            },
+            {
                 path: 'settings',
                 loadChildren: './settings/settings.module#SettingsModule'
             }

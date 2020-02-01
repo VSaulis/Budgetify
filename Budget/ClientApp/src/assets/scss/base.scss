@@ -21,7 +21,6 @@ h1, h2, h3, h4, p {
 a {
     cursor: pointer;
     text-decoration: none;
-    transition: all 0.2s ease;
 }
 
 i {
@@ -38,4 +37,12 @@ i {
 
 .text-center {
     text-align: center;
+}
+
+.danger {
+    color: $color-danger;
+}
+
+.success {
+    color: $color-success;
 }

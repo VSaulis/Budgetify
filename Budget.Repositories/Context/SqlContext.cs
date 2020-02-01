@@ -23,7 +23,26 @@ namespace Budget.Repositories.Context
                 .Entity<User>()
                 .Property(user => user.Status)
                 .HasConversion(new EnumToStringConverter<UserStatuses>());
+
+            modelBuilder
+                .Entity<Category>()
+                .HasOne(category => category.User)
+                .WithMany(user => user.Categories)
+                .HasForeignKey(category => category.UserId)
+                .OnDelete(DeleteBehavior.SetNull);
             
+            modelBuilder
+                .Entity<Operation>()
+                .HasOne(operation => operation.User)
+                .WithMany(user => user.Operations)
+                .HasForeignKey(operation => operation.UserId);
+            
+            modelBuilder
+                .Entity<Operation>()
+                .HasOne(operation => operation.Category)
+                .WithMany(category => category.Operations)
+                .HasForeignKey(operation => operation.CategoryId);
+
             modelBuilder
                 .Entity<User>()
                 .Property(user => user.Roles)

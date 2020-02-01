@@ -19,6 +19,8 @@ namespace Budget.Services.DI
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IOperationService, OperationService>();
+            services.AddScoped<IProfileService, ProfileService>();
+            services.AddScoped<IStatisticsService, StatisticsService>();
         }
     }
 }

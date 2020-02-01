@@ -24,7 +24,7 @@ export class CategoryService {
     constructor(private http: HttpClient) {
     }
 
-    getCategories(filter: CategoriesFilter, sort: Sort, paging: Paging): Observable<ListResponse<CategoriesListItem>> {
+    getCategories(filter: CategoriesFilter = null, sort: Sort = null, paging: Paging = null): Observable<ListResponse<CategoriesListItem>> {
         const params: any = {};
 
         if (filter) {

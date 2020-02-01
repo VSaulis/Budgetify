@@ -37,6 +37,15 @@ namespace Budget.Controllers
             return CreateResponse(response);
         }
         
+        [Route("change-password")]
+        [Authorize]
+        [HttpPost]
+        public async Task<BaseResponse> ChangePassword([FromBody] ChangePasswordRequest request)
+        {
+            await _authenticationService.ChangePasswordAsync(request);
+            return CreateResponse(new BaseResponse());
+        }
+        
         [Route("logged-user")]
         [Authorize]
         [HttpGet]

@@ -8,6 +8,9 @@ namespace Budget.Models
     {
         [Required]
         public string Email { get; set; }
+        
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         [Required] 
         public UserStatuses Status { get; set; } = UserStatuses.Unverified;
@@ -20,5 +23,8 @@ namespace Budget.Models
         
         [Required]
         public List<Roles> Roles { get; set; }
+        
+        public List<Category> Categories { get; set; }
+        public List<Operation> Operations { get; set; }
     }
 }

@@ -1,21 +1,25 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
 import {UsersListItem} from '../../../shared/models/user/UsersListItem';
 import {Paging} from '../../../shared/contracts/Paging';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Sort} from '../../../shared/contracts/Sort';
 import {UserService} from '../../../shared/services/user/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ListResponse} from '../../../shared/contracts/ListResponse';
-import {UserFormModalComponent} from './user-form-modal/user-form-modal.component';
+import {UserFormModalComponent} from '../user-form-modal/user-form-modal.component';
 import {ConfirmModalComponent} from '../../../shared/components/confirm-modal/confirm-modal.component';
 import {ButtonClasses} from '../../../shared/enums/ButtonClasses';
 import {DatatableColumn} from '../../../shared/models/datatable/DatatableColumn';
 import {DatatableAction} from '../../../shared/models/datatable/DatatableAction';
 import {DatatableActionsTypes} from '../../../shared/enums/DatatableActionsTypes';
 import {UsersFilter} from '../../../shared/contracts/user/UsersFilter';
-import {MessageService} from '../../../shared/services/message/message.service';
 import {MessagesTypes} from '../../../shared/enums/MessagesTypes';
+import {AppService} from '../../../shared/services/app/app.service';
+import {OperationsListItem} from '../../../shared/models/operation/OperationsListItem';
+import {SortTypes} from '../../../shared/enums/SortTypes';
+import {OperationService} from '../../../shared/services/operation/operation.service';
+import {OperationFormModalComponent} from '../../operation/operation-form-modal/operation-form-modal.component';
 
 @Component({
     selector: 'app-users-list',
@@ -24,38 +28,27 @@ import {MessagesTypes} from '../../../shared/enums/MessagesTypes';
 })
 export class UsersListComponent implements OnInit {
 
-    columns: DatatableColumn[];
-    filter: UsersFilter;
-    getUsersFunction: (filter: UsersFilter, sort: Sort, paging: Paging) => Observable<ListResponse<UsersListItem>>;
-    datatableRefresh = new EventEmitter<void>();
+    users: UsersListItem[] = [];
+    usersCount = 0;
+
+    paging = new BehaviorSubject<Paging>({
+        limit: 20,
+        offset: 0
+    });
+
+    sort = new BehaviorSubject<Sort>({
+        type: SortTypes.desc,
+        column: 'created'
+    });
 
     constructor(private userService: UserService,
-                private messageService: MessageService,
+                private appService: AppService,
                 private modalService: NgbModal) {
-        this.columns = [
-            {id: 'email', name: 'Email', sortable: true},
-            {id: 'roles', name: 'Roles'}
-        ];
     }
 
-    ngOnInit(): void {
-        this.getUsersFunction = (filter: UsersFilter, sort: Sort, paging: Paging) => this.getUsers(filter, sort, paging);
-    }
-
-    handleAction(action: DatatableAction): void {
-        switch (action.type) {
-            case DatatableActionsTypes.Add:
-                this.openAddUserFormModal();
-                break;
-            case DatatableActionsTypes.Delete:
-                this.openDeleteUserModal(action.id);
-                break;
-            case DatatableActionsTypes.Edit:
-                this.openEditUserFormModal(action.id);
-                break;
-            case DatatableActionsTypes.View:
-                break;
-        }
+    ngOnInit() {
+        this.appService.setTitle('Users');
+        this.getUsers();
     }
 
     openAddUserFormModal(): void {
@@ -63,39 +56,16 @@ export class UsersListComponent implements OnInit {
 
         modalRef.result.then((result) => {
             if (result) {
-                this.messageService.addMessage({text: 'User is successfully added', type: MessagesTypes.success});
-                this.datatableRefresh.emit();
+                this.appService.addMessage({text: 'User is successfully added', type: MessagesTypes.success});
+                this.getUsers();
             }
         });
     }
 
-    openEditUserFormModal(id: number): void {
-        const modalRef = this.modalService.open(UserFormModalComponent, {backdrop: false});
-        modalRef.componentInstance.id = id;
-
-        modalRef.result.then((result) => {
-            if (result) {
-                this.messageService.addMessage({text: 'User is successfully updated', type: MessagesTypes.success});
-                this.datatableRefresh.emit();
-            }
+    private getUsers(): void {
+        this.userService.getUsers(null, this.sort.value, this.paging.value).subscribe((usersListResponse: ListResponse<UsersListItem>) => {
+            this.users = usersListResponse.result;
+            this.usersCount = usersListResponse.count;
         });
-    }
-
-    openDeleteUserModal(id: number): void {
-        const modalRef = this.modalService.open(ConfirmModalComponent, {backdrop: false});
-        modalRef.componentInstance.heading = 'Are you sure that you want to delete this user?';
-        modalRef.componentInstance.buttonClass = ButtonClasses.danger;
-        modalRef.componentInstance.action = () => this.userService.deleteUser(id);
-
-        modalRef.result.then((result) => {
-            if (result) {
-                this.messageService.addMessage({text: 'User is successfully deleted', type: MessagesTypes.success});
-                this.datatableRefresh.emit();
-            }
-        });
-    }
-
-    private getUsers(filter: UsersFilter, sort: Sort, paging: Paging) {
-        return this.userService.getUsers(filter, sort, paging);
     }
 }

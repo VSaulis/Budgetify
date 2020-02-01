@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {LoggedUser} from '../../shared/models/authentication/LoggedUser';
 import {AuthenticationService} from '../../shared/services/authentication/authentication.service';
+import {AppService} from '../../shared/services/app/app.service';
+import {Profile} from '../../shared/models/profile/Profile';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -9,18 +11,33 @@ import {AuthenticationService} from '../../shared/services/authentication/authen
 })
 export class HeaderComponent implements OnInit {
 
-    loggedUser: LoggedUser = null;
+    profile: Profile;
+    title: string;
 
-    constructor(private authenticationService: AuthenticationService) {
+    constructor(private appService: AppService,
+                private authenticationService: AuthenticationService,
+                private router: Router) {
     }
 
     ngOnInit() {
-        this.getLoggedUser();
+        this.getProfile();
+        this.getTitle();
     }
 
-    private getLoggedUser(): void {
-        this.authenticationService.getLoggedUserBehaviorSubject().subscribe((loggedUser: LoggedUser) => {
-            this.loggedUser = loggedUser;
+    logout(): void {
+        this.authenticationService.logout();
+        this.router.navigateByUrl('/login');
+    }
+
+    private getTitle(): void {
+        this.appService.getTitle().subscribe((title: string) => {
+            this.title = title;
+        });
+    }
+
+    private getProfile(): void {
+        this.appService.getProfile().subscribe((profile: Profile) => {
+            this.profile = profile;
         });
     }
 

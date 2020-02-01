@@ -1,20 +1,57 @@
-<div class="page-title">
-    <div>
-        <h2>Users</h2>
+<div class="box">
+    <div class="box-header">
+        <h4>Users</h4>
+        <div>
+            <i (click)="openAddUserFormModal()" class="material-icons">add</i>
+        </div>
     </div>
-    <div>
-
+    <div class="box-content">
+        <table>
+            <thead>
+            <tr>
+                <th class="center small-column">
+                    <div (click)="$event.stopPropagation()"  class="table-choice choice-row">
+                        <input id="category-all" type="checkbox">
+                        <label for="category-all"></label>
+                    </div>
+                </th>
+                <th class="center small-column">Id</th>
+                <th class="user-column">Email</th>
+                <th>Roles</th>
+                <th class="center medium-column">Updated</th>
+                <th class="center medium-column">Created</th>
+                <th class="center medium-column">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of users">
+                <td class="center">
+                    <div (click)="$event.stopPropagation()"  class="table-choice choice-row">
+                        <input value="{{user.id}}" id="user-{{user.id}}" type="checkbox">
+                        <label for="user-{{user.id}}"></label>
+                    </div>
+                </td>
+                <td class="center">{{user.id}}</td>
+                <td>
+                    <div class="user">
+                        <img [alt]="user.email" src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg">
+                        <div class="details">
+                            <span>{{user.email}}</span>
+                            <small>{{user.roles}}</small>
+                        </div>
+                    </div>
+                </td>
+                <td>{{user.roles }}</td>
+                <td class="center">{{user.updated | date: true}}</td>
+                <td class="center">{{user.created | date: true}}</td>
+                <td class="center">
+                    <div class="actions-container">
+                        <i class="material-icons">create</i>
+                        <i class="material-icons">delete</i>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-</div>
-
-<app-messages></app-messages>
-
-<div class="content">
-    <app-datatable
-        [filter]="filter"
-        [columns]="columns"
-        [refresh]="datatableRefresh"
-        (action)="handleAction($event)"
-        [fetchRows]="getUsersFunction">
-    </app-datatable>
 </div>

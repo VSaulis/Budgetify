@@ -10,6 +10,7 @@ using Budget.Models.Repositories;
 using Budget.Models.Services;
 using Budget.System.Exceptions;
 using Microsoft.AspNetCore.Http;
+using NotImplementedException = System.NotImplementedException;
 
 namespace Budget.Services
 {
@@ -44,6 +45,11 @@ namespace Budget.Services
             return GetLoggedUserDto(token, user);
         }
 
+        public async Task ChangePasswordAsync(ChangePasswordRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<LoggedUserDto> GetLoggedUserAsync(string refreshToken = null)
         {
             if (!_httpContext.User.Identity.IsAuthenticated) return null;
@@ -51,7 +57,7 @@ namespace Budget.Services
             var id = _httpContext.User.Claims.FirstOrDefault(claim => claim.Type == "Id")?.Value;
             if (id == null) return null;
 
-            var user = await _userRepository.GetByIdAsync(int.Parse(id));
+            var user = await _userRepository.GetAsync(user => user.Id == int.Parse(id));
             if (user == null || refreshToken != null && user.RefreshToken != refreshToken) return null;
 
             if (!_httpContext.Request.Headers.ContainsKey("Authorization") || !_httpContext.Request.Headers["Authorization"][0].StartsWith("Bearer ")) return null;

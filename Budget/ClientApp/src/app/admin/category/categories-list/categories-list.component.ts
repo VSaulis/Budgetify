@@ -6,6 +6,10 @@ import {BehaviorSubject} from 'rxjs';
 import {Paging} from '../../../shared/contracts/Paging';
 import {Sort} from '../../../shared/contracts/Sort';
 import {SortTypes} from '../../../shared/enums/SortTypes';
+import {MessagesTypes} from '../../../shared/enums/MessagesTypes';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CategoryFormModalComponent} from '../category-form-modal/category-form-modal.component';
+import {AppService} from '../../../shared/services/app/app.service';
 
 @Component({
     selector: 'app-categories-list',
@@ -27,11 +31,25 @@ export class CategoriesListComponent implements OnInit {
         column: 'created'
     });
 
-    constructor(private categoryService: CategoryService) {
+    constructor(private categoryService: CategoryService,
+                private appService: AppService,
+                private modalService: NgbModal) {
     }
 
     ngOnInit() {
+        this.appService.setTitle('Categories');
         this.getCategories();
+    }
+
+    openAddCategoryFormModal(): void {
+        const modalRef = this.modalService.open(CategoryFormModalComponent, {backdrop: false});
+
+        modalRef.result.then((result) => {
+            if (result) {
+                this.appService.addMessage({text: 'Category is successfully added', type: MessagesTypes.success});
+                this.getCategories();
+            }
+        });
     }
 
     private getCategories(): void {

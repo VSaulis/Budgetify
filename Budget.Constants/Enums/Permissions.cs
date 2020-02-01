@@ -21,7 +21,7 @@
         CanEditOperations,
 
         // Dashboard
-        CanViewDashboard,
+        CanViewStatistics,
         
         // Settings
         CanViewSettings,

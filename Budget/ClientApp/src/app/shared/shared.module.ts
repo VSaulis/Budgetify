@@ -15,6 +15,8 @@ import { DatatableComponent } from './components/datatable/datatable.component';
 import { DatatableFooterComponent } from './components/datatable/datatable-footer/datatable-footer.component';
 import { DatatableHeaderComponent } from './components/datatable/datatable-header/datatable-header.component';
 import { LineLoaderComponent } from './components/line-loader/line-loader.component';
+import { MoneyPipe } from './pipes/money/money.pipe';
+import { DatePipe } from './pipes/date/date.pipe';
 
 @NgModule({
     declarations: [
@@ -27,6 +29,8 @@ import { LineLoaderComponent } from './components/line-loader/line-loader.compon
         DatatableFooterComponent,
         DatatableHeaderComponent,
         LineLoaderComponent,
+        MoneyPipe,
+        DatePipe,
     ],
     imports: [
         ReactiveFormsModule,
@@ -48,7 +52,9 @@ import { LineLoaderComponent } from './components/line-loader/line-loader.compon
         NgSelectModule,
         ConfirmModalComponent,
         DatatableComponent,
-        NgbDropdownModule
+        NgbDropdownModule,
+        MoneyPipe,
+        DatePipe
     ],
     entryComponents: [
         ConfirmModalComponent

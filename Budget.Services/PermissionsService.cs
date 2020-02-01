@@ -34,15 +34,15 @@ namespace Budget.Services
                         // Settings
                         permissions.Add(Permissions.CanViewSettings);
                         permissions.Add(Permissions.CanEditSettings);
-                        // Dashboard
-                        permissions.Add(Permissions.CanViewDashboard);
+                        // Statistics
+                        permissions.Add(Permissions.CanViewStatistics);
                         break;
                     
                     case Roles.FamilyMember:
                         // Settings
                         permissions.Add(Permissions.CanViewSettings);
                         // Dashboard
-                        permissions.Add(Permissions.CanViewDashboard);
+                        permissions.Add(Permissions.CanViewStatistics);
                         break;
                     
                     case Roles.Guest:

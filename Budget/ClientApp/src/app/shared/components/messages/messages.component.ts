@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Message} from '../../models/Message';
-import {MessageService} from '../../services/message/message.service';
+import {Message} from '../../models/message/Message';
+import {AppService} from '../../services/app/app.service';
 
 @Component({
     selector: 'app-messages',
@@ -11,17 +11,17 @@ export class MessagesComponent implements OnInit {
 
     messages: Message[] = [];
 
-    constructor(private messageService: MessageService) {
+    constructor(private appService: AppService) {
     }
 
     ngOnInit() {
-        this.messageService.getMessagesBehaviorSubject().subscribe((messages: Message[]) => {
+        this.appService.getMessages().subscribe((messages: Message[]) => {
             this.messages = messages;
         });
     }
 
     removeMessage(message: Message): void {
-        this.messageService.removeMessage(message);
+        this.appService.removeMessage(message);
     }
 
 }

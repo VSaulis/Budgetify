@@ -1,19 +1,24 @@
-import {Component} from '@angular/core';
-import {AuthenticationService} from '../../shared/services/authentication/authentication.service';
-import {Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {AppService} from '../../shared/services/app/app.service';
+import {Profile} from '../../shared/models/profile/Profile';
 
 @Component({
     selector: 'app-side-navigation',
     templateUrl: './side-navigation.component.html',
     styleUrls: ['./side-navigation.component.scss']
 })
-export class SideNavigationComponent {
+export class SideNavigationComponent implements OnInit {
 
-    constructor(private authenticationService: AuthenticationService, private router: Router) {
+    profile: Profile;
+
+    constructor(private appService: AppService) {
     }
 
-    logout(): void {
-        this.authenticationService.logout();
-        this.router.navigateByUrl('/login');
+    ngOnInit(): void {
+        this.getProfile();
+    }
+
+    private getProfile(): void {
+        this.appService.getProfile().subscribe(profile => this.profile = profile);
     }
 }

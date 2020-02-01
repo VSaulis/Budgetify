@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Budget.Repositories.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20200131100220_Init3")]
-    partial class Init3
+    [Migration("20200201145656_Init1")]
+    partial class Init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,7 +38,7 @@ namespace Budget.Repositories.Migrations
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -74,9 +74,14 @@ namespace Budget.Repositories.Migrations
                     b.Property<DateTime?>("Updated")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Operations");
                 });
@@ -123,10 +128,9 @@ namespace Budget.Repositories.Migrations
             modelBuilder.Entity("Budget.Models.Category", b =>
                 {
                     b.HasOne("Budget.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Categories")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("Budget.Models.Operation", b =>
@@ -134,6 +138,12 @@ namespace Budget.Repositories.Migrations
                     b.HasOne("Budget.Models.Category", "Category")
                         .WithMany("Operations")
                         .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Budget.Models.User", "User")
+                        .WithMany("Operations")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

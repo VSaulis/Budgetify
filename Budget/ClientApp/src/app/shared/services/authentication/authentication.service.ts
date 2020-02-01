@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {LoginRequest} from '../../contracts/authentication/LoginRequest';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {LoggedUser} from '../../models/authentication/LoggedUser';
 import {ResultResponse} from '../../contracts/ResultResponse';
 import {map} from 'rxjs/operators';
@@ -10,6 +10,8 @@ import {BaseResponse} from '../../contracts/BaseResponse';
 import {RefreshTokenRequest} from '../../contracts/authentication/RefreshTokenRequest';
 import {environment} from '../../../../environments/environment';
 import {PermissionService} from '../permission/permission.service';
+import {AppService} from '../app/app.service';
+import {ProfileService} from '../profile/profile.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,9 +19,11 @@ import {PermissionService} from '../permission/permission.service';
 export class AuthenticationService {
 
     private url = `${environment.apiUrl}/authentication`;
-    private loggedUserBehaviorSubject = new BehaviorSubject<LoggedUser>(null);
 
-    constructor(private http: HttpClient, private permissionService: PermissionService) {
+    constructor(private http: HttpClient,
+                private permissionService: PermissionService,
+                private profileService: ProfileService,
+                private appService: AppService) {
     }
 
     login(request: LoginRequest): Observable<LoggedUser> {
@@ -56,19 +60,19 @@ export class AuthenticationService {
 
     logout(): void {
         localStorage.removeItem('loggedUser');
+        this.appService.setProfile(null);
+        this.appService.setLoggedUser(null);
     }
 
     getUser(): LoggedUser {
         return JSON.parse(localStorage.getItem('loggedUser'));
     }
 
-    getLoggedUserBehaviorSubject(): BehaviorSubject<LoggedUser> {
-        return this.loggedUserBehaviorSubject;
-    }
-
     private setUser(loggedUser: LoggedUser): void {
-        this.loggedUserBehaviorSubject.next(loggedUser);
+        this.appService.setLoggedUser(loggedUser);
         this.permissionService.loadPermissions(loggedUser.permissions);
         localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
+        this.profileService.getProfile().subscribe(profile => this.appService.setProfile(profile));
+
     }
 }

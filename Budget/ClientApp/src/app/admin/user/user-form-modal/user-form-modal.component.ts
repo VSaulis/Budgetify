@@ -1,12 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {User} from '../../../../shared/models/user/User';
+import {User} from '../../../shared/models/user/User';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../../../../shared/services/user/user.service';
+import {UserService} from '../../../shared/services/user/user.service';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {FormHelper} from '../../../../shared/utils/FormHelper';
-import {EditUserRequest} from '../../../../shared/contracts/user/EditUserRequest';
-import {AddUserRequest} from '../../../../shared/contracts/user/AddUserRequest';
-import {Roles} from '../../../../shared/enums/Roles';
+import {FormHelper} from '../../../shared/utils/FormHelper';
+import {EditUserRequest} from '../../../shared/contracts/user/EditUserRequest';
+import {AddUserRequest} from '../../../shared/contracts/user/AddUserRequest';
+import {Roles} from '../../../shared/enums/Roles';
 
 @Component({
     selector: 'app-user-form-modal',

@@ -2,7 +2,7 @@
 {
     public interface ITokenService
     {
-        public string GenerateRefreshToken();
-        public string GenerateToken(int id);
+        string GenerateRefreshToken();
+        string GenerateToken(int id);
     }
 }

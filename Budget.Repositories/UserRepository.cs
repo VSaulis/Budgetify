@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Budget.Models;
 using Budget.Models.Repositories;
 using Budget.Repositories.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Budget.Repositories
 {
@@ -10,14 +11,11 @@ namespace Budget.Repositories
     {
         public UserRepository(SqlContext context) : base(context) { }
 
-        public async Task<User> GetByIdAsync(int id)
-        {
-            return await GetAsync(user => user.Id == id);
-        }
-
         protected override IQueryable<User> FormatQuery(IQueryable<User> query)
         {
-            return query;
+            return query
+                .Include(user => user.Categories)
+                    .ThenInclude(category => category.Operations);
         }
     }
 }

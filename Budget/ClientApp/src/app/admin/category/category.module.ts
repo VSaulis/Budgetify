@@ -3,15 +3,22 @@ import {CommonModule} from '@angular/common';
 
 import {CategoryRoutingModule} from './category-routing.module';
 import { CategoriesListComponent } from './categories-list/categories-list.component';
+import { CategoryFormModalComponent } from './category-form-modal/category-form-modal.component';
+import {SharedModule} from '../../shared/shared.module';
 
 
 @NgModule({
     declarations: [
-        CategoriesListComponent
+        CategoriesListComponent,
+        CategoryFormModalComponent
     ],
     imports: [
         CommonModule,
-        CategoryRoutingModule
+        CategoryRoutingModule,
+        SharedModule
+    ],
+    entryComponents: [
+        CategoryFormModalComponent
     ]
 })
 export class CategoryModule {

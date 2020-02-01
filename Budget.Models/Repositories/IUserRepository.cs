@@ -2,8 +2,5 @@
 
 namespace Budget.Models.Repositories
 {
-    public interface IUserRepository : IBaseRepository<User>
-    {
-        Task<User> GetByIdAsync(int id);
-    }
+    public interface IUserRepository : IBaseRepository<User> { }
 }

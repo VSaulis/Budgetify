@@ -1,0 +1,37 @@
+<span (click)="activeModal.close()" class="close-icon"><i class="material-icons">clear</i></span>
+<div class="modal-container">
+    <app-loader *ngIf="isLoading"></app-loader>
+    <ng-container *ngIf="!isLoading">
+        <form (ngSubmit)="save()" class="form" [formGroup]="form">
+            <div class="modal-header">
+                <h3>{{ id ? 'Edit category' : 'Add category'}}</h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.
+                </p>
+                <div class="form-fields">
+                    <div class="form-field inline">
+                        <label for="name">Name : </label>
+                        <div class="form-input">
+                            <input id="name" formControlName="name">
+                        </div>
+                        <small [appFormError]="form.get('name')" errorType="required">Field is required</small>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)="activeModal.close()" class="button secondary outline">
+                    <i class="material-icons">reply</i>
+                    <span>Cancel</span>
+                </button>
+                <button type="submit" class="button primary outline">
+                    <i class="material-icons">save_alt</i>
+                    <span>Save</span>
+                </button>
+            </div>
+        </form>
+    </ng-container>
+</div>
+

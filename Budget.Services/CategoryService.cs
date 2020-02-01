@@ -14,17 +14,21 @@ namespace Budget.Services
     public class CategoryService : ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IAuthenticationService _authenticationService;
         private readonly IMapper _mapper;
 
-        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper)
+        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper, IAuthenticationService authenticationService)
         {
+            _authenticationService = authenticationService;
             _mapper = mapper;
             _categoryRepository = categoryRepository;
         }
 
         public async Task<int> AddAsync(AddCategoryRequest request)
         {
+            var loggedUserDto = await _authenticationService.GetLoggedUserAsync();
             var category = _mapper.Map<AddCategoryRequest, Category>(request);
+            category.UserId = loggedUserDto.UserId;
             await _categoryRepository.AddAsync(category);
             return category.Id;
         }

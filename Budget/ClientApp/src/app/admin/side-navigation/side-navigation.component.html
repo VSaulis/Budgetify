@@ -4,7 +4,7 @@
         <h1>Budgetify</h1>
     </div>
     <div class="aside-balance">
-        <span>$25,650</span>
+        <span>{{profile.balance | money }}</span>
         <small>Current balance</small>
     </div>
     <nav class="navigation">
@@ -20,6 +20,10 @@
             <a routerLink="/admin/operations" routerLinkActive="active" class="menu-item">
                 <i class="material-icons">location_city</i>
                 <span>Operations</span>
+            </a>
+            <a routerLink="/admin/users" routerLinkActive="active" class="menu-item">
+                <i class="material-icons">person</i>
+                <span>Users</span>
             </a>
         </div>
         <div>

@@ -24,7 +24,7 @@ export class UserService {
     constructor(private http: HttpClient) {
     }
 
-    getUsers(filter: UsersFilter, sort: Sort, paging: Paging): Observable<ListResponse<UsersListItem>> {
+    getUsers(filter: UsersFilter = null, sort: Sort = null, paging: Paging = null): Observable<ListResponse<UsersListItem>> {
         const params: any = {};
 
         if (filter) {

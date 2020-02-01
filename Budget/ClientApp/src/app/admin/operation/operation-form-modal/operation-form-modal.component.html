@@ -1,0 +1,71 @@
+<span (click)="activeModal.close()" class="close-icon"><i class="material-icons">clear</i></span>
+<div class="modal-container">
+    <app-loader *ngIf="isLoading"></app-loader>
+    <ng-container *ngIf="!isLoading">
+        <form (ngSubmit)="save()" class="form" [formGroup]="form">
+            <div class="modal-header">
+                <h3>{{ id ? 'Edit operation' : 'Add operation'}}</h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.
+                </p>
+                <div class="form-fields">
+                    <div class="form-field inline">
+                        <label for="amount">Amount : </label>
+                        <div class="form-input">
+                            <input id="amount" type="number" formControlName="amount">
+                        </div>
+                        <small [appFormError]="form.get('amount')" errorType="required">Field is required</small>
+                    </div>
+                    <div class="form-field inline">
+                        <label for="date">Date : </label>
+                        <div class="form-input">
+                            <input id="date" type="date" formControlName="date">
+                        </div>
+                        <small [appFormError]="form.get('date')" errorType="required">Field is required</small>
+                    </div>
+                    <div class="form-field inline">
+                        <label for="categories">Category: </label>
+                        <ng-select id="categories"
+                                   [items]="categories"
+                                   formControlName="categoryId"
+                                   bindLabel="name"
+                                   bindValue="id">
+                        </ng-select>
+                        <small [appFormError]="form.get('categories')" errorType="required">Field is required</small>
+                    </div>
+                    <div class="form-field inline">
+                        <label for="users">User: </label>
+                        <ng-select id="users"
+                                   [items]="users"
+                                   formControlName="userId"
+                                   bindLabel="email"
+                                   bindValue="id">
+                        </ng-select>
+                        <small [appFormError]="form.get('userId')" errorType="required">Field is required</small>
+                    </div>
+                    <div class="form-field inline">
+                        <label for="description">Description : </label>
+                        <div class="form-input">
+                            <input id="description" formControlName="description">
+                        </div>
+                        <small [appFormError]="form.get('description')" errorType="required">Field is required</small>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)="activeModal.close()" class="button secondary outline">
+                    <i class="material-icons">reply</i>
+                    <span>Cancel</span>
+                </button>
+                <button type="submit" class="button primary outline">
+                    <i class="material-icons">save_alt</i>
+                    <span>Save</span>
+                </button>
+            </div>
+        </form>
+    </ng-container>
+</div>
+

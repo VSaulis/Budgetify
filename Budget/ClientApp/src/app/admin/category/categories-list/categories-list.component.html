@@ -1,6 +1,9 @@
 <div class="box">
     <div class="box-header">
         <h4>Categories</h4>
+        <div>
+            <i (click)="openAddCategoryFormModal()" class="material-icons">add</i>
+        </div>
     </div>
     <div class="box-content">
         <table>
@@ -13,7 +16,9 @@
                         </div>
                     </th>
                     <th class="center small-column">Id</th>
+                    <th class="user-column">Created by</th>
                     <th>Name</th>
+                    <th class="center medium-column">Total</th>
                     <th class="center medium-column">Updated</th>
                     <th class="center medium-column">Created</th>
                     <th class="center medium-column">Actions</th>
@@ -28,10 +33,25 @@
                         </div>
                     </td>
                     <td class="center">{{category.id}}</td>
+                    <td>
+                        <div class="user">
+                            <img [alt]="category.user.email" src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg">
+                            <div class="details">
+                                <span>{{category.user.email}}</span>
+                                <small>{{category.user.roles}}</small>
+                            </div>
+                        </div>
+                    </td>
                     <td>{{category.name}}</td>
-                    <td class="center">{{category.updated}}</td>
-                    <td class="center">{{category.created}}</td>
-                    <td class="center"></td>
+                    <td [class.success]="category.total >= 0" [class.danger]="category.total < 0" class="center">{{category.total | money}}</td>
+                    <td class="center">{{category.updated | date: true}}</td>
+                    <td class="center">{{category.created | date: true}}</td>
+                    <td class="center">
+                        <div class="actions-container">
+                            <i class="material-icons">create</i>
+                            <i class="material-icons">delete</i>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>

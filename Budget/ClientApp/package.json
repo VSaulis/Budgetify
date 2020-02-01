@@ -32,6 +32,7 @@
         "@fullcalendar/interaction": "^4.3.0",
         "@ng-bootstrap/ng-bootstrap": "^5.1.4",
         "@ng-select/ng-select": "^3.7.1",
+        "@swimlane/ngx-charts": "^13.0.2",
         "@uiowa/date-range-picker": "^2.0.0",
         "angular-archwizard": "^5.0.0",
         "apexcharts": "^3.0.0",
