@@ -7,11 +7,11 @@ namespace Budget.Models.Services
 {
     public interface ICategoryService
     {
-        Task<int> AddAsync(AddCategoryRequest request);
-        Task<int> EditAsync(EditCategoryRequest request);
-        Task DeleteAsync(DeleteCategoryRequest request);
-        Task DeleteListAsync(DeleteCategoriesRequest request);
-        Task<CategoryDto> GetAsync(GetCategoryRequest request);
+        Task<BaseResponse> AddAsync(AddCategoryRequest request);
+        Task<BaseResponse> EditAsync(EditCategoryRequest request);
+        Task<BaseResponse> DeleteAsync(int id);
+        Task<BaseResponse> DeleteListAsync(DeleteCategoriesRequest request);
+        Task<ResultResponse<CategoryDto>> GetAsync(int id);
         Task<ListResponse<CategoriesListItemDto>> ListAsync(ListCategoriesRequest request);
     }
 }

@@ -1,16 +1,16 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {FormHelper} from '../../../shared/utils/FormHelper';
-import {OperationService} from '../../../shared/services/operation/operation.service';
-import {Operation} from '../../../shared/models/operation/Operation';
-import {EditOperationRequest} from '../../../shared/contracts/operation/EditOperationRequest';
-import {AddOperationRequest} from '../../../shared/contracts/operation/AddOperationRequest';
-import {CategoriesListItem} from '../../../shared/models/category/CategoriesListItem';
-import {CategoryService} from '../../../shared/services/category/category.service';
+import {FormHelper} from '../../../utils/FormHelper';
+import {OperationService} from '../../../services/operation/operation.service';
+import {Operation} from '../../../models/operation/Operation';
+import {EditOperationRequest} from '../../../contracts/operation/EditOperationRequest';
+import {AddOperationRequest} from '../../../contracts/operation/AddOperationRequest';
+import {CategoriesListItem} from '../../../models/category/CategoriesListItem';
+import {CategoryService} from '../../../services/category/category.service';
 import {forkJoin} from 'rxjs';
-import {UserService} from '../../../shared/services/user/user.service';
-import {UsersListItem} from '../../../shared/models/user/UsersListItem';
+import {UserService} from '../../../services/user/user.service';
+import {UsersListItem} from '../../../models/user/UsersListItem';
 
 @Component({
     selector: 'app-operation-form-modal',
@@ -52,14 +52,14 @@ export class OperationFormModalComponent implements OnInit {
             this.isSubmitting = true;
 
             if (this.id) {
-                this.operationService.editOperation(this.mapEditOperationRequest()).subscribe((id: number) => {
-                    this.activeModal.close(id);
+                this.operationService.editOperation(this.mapEditOperationRequest()).subscribe(() => {
+                    this.activeModal.close('success');
                 }, (err) => {
                     this.isSubmitting = false;
                 });
             } else {
-                this.operationService.addOperation(this.mapAddOperationRequest()).subscribe((id: number) => {
-                    this.activeModal.close(id);
+                this.operationService.addOperation(this.mapAddOperationRequest()).subscribe(() => {
+                    this.activeModal.close('success');
                 }, (err) => {
                     this.isSubmitting = false;
                 });

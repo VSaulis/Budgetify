@@ -1,17 +1,16 @@
 using System.Threading.Tasks;
 using Budget.Constants.Enums;
-using Budget.Contracts;
 using Budget.Contracts.User;
-using Budget.Dtos.User;
 using Budget.Models.Services;
 using Budget.System.Attributes;
+using Budget.System.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Budget.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UsersController : BaseController
+    public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
 
@@ -19,55 +18,69 @@ namespace Budget.Controllers
         {
             _userService = userService;
         }
-        
+
         [HttpGet]
         [PermissionRequirement(Permissions.CanViewUsers)]
-        public async Task<ListResponse<UsersListItemDto>> List([FromQuery] ListUsersRequest request)
+        public async Task<IActionResult> List([FromQuery] ListUsersRequest request)
         {
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+
             var response = await _userService.ListAsync(request);
-            return CreateResponse(response);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
-        
+
         [HttpPost]
         [PermissionRequirement(Permissions.CanAddUsers)]
-        public async Task<ResultResponse<int>> Add([FromBody] AddUserRequest request)
+        public async Task<IActionResult> Add([FromBody] AddUserRequest request)
         {
-            var id = await _userService.AddAsync(request);
-            return CreateResponse(new ResultResponse<int>{Result = id});
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+
+            var response = await _userService.AddAsync(request);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
-        
+
         [HttpPut]
         [PermissionRequirement(Permissions.CanEditUsers)]
-        public async Task<ResultResponse<int>> Edit([FromBody] EditUserRequest request)
+        public async Task<IActionResult> Edit([FromBody] EditUserRequest request)
         {
-            var id = await _userService.EditAsync(request);
-            return CreateResponse(new ResultResponse<int>{Result = id});
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+
+            var response = await _userService.EditAsync(request);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
-        
+
         [HttpGet("{id}")]
         [PermissionRequirement(Permissions.CanViewUsers)]
-        public async Task<ResultResponse<UserDto>> Edit([FromRoute] int id)
+        public async Task<IActionResult> Get([FromRoute] int id)
         {
-            var request = new GetUserRequest {Id = id};
-            var userDto = await _userService.GetAsync(request);
-            return CreateResponse(new ResultResponse<UserDto>{Result = userDto});
+            var response = await _userService.GetAsync(id);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
-        
+
         [HttpDelete("{id}")]
         [PermissionRequirement(Permissions.CanDeleteUsers)]
-        public async Task<BaseResponse> Delete([FromRoute] int id)
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var request = new DeleteUserRequest {Id = id};
-            await _userService.DeleteAsync(request);
-            return CreateResponse(new BaseResponse());
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+
+            var response = await _userService.DeleteAsync(id);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
-        
+
         [HttpDelete]
         [PermissionRequirement(Permissions.CanDeleteUsers)]
-        public async Task<BaseResponse> Delete([FromRoute] DeleteUsersRequest request)
+        public async Task<IActionResult> Delete([FromRoute] DeleteUsersRequest request)
         {
-            await _userService.DeleteListAsync(request);
-            return CreateResponse(new BaseResponse());
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+
+            var response = await _userService.DeleteListAsync(request);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
     }
 }

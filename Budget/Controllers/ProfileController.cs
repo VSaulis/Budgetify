@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Budget.Contracts;
 using Budget.Contracts.Profile;
-using Budget.Dtos.Profile;
 using Budget.Models.Services;
+using Budget.System.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +9,7 @@ namespace Budget.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ProfileController : BaseController
+    public class ProfileController : ControllerBase
     {
         private readonly IProfileService _profileService;
 
@@ -18,21 +17,27 @@ namespace Budget.Controllers
         {
             _profileService = profileService;
         }
-        
+
         [HttpGet]
         [Authorize]
-        public async Task<ResultResponse<ProfileDto>> Get()
+        public async Task<IActionResult> Get()
         {
-            var profileDto = await _profileService.GetAsync();
-            return CreateResponse(new ResultResponse<ProfileDto>{Result = profileDto});
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+
+            var response = await _profileService.GetAsync();
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
-        
+
         [HttpPut]
         [Authorize]
-        public async Task<ResultResponse<int>> Edit([FromBody] EditProfileRequest request)
+        public async Task<IActionResult> Edit([FromBody] EditProfileRequest request)
         {
-            var userId = await _profileService.EditAsync(request);
-            return CreateResponse(new ResultResponse<int> {Result = userId});
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+
+            var response = await _profileService.EditAsync(request);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
     }
 }

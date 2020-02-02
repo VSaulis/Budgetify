@@ -27,7 +27,7 @@ namespace Budget.System.Attributes
                 return;
             }
             
-            if (!loggedUser.Permissions.Contains(_permission.ToString())) context.Result = GetForbiddenResult();
+            if (!loggedUser.Permissions.Contains(_permission)) context.Result = GetForbiddenResult();
         }
 
         private StatusCodeResult GetForbiddenResult()

@@ -1,0 +1,60 @@
+<div class="box">
+    <div class="box-header">
+        <h4>Operations</h4>
+        <div>
+            <i (click)="openAddOperationFormModal()" class="material-icons">add</i>
+        </div>
+    </div>
+    <div class="box-content">
+        <app-line-loader [isPositionAbsolute]="true" *ngIf="isLoading"></app-line-loader>
+        <table>
+            <app-datatable-header
+                [colspan]="colspan"
+                [columns]="columns"
+                [rowsCount]="operations.length"
+                [selectedRowsCount]="selectedOperationsIds.length"
+                (selectAll)="selectAll($event)"
+                (sort)="sortChange($event)">
+            </app-datatable-header>
+            <tbody>
+            <tr *ngFor="let operation of operations">
+                <td class="center">
+                    <div (click)="$event.stopPropagation()"  class="table-choice choice-row">
+                        <input [checked]="selectedOperationsIds.indexOf(operation.id) !== -1"
+                               value="{{operation.id}}"
+                               (change)="handleOperationSelect($event)"
+                               id="operation-{{operation.id}}"
+                               type="checkbox">
+                        <label for="operation-{{operation.id}}"></label>
+                    </div>
+                </td>
+                <td>{{operation.category.name}}</td>
+                <td [class.success]="operation.amount >= 0" [class.danger]="operation.amount < 0" class="center">{{operation.amount | money}}</td>
+                <td>
+                    <div class="user">
+                        <img [alt]="operation.user.email" src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg">
+                        <div class="details">
+                            <span>{{operation.user.email}}</span>
+                            <small>{{operation.user.roles}}</small>
+                        </div>
+                    </div>
+                </td>
+                <td class="center">{{operation.date | date}}</td>
+                <td class="center">{{operation.updated | date: true}}</td>
+                <td class="center">{{operation.created | date: true}}</td>
+                <td class="center">
+                    <div class="actions-container">
+                        <i (click)="openEditOperationFormModal(operation.id)" class="material-icons">create</i>
+                        <i (click)="openDeleteOperationFormModal(operation.id)" class="material-icons">delete</i>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+            <app-datatable-footer
+                (paging)="pagingChange($event)"
+                [colspan]="colspan"
+                [count]="operationsCount">
+            </app-datatable-footer>
+        </table>
+    </div>
+</div>

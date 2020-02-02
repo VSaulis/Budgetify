@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Net;
-
-namespace Budget.Contracts
+﻿namespace Budget.Contracts
 {
     public class BaseResponse
     {
-        public List<string> Errors { get; set; }
-        public List<string> ValidationErrors { get; set; }
-        public HttpStatusCode Status { get; set; } = HttpStatusCode.OK;
+        public BaseResponse(string message)
+        {
+            Message = message;
+            IsValid = false;
+        }
+        
+        public BaseResponse() {}
+        
+        public string Message { get; set; }
+        public bool IsValid { get; set; } = true;
     }
 }

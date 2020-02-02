@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Budget.Constants.Enums;
 using Budget.Contracts;
 using Budget.Contracts.Operation;
 using Budget.Dtos.Operation;
@@ -15,68 +14,69 @@ namespace Budget.Services
     public class OperationService : IOperationService
     {
         private readonly IOperationRepository _operationRepository;
-        private readonly IFileService _fileService;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public OperationService(IOperationRepository operationRepository, IMapper mapper, IFileService fileService)
+        public OperationService(IOperationRepository operationRepository, IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _fileService = fileService;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
             _operationRepository = operationRepository;
         }
 
-        public async Task<int> AddAsync(AddOperationRequest request)
+        public async Task<BaseResponse> AddAsync(AddOperationRequest request)
         {
             var operation = _mapper.Map<AddOperationRequest, Operation>(request);
-            
-            if (request.DocumentBase64String != null)
-            {
-                operation.Document = await _fileService.UploadBase64FileAsync(request.DocumentBase64String, FileTypes.Document);
-            }
-            
             await _operationRepository.AddAsync(operation);
-            return operation.Id;
+            await _unitOfWork.SaveChangesAsync();
+            return new BaseResponse();
         }
 
-        public async Task<int> EditAsync(EditOperationRequest request)
+        public async Task<BaseResponse> EditAsync(EditOperationRequest request)
         {
             var operation = await _operationRepository.GetAsync(operation => operation.Id == request.Id);
+            if (operation == null) return new BaseResponse("Operation is not found");
+
             operation.UserId = request.UserId;
             operation.Date = request.Date;
             operation.Description = request.Description;
             operation.Amount = request.Amount;
             operation.CategoryId = request.CategoryId;
-            
-            if (request.DocumentBase64String != null)
-            {
-                operation.Document = await _fileService.UploadBase64FileAsync(request.DocumentBase64String, FileTypes.Document);
-            }
-            
-            await _operationRepository.UpdateAsync(operation);
-            return operation.Id;
+
+            _operationRepository.Update(operation);
+            await _unitOfWork.SaveChangesAsync();
+            return new BaseResponse();
         }
 
-        public async Task DeleteAsync(DeleteOperationRequest request)
+        public async Task<BaseResponse> DeleteAsync(int id)
         {
-            var operation = await _operationRepository.GetAsync(operation => operation.Id == request.Id);
-            if (operation.Document != null) await _fileService.DeleteFile(operation.Document);
-            await _operationRepository.DeleteAsync(operation);
+            var operation = await _operationRepository.GetAsync(operation => operation.Id == id);
+            if (operation == null) return new BaseResponse("Operation is not found");
+
+            _operationRepository.Delete(operation);
+            await _unitOfWork.SaveChangesAsync();
+            return new BaseResponse();
         }
 
-        public async Task<OperationDto> GetAsync(GetOperationRequest request)
+        public async Task<ResultResponse<OperationDto>> GetAsync(int id)
         {
-            var operation = await _operationRepository.GetAsync(operation => operation.Id == request.Id);
-            return _mapper.Map<Operation, OperationDto>(operation);
+            var operation = await _operationRepository.GetAsync(operation => operation.Id == id);
+            if (operation == null) return new ResultResponse<OperationDto>("Operation is not found");
+            var operationDto = _mapper.Map<Operation, OperationDto>(operation);
+            return new ResultResponse<OperationDto>(operationDto);
         }
 
-        public async Task DeleteListAsync(DeleteOperationsRequest request)
+        public async Task<BaseResponse> DeleteListAsync(DeleteOperationsRequest request)
         {
             foreach (var operationId in request.OperationsIds)
             {
                 var operation = await _operationRepository.GetAsync(operation => operation.Id == operationId);
-                if (operation.Document != null) await _fileService.DeleteFile(operation.Document);
-                await _operationRepository.DeleteAsync(operation);
+                if (operation == null) return new ResultResponse<OperationDto>("Operation is not found");
+                _operationRepository.Delete(operation);
             }
+
+            await _unitOfWork.SaveChangesAsync();
+            return new BaseResponse();
         }
 
         public async Task<ListResponse<OperationsListItemDto>> ListAsync(ListOperationsRequest request)
@@ -87,11 +87,8 @@ namespace Budget.Services
             var operations = await _operationRepository.GetListAsync(null, sort, paging);
             var operationsCount = await _operationRepository.CountAsync(null);
 
-            return new ListResponse<OperationsListItemDto>
-            {
-                Result = _mapper.Map<List<Operation>, List<OperationsListItemDto>>(operations),
-                Count = operationsCount
-            };
+            var operationsDtosList = _mapper.Map<List<Operation>, List<OperationsListItemDto>>(operations);
+            return new ListResponse<OperationsListItemDto>(operationsDtosList, operationsCount);
         }
     }
 }

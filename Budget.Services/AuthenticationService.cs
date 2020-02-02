@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Budget.Constants.Enums;
+using Budget.Contracts;
 using Budget.Contracts.Authentication;
 using Budget.Dtos.Authentication;
 using Budget.Models;
@@ -21,9 +22,19 @@ namespace Budget.Services
         private readonly ITokenService _tokenService;
         private readonly HttpContext _httpContext;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
         
-        public AuthenticationService(IUserRepository userRepository, IEncryptionService encryptionService, ITokenService tokenService, IHttpContextAccessor httpContextAccessor, IMapper mapper)
+        public AuthenticationService
+        (
+            IUnitOfWork unitOfWork, 
+            IUserRepository userRepository, 
+            IEncryptionService encryptionService, 
+            ITokenService tokenService, 
+            IHttpContextAccessor httpContextAccessor, 
+            IMapper mapper
+        )
         {
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
             _httpContext = httpContextAccessor.HttpContext;
             _tokenService = tokenService;
@@ -31,26 +42,40 @@ namespace Budget.Services
             _userRepository = userRepository;
         }
         
-        public async Task<LoggedUserDto> LoginAsync(LoginRequest request)
+        public async Task<ResultResponse<LoggedUserDto>> LoginAsync(LoginRequest request)
         {
             var user = await _userRepository.GetAsync(user => user.Email == request.Email);
-            if (user == null) throw new BadRequestException();
-            if (!_encryptionService.VerifyHash(request.Password, user.PasswordHash, user.PasswordSalt)) throw new BadRequestException();
+            if (user == null) return new ResultResponse<LoggedUserDto>("User is not found");
+
+            if (!_encryptionService.VerifyHash(request.Password, user.PasswordHash, user.PasswordSalt))
+            {
+                return new ResultResponse<LoggedUserDto>("Invalid credentials");
+            }
 
             user.RefreshToken = _tokenService.GenerateRefreshToken();
-            await _userRepository.UpdateAsync(user);
+            _userRepository.Update(user);
+            await _unitOfWork.SaveChangesAsync();
 
             var token = _tokenService.GenerateToken(user.Id);
-            
-            return GetLoggedUserDto(token, user);
+            var loggedUser = _mapper.Map<User, LoggedUser>(user);
+            var loggedUserDto = _mapper.Map<LoggedUser, LoggedUserDto>(loggedUser);
+            loggedUserDto.Token = token;
+            return new ResultResponse<LoggedUserDto>(loggedUserDto);
         }
 
-        public async Task ChangePasswordAsync(ChangePasswordRequest request)
+        public Task<BaseResponse> ChangePasswordAsync(ChangePasswordRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<LoggedUserDto> GetLoggedUserAsync(string refreshToken = null)
+        public async Task<ResultResponse<LoggedUserDto>> GetLoggedUserDtoAsync(string refreshToken = null)
+        {
+            var loggedUser = await GetLoggedUserAsync();
+            var loggedUserDto = _mapper.Map<LoggedUser, LoggedUserDto>(loggedUser);
+            return new ResultResponse<LoggedUserDto>(loggedUserDto);
+        }
+
+        public async Task<LoggedUser> GetLoggedUserAsync(string refreshToken = null)
         {
             if (!_httpContext.User.Identity.IsAuthenticated) return null;
             
@@ -63,40 +88,38 @@ namespace Budget.Services
             if (!_httpContext.Request.Headers.ContainsKey("Authorization") || !_httpContext.Request.Headers["Authorization"][0].StartsWith("Bearer ")) return null;
             var token = _httpContext.Request.Headers["Authorization"][0].Substring("Bearer ".Length);
 
-            return GetLoggedUserDto(token, user);
+            var loggedUser = _mapper.Map<User, LoggedUser>(user);
+            loggedUser.Token = token;
+            return loggedUser;
         }
 
-        public async Task<LoggedUserDto> RefreshTokenAsync(RefreshTokenRequest request)
+        public async Task<ResultResponse<LoggedUserDto>> RefreshTokenAsync(RefreshTokenRequest request)
         {
             var user = await _userRepository.GetAsync(user => user.RefreshToken == request.RefreshToken);
-            if (user == null) throw new UnauthorizedException();
+            if (user == null) return new ResultResponse<LoggedUserDto>("User is not found");
             
             user.RefreshToken = _tokenService.GenerateRefreshToken();
-            await _userRepository.UpdateAsync(user);
+            _userRepository.Update(user);
+            await _unitOfWork.SaveChangesAsync();
             
             var token = _tokenService.GenerateToken(user.Id);
-            
-            return GetLoggedUserDto(token, user);
+            var loggedUser = await GetLoggedUserAsync();
+            loggedUser.Token = token;
+            var loggedUserDto = _mapper.Map<LoggedUser, LoggedUserDto>(loggedUser);
+            return new ResultResponse<LoggedUserDto>(loggedUserDto);
         }
 
-        public async Task<int> RegisterAsync(RegisterRequest request)
+        public async Task<BaseResponse> RegisterAsync(RegisterRequest request)
         {
             var user = await _userRepository.GetAsync(user => user.Email == request.Email);
-            if (user != null) throw new BadRequestException();
+            if (user != null) return new BaseResponse("User with this email is already exist");
             
             var passwordSalt = _encryptionService.CreateSalt();
             var passwordHash = _encryptionService.CreateHash(request.Password, passwordSalt);
             var roles = new List<Roles> {Roles.Owner};
             user = new User {Email = request.Email, PasswordHash = passwordHash, PasswordSalt = passwordSalt, Roles = roles};
             await _userRepository.AddAsync(user);
-            return user.Id;
-        }
-
-        private LoggedUserDto GetLoggedUserDto(string token, User user)
-        {
-            var loggedUser = _mapper.Map<User, LoggedUser>(user);
-            loggedUser.Token = token;
-            return _mapper.Map<LoggedUser, LoggedUserDto>(loggedUser);
+            return new BaseResponse();
         }
     }
 }

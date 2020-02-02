@@ -35,11 +35,11 @@ header.header {
         padding: 0 25px;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
 
         &:not(.profile):hover,
         &:not(.profile).active {
             background-color: #01058a;
-            cursor: pointer;
 
             i {
                 color: $color-white;

@@ -3,22 +3,17 @@ import {CommonModule} from '@angular/common';
 
 import {UserRoutingModule} from './user-routing.module';
 import {UsersListComponent} from './users-list/users-list.component';
-import {UserFormModalComponent} from './user-form-modal/user-form-modal.component';
 import {SharedModule} from '../../shared/shared.module';
 
 
 @NgModule({
     declarations: [
-        UsersListComponent,
-        UserFormModalComponent
+        UsersListComponent
     ],
     imports: [
         CommonModule,
         UserRoutingModule,
         SharedModule
-    ],
-    entryComponents: [
-        UserFormModalComponent
     ]
 })
 export class UserModule {

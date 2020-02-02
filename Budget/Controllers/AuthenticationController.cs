@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Budget.Contracts;
 using Budget.Contracts.Authentication;
-using Budget.Dtos.Authentication;
 using Budget.Models.Services;
+using Budget.System.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +9,7 @@ namespace Budget.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthenticationController : BaseController
+    public class AuthenticationController : ControllerBase
     {
         private readonly IAuthenticationService _authenticationService;
 
@@ -18,51 +17,60 @@ namespace Budget.Controllers
         {
             _authenticationService = authenticationService;
         }
-        
+
         [Route("login")]
         [HttpPost]
-        public async Task<ResultResponse<LoggedUserDto>> Login([FromBody] LoginRequest request)
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            var loggedUserDto = await _authenticationService.LoginAsync(request);
-            var response = new ResultResponse<LoggedUserDto>{Result = loggedUserDto};
-            return CreateResponse(response);
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+
+            var response = await _authenticationService.LoginAsync(request);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
 
         [Route("register")]
         [HttpPost]
-        public async Task<BaseResponse> Register([FromBody] RegisterRequest request)
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
-            var userId = await _authenticationService.RegisterAsync(request);
-            var response = new ResultResponse<int>{Result = userId};
-            return CreateResponse(response);
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+
+            var response = await _authenticationService.RegisterAsync(request);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
-        
+
         [Route("change-password")]
         [Authorize]
         [HttpPost]
-        public async Task<BaseResponse> ChangePassword([FromBody] ChangePasswordRequest request)
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
         {
-            await _authenticationService.ChangePasswordAsync(request);
-            return CreateResponse(new BaseResponse());
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+
+            var response = await _authenticationService.ChangePasswordAsync(request);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
-        
+
         [Route("logged-user")]
         [Authorize]
         [HttpGet]
-        public async Task<ResultResponse<LoggedUserDto>> Get()
+        public async Task<IActionResult> Get()
         {
-            var loggedUserDto = await _authenticationService.GetLoggedUserAsync();
-            var response = new ResultResponse<LoggedUserDto>{Result = loggedUserDto};
-            return CreateResponse(response);
+            var response = await _authenticationService.GetLoggedUserDtoAsync();
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
-        
+
         [Route("refresh-token")]
         [HttpPost]
-        public async Task<ResultResponse<LoggedUserDto>> RefreshToken([FromBody] RefreshTokenRequest request)
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
         {
-            var loggedUserDto = await _authenticationService.RefreshTokenAsync(request);
-            var response = new ResultResponse<LoggedUserDto>{Result = loggedUserDto};
-            return CreateResponse(response);
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+
+            var response = await _authenticationService.RefreshTokenAsync(request);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
     }
 }

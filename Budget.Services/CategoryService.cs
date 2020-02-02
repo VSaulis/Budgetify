@@ -17,50 +17,67 @@ namespace Budget.Services
         private readonly ICategoryRepository _categoryRepository;
         private readonly IAuthenticationService _authenticationService;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper, IAuthenticationService authenticationService)
+        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper, IAuthenticationService authenticationService, IUnitOfWork unitOfWork)
         {
+            _unitOfWork = unitOfWork;
             _authenticationService = authenticationService;
             _mapper = mapper;
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<int> AddAsync(AddCategoryRequest request)
+        public async Task<BaseResponse> AddAsync(AddCategoryRequest request)
         {
-            var loggedUserDto = await _authenticationService.GetLoggedUserAsync();
+            var loggedUser = await _authenticationService.GetLoggedUserAsync();
             var category = _mapper.Map<AddCategoryRequest, Category>(request);
-            category.UserId = loggedUserDto.UserId;
+            category.UserId = loggedUser.User.Id;
             await _categoryRepository.AddAsync(category);
-            return category.Id;
+            await _unitOfWork.SaveChangesAsync();
+            return new BaseResponse();
         }
 
-        public async Task<int> EditAsync(EditCategoryRequest request)
+        public async Task<BaseResponse> EditAsync(EditCategoryRequest request)
         {
             var category = await _categoryRepository.GetAsync(category => category.Id == request.Id);
+            if (category == null) return new BaseResponse("Category is not found");
+            
             category.Name = request.Name;
-            await _categoryRepository.UpdateAsync(category);
-            return category.Id;
+            _categoryRepository.Update(category);
+            await _unitOfWork.SaveChangesAsync();
+            return new BaseResponse();
         }
 
-        public async Task DeleteAsync(DeleteCategoryRequest request)
+        public async Task<BaseResponse> DeleteAsync(int id)
         {
-            var category = await _categoryRepository.GetAsync(category => category.Id == request.Id);
-            await _categoryRepository.DeleteAsync(category);
+            var category = await _categoryRepository.GetAsync(category => category.Id == id);
+            if (category == null) return new BaseResponse("Category is not found");
+            
+            _categoryRepository.Delete(category);
+            await _unitOfWork.SaveChangesAsync();
+            return new BaseResponse();
         }
 
-        public async Task DeleteListAsync(DeleteCategoriesRequest request)
+        public async Task<BaseResponse> DeleteListAsync(DeleteCategoriesRequest request)
         {
             foreach (var categoryId in request.CategoriesIds)
             {
                 var category = await _categoryRepository.GetAsync(category => category.Id == categoryId);
-                await _categoryRepository.DeleteAsync(category);
+                if (category == null) return new BaseResponse("Category is not found");
+                _categoryRepository.Delete(category);
             }
+            
+            await _unitOfWork.SaveChangesAsync();
+            return new BaseResponse();
         }
 
-        public async Task<CategoryDto> GetAsync(GetCategoryRequest request)
+        public async Task<ResultResponse<CategoryDto>> GetAsync(int id)
         {
-            var category = await _categoryRepository.GetAsync(category => category.Id == request.Id);
-            return _mapper.Map<Category, CategoryDto>(category);
+            var category = await _categoryRepository.GetAsync(category => category.Id == id);
+            if (category == null) return new ResultResponse<CategoryDto>("Category is not found");
+            
+            var categoryDto = _mapper.Map<Category, CategoryDto>(category);
+            return new ResultResponse<CategoryDto>(categoryDto);
         }
 
         public async Task<ListResponse<CategoriesListItemDto>> ListAsync(ListCategoriesRequest request)
@@ -70,12 +87,9 @@ namespace Budget.Services
 
             var categories = await _categoryRepository.GetListAsync(null, sort, paging);
             var categoriesCount = await _categoryRepository.CountAsync(null);
-
-            return new ListResponse<CategoriesListItemDto>
-            {
-                Result = _mapper.Map<List<Category>, List<CategoriesListItemDto>>(categories),
-                Count = categoriesCount
-            };
+            
+            var categoriesDtosList = _mapper.Map<List<Category>, List<CategoriesListItemDto>>(categories);
+            return new ListResponse<CategoriesListItemDto>(categoriesDtosList, categoriesCount);
         }
     }
 }

@@ -14,45 +14,40 @@ namespace Budget.Repositories
 {
     public abstract class BaseRepository<TModel> : IBaseRepository<TModel> where TModel : BaseModel
     {
-        protected readonly SqlContext _context;
+        protected readonly SqlContext Context;
 
         protected BaseRepository(SqlContext context)
         {
-            _context = context;
+            Context = context;
         }
 
-        public async Task<int> AddAsync(TModel model)
+        public async Task AddAsync(TModel model)
         {
             model.Created = DateTime.Now;
-            await _context.Set<TModel>().AddAsync(model);
-            await _context.SaveChangesAsync();
-            return model.Id;
+            await Context.Set<TModel>().AddAsync(model);
         }
 
-        public async Task DeleteAsync(TModel model)
+        public void Delete(TModel model)
         {
-            _context.Set<TModel>().Remove(model);
-            await _context.SaveChangesAsync();
+            Context.Set<TModel>().Remove(model);
         }
 
-        public async Task<int> UpdateAsync(TModel model)
+        public void Update(TModel model)
         {
             model.Updated = DateTime.Now;
-            _context.Set<TModel>().Update(model);
-            await _context.SaveChangesAsync();
-            return model.Id;
+            Context.Set<TModel>().Update(model);
         }
 
         public async Task<TModel> GetAsync(Expression<Func<TModel, bool>> filter)
         {
-            IQueryable<TModel> models = _context.Set<TModel>();
+            IQueryable<TModel> models = Context.Set<TModel>();
             models = FormatQuery(models);
             return await models.FirstOrDefaultAsync(filter);
         }
 
         public async Task<List<TModel>> GetListAsync(Expression<Func<TModel, bool>> filter = null, Sort<TModel> sort = null, Paging paging = null)
         {
-            IQueryable<TModel> models = _context.Set<TModel>();
+            IQueryable<TModel> models = Context.Set<TModel>();
             models = FormatQuery(models);
 
             if (filter != null) models = models.Where(filter);
@@ -71,8 +66,8 @@ namespace Budget.Repositories
 
         public async Task<int> CountAsync(Expression<Func<TModel, bool>> filter = null)
         {
-            if (filter != null) return await _context.Set<TModel>().CountAsync(filter);
-            return await _context.Set<TModel>().CountAsync();
+            if (filter != null) return await Context.Set<TModel>().CountAsync(filter);
+            return await Context.Set<TModel>().CountAsync();
         }
 
         protected abstract IQueryable<TModel> FormatQuery(IQueryable<TModel> query);

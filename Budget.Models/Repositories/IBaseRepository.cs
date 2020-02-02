@@ -8,11 +8,11 @@ namespace Budget.Models.Repositories
 {
     public interface IBaseRepository<TModel> where TModel : BaseModel
     {
-        Task<int> AddAsync(TModel model);
+        Task AddAsync(TModel model);
 
-        Task DeleteAsync(TModel model);
+        void Delete(TModel model);
 
-        Task<int> UpdateAsync(TModel model);
+        void Update(TModel model);
 
         Task<TModel> GetAsync(Expression<Func<TModel, bool>> filter);
 

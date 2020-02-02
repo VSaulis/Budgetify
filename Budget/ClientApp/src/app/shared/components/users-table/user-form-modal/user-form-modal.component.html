@@ -16,19 +16,35 @@
                         <label for="email">Email : </label>
                         <div class="form-input">
                             <input id="email" formControlName="email">
+                            <small [appFormError]="form.get('email')" errorType="required">Field is required</small>
                         </div>
-                        <small [appFormError]="form.get('email')" errorType="required">Field is required</small>
+                    </div>
+                    <div class="form-field inline">
+                        <label for="firstName">First name : </label>
+                        <div class="form-input">
+                            <input id="firstName" formControlName="firstName">
+                            <small [appFormError]="form.get('firstName')" errorType="required">Field is required</small>
+                        </div>
+                    </div>
+                    <div class="form-field inline">
+                        <label for="lastName">Last name : </label>
+                        <div class="form-input">
+                            <input id="lastName" formControlName="lastName">
+                            <small [appFormError]="form.get('lastName')" errorType="required">Field is required</small>
+                        </div>
                     </div>
                     <div class="form-field inline">
                         <label for="roles">Roles: </label>
-                        <ng-select id="roles"
-                                   [items]="['Owner', 'FamilyMember', 'Guest']"
-                                   formControlName="roles"
-                                   [multiple]="true"
-                                   bindLabel="title"
-                                   bindValue="id">
-                        </ng-select>
-                        <small [appFormError]="form.get('roles')" errorType="required">Field is required</small>
+                        <div class="form-input">
+                            <ng-select id="roles"
+                                       [items]="['Owner', 'FamilyMember', 'Guest']"
+                                       formControlName="roles"
+                                       [multiple]="true"
+                                       bindLabel="title"
+                                       bindValue="id">
+                            </ng-select>
+                            <small [appFormError]="form.get('roles')" errorType="required">Field is required</small>
+                        </div>
                     </div>
                 </div>
             </div>

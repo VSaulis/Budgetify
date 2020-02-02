@@ -60,12 +60,12 @@ export class CategoryService {
         return this.http.get<ResultResponse<Category>>(`${this.categoriesUrl}/${id}`).pipe(map(result => result.result));
     }
 
-    addCategory(request: AddCategoryRequest): Observable<number> {
-        return this.http.post<ResultResponse<number>>(this.categoriesUrl, request).pipe(map(result => result.result));
+    addCategory(request: AddCategoryRequest): Observable<void> {
+        return this.http.post<void>(this.categoriesUrl, request);
     }
 
-    editCategory(request: EditCategoryRequest): Observable<number> {
-        return this.http.put<ResultResponse<number>>(this.categoriesUrl, request).pipe(map(result => result.result));
+    editCategory(request: EditCategoryRequest): Observable<void> {
+        return this.http.put<void>(this.categoriesUrl, request);
     }
 
     deleteCategory(id: number): Observable<void> {

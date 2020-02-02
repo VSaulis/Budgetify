@@ -7,11 +7,11 @@ namespace Budget.Models.Services
 {
     public interface IOperationService
     {
-        Task<int> AddAsync(AddOperationRequest request);
-        Task<int> EditAsync(EditOperationRequest request);
-        Task DeleteAsync(DeleteOperationRequest request);
-        Task<OperationDto> GetAsync(GetOperationRequest request);
-        Task DeleteListAsync(DeleteOperationsRequest request);
+        Task<BaseResponse> AddAsync(AddOperationRequest request);
+        Task<BaseResponse> EditAsync(EditOperationRequest request);
+        Task<BaseResponse> DeleteAsync(int id);
+        Task<ResultResponse<OperationDto>> GetAsync(int id);
+        Task<BaseResponse> DeleteListAsync(DeleteOperationsRequest request);
         Task<ListResponse<OperationsListItemDto>> ListAsync(ListOperationsRequest request);
     }
 }

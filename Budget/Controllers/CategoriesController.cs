@@ -1,17 +1,16 @@
 ﻿using System.Threading.Tasks;
 using Budget.Constants.Enums;
-using Budget.Contracts;
 using Budget.Contracts.Category;
-using Budget.Dtos.Category;
 using Budget.Models.Services;
 using Budget.System.Attributes;
+using Budget.System.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Budget.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CategoriesController : BaseController
+    public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
 
@@ -22,52 +21,64 @@ namespace Budget.Controllers
 
         [HttpGet]
         [PermissionRequirement(Permissions.CanViewCategories)]
-        public async Task<ListResponse<CategoriesListItemDto>> List([FromQuery] ListCategoriesRequest request)
+        public async Task<IActionResult> List([FromQuery] ListCategoriesRequest request)
         {
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+
             var response = await _categoryService.ListAsync(request);
-            return CreateResponse(response);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
 
         [HttpPost]
         [PermissionRequirement(Permissions.CanAddCategories)]
-        public async Task<ResultResponse<int>> Add([FromBody] AddCategoryRequest request)
+        public async Task<IActionResult> Add([FromBody] AddCategoryRequest request)
         {
-            var id = await _categoryService.AddAsync(request);
-            return CreateResponse(new ResultResponse<int> {Result = id});
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+
+            var response = await _categoryService.AddAsync(request);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
 
         [HttpPut]
         [PermissionRequirement(Permissions.CanEditCategories)]
-        public async Task<ResultResponse<int>> Edit([FromBody] EditCategoryRequest request)
+        public async Task<IActionResult> Edit([FromBody] EditCategoryRequest request)
         {
-            var id = await _categoryService.EditAsync(request);
-            return CreateResponse(new ResultResponse<int> {Result = id});
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+
+            var response = await _categoryService.EditAsync(request);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
         [PermissionRequirement(Permissions.CanViewCategories)]
-        public async Task<ResultResponse<CategoryDto>> Edit([FromRoute] int id)
+        public async Task<IActionResult> Get([FromRoute] int id)
         {
-            var request = new GetCategoryRequest {Id = id};
-            var categoryDto = await _categoryService.GetAsync(request);
-            return CreateResponse(new ResultResponse<CategoryDto> {Result = categoryDto});
+            var response = await _categoryService.GetAsync(id);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]
         [PermissionRequirement(Permissions.CanDeleteCategories)]
-        public async Task<BaseResponse> Delete([FromRoute] int id)
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var request = new DeleteCategoryRequest {Id = id};
-            await _categoryService.DeleteAsync(request);
-            return CreateResponse(new BaseResponse());
+            var response = await _categoryService.DeleteAsync(id);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
-        
+
         [HttpDelete]
         [PermissionRequirement(Permissions.CanDeleteCategories)]
-        public async Task<BaseResponse> Delete([FromRoute] DeleteCategoriesRequest request)
+        public async Task<IActionResult> Delete([FromRoute] DeleteCategoriesRequest request)
         {
-            await _categoryService.DeleteListAsync(request);
-            return CreateResponse(new BaseResponse());
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+
+            var response = await _categoryService.DeleteListAsync(request);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
     }
 }

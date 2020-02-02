@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Budget.Models;
@@ -11,7 +10,9 @@ namespace Budget.Repositories
 {
     public class OperationRepository : BaseRepository<Operation>, IOperationRepository
     {
-        public OperationRepository(SqlContext context) : base(context) { }
+        public OperationRepository(SqlContext context) : base(context)
+        {
+        }
 
         protected override IQueryable<Operation> FormatQuery(IQueryable<Operation> query)
         {
@@ -22,7 +23,15 @@ namespace Budget.Repositories
 
         public async Task<List<OperationStatisticsItem>> GetStatisticsAsync()
         {
-            throw new NotImplementedException();
+            var query = Context.Operations;
+
+            var operationStatisticsItems = query.Select(operation => new OperationStatisticsItem
+            {
+                Date = operation.Date,
+                Total = operation.Amount
+            });
+            
+            return await operationStatisticsItems.ToListAsync();
         }
     }
 }

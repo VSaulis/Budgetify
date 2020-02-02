@@ -7,11 +7,11 @@ namespace Budget.Models.Services
 {
     public interface IUserService
     {
-        Task<int> AddAsync(AddUserRequest request);
-        Task<int> EditAsync(EditUserRequest request);
-        Task DeleteAsync(DeleteUserRequest request);
-        Task DeleteListAsync(DeleteUsersRequest request);
-        Task<UserDto> GetAsync(GetUserRequest request);
+        Task<BaseResponse> AddAsync(AddUserRequest request);
+        Task<BaseResponse> EditAsync(EditUserRequest request);
+        Task<BaseResponse> DeleteAsync(int id);
+        Task<BaseResponse> DeleteListAsync(DeleteUsersRequest request);
+        Task<ResultResponse<UserDto>> GetAsync(int id);
         Task<ListResponse<UsersListItemDto>> ListAsync(ListUsersRequest request);
     }
 }

@@ -60,12 +60,12 @@ export class UserService {
         return this.http.get<ResultResponse<User>>(`${this.usersUrl}/${id}`).pipe(map(result => result.result));
     }
 
-    addUser(request: AddUserRequest): Observable<number> {
-        return this.http.post<ResultResponse<number>>(this.usersUrl, request).pipe(map(result => result.result));
+    addUser(request: AddUserRequest): Observable<void> {
+        return this.http.post<void>(this.usersUrl, request);
     }
 
-    editUser(request: EditUserRequest): Observable<number> {
-        return this.http.put<ResultResponse<number>>(this.usersUrl, request).pipe(map(result => result.result));
+    editUser(request: EditUserRequest): Observable<void> {
+        return this.http.put<void>(this.usersUrl, request);
     }
 
     deleteUser(id: number): Observable<void> {

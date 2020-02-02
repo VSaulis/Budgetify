@@ -1,12 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Roles} from '../../../shared/enums/Roles';
+import {Roles} from '../../../enums/Roles';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {FormHelper} from '../../../shared/utils/FormHelper';
-import {CategoryService} from '../../../shared/services/category/category.service';
-import {Category} from '../../../shared/models/category/Category';
-import {EditCategoryRequest} from '../../../shared/contracts/category/EditCategoryRequest';
-import {AddCategoryRequest} from '../../../shared/contracts/category/AddCategoryRequest';
+import {FormHelper} from '../../../utils/FormHelper';
+import {CategoryService} from '../../../services/category/category.service';
+import {Category} from '../../../models/category/Category';
+import {EditCategoryRequest} from '../../../contracts/category/EditCategoryRequest';
+import {AddCategoryRequest} from '../../../contracts/category/AddCategoryRequest';
 
 @Component({
     selector: 'app-category-form-modal',
@@ -45,14 +45,14 @@ export class CategoryFormModalComponent implements OnInit {
             this.isSubmitting = true;
 
             if (this.id) {
-                this.categoryService.editCategory(this.mapEditCategoryRequest()).subscribe((id: number) => {
-                    this.activeModal.close(id);
+                this.categoryService.editCategory(this.mapEditCategoryRequest()).subscribe(() => {
+                    this.activeModal.close('success');
                 }, (err) => {
                     this.isSubmitting = false;
                 });
             } else {
-                this.categoryService.addCategory(this.mapAddCategoryRequest()).subscribe((id: number) => {
-                    this.activeModal.close(id);
+                this.categoryService.addCategory(this.mapAddCategoryRequest()).subscribe(() => {
+                    this.activeModal.close('success');
                 }, (err) => {
                     this.isSubmitting = false;
                 });

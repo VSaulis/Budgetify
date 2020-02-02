@@ -17,67 +17,71 @@ namespace Budget.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IFileService _fileService;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UserService(IUserRepository userRepository, IMapper mapper, IFileService fileService)
+        public UserService(IUserRepository userRepository, IMapper mapper, IUnitOfWork unitOfWork)
         {
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
             _userRepository = userRepository;
-            _fileService = fileService;
         }
         
-        public async Task<int> AddAsync(AddUserRequest request)
+        public async Task<BaseResponse> AddAsync(AddUserRequest request)
         {
-            var user = _mapper.Map<AddUserRequest, User>(request);
+            var user = await _userRepository.GetAsync(user => user.Email == request.Email);
+            if (user != null) return new BaseResponse("User with this email is already exist");
             
-            if (request.AvatarBase64String != null)
-            {
-                user.Avatar = await _fileService.UploadBase64FileAsync(request.AvatarBase64String, FileTypes.Avatar);
-            }
-            
+            user = _mapper.Map<AddUserRequest, User>(request);
             await _userRepository.AddAsync(user);
-            return user.Id;
+            await _unitOfWork.SaveChangesAsync();
+            return new BaseResponse();
         }
 
-        public async Task<int> EditAsync(EditUserRequest request)
+        public async Task<BaseResponse> EditAsync(EditUserRequest request)
         {
             var user = await _userRepository.GetAsync(user => user.Id == request.Id);
+            if (user == null) return new BaseResponse("User is not found");
+            
             user.Email = request.Email;
             user.FirstName = request.FirstName;
             user.LastName = request.LastName;
             user.Roles = request.Roles.Select(Enum.Parse<Roles>).ToList();
             
-            if (request.AvatarBase64String != null)
-            {
-                user.Avatar = await _fileService.UploadBase64FileAsync(request.AvatarBase64String, FileTypes.Avatar);
-            }
+            _userRepository.Update(user);
+            await _unitOfWork.SaveChangesAsync();
+            return new BaseResponse();
+        }
+
+        public async Task<BaseResponse> DeleteAsync(int id)
+        {
+            var user = await _userRepository.GetAsync(user => user.Id == id);
+            if (user == null) return new BaseResponse("User is not found");
             
-            await _userRepository.UpdateAsync(user);
-            return user.Id;
+            _userRepository.Delete(user);
+            await _unitOfWork.SaveChangesAsync();
+            return new BaseResponse();
         }
 
-        public async Task DeleteAsync(DeleteUserRequest request)
+        public async Task<ResultResponse<UserDto>> GetAsync(int id)
         {
-            var user = await _userRepository.GetAsync(user => user.Id == request.Id);
-            if (user.Avatar != null) await _fileService.DeleteFile(user.Avatar);
-            await _userRepository.DeleteAsync(user);
-        }
-
-        public async Task<UserDto> GetAsync(GetUserRequest request)
-        {
-            var user = await _userRepository.GetAsync(user => user.Id == request.Id);
-            return _mapper.Map<User, UserDto>(user);
+            var user = await _userRepository.GetAsync(user => user.Id == id);
+            if (user == null) return new ResultResponse<UserDto>("User is not found");
+            var userDto = _mapper.Map<User, UserDto>(user);
+            return new ResultResponse<UserDto>(userDto);
         }
         
-        public async Task DeleteListAsync(DeleteUsersRequest request)
+        public async Task<BaseResponse> DeleteListAsync(DeleteUsersRequest request)
         {
             foreach (var userId in request.UsersIds)
             {
                 var user = await _userRepository.GetAsync(user => user.Id == userId);
-                if (user.Avatar != null) await _fileService.DeleteFile(user.Avatar);
-                await _userRepository.DeleteAsync(user);
+                if (user == null) return new BaseResponse(message: $"User with id : {userId} is not found");
+                _userRepository.Delete(user);
             }
+            
+            await _unitOfWork.SaveChangesAsync();
+            return new BaseResponse();
         }
 
         public async Task<ListResponse<UsersListItemDto>> ListAsync(ListUsersRequest request)
@@ -87,12 +91,9 @@ namespace Budget.Services
 
             var users = await _userRepository.GetListAsync(null, sort, paging);
             var usersCount = await _userRepository.CountAsync(null);
-            
-            return new ListResponse<UsersListItemDto>
-            {
-                Result = _mapper.Map<List<User>, List<UsersListItemDto>>(users),
-                Count = usersCount
-            };
+
+            var usersDtosList = _mapper.Map<List<User>, List<UsersListItemDto>>(users);
+            return new ListResponse<UsersListItemDto>(usersDtosList, usersCount);
         }
     }
 }

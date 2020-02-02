@@ -13,7 +13,6 @@ import {OperationsListItem} from '../../models/operation/OperationsListItem';
 import {EditOperationRequest} from '../../contracts/operation/EditOperationRequest';
 import {AddOperationRequest} from '../../contracts/operation/AddOperationRequest';
 import {Operation} from '../../models/operation/Operation';
-import {Profile} from '../../models/profile/Profile';
 import {ProfileService} from '../profile/profile.service';
 
 @Injectable({
@@ -63,19 +62,17 @@ export class OperationService {
         return this.http.get<ResultResponse<Operation>>(`${this.operationsUrl}/${id}`).pipe(map(result => result.result));
     }
 
-    addOperation(request: AddOperationRequest): Observable<number> {
-        return this.http.post<ResultResponse<number>>(this.operationsUrl, request).pipe(map(result => result.result))
-            .pipe(map((id: number) => {
+    addOperation(request: AddOperationRequest): Observable<void> {
+        return this.http.post<void>(this.operationsUrl, request)
+            .pipe(map(() => {
                 this.profileService.getProfile().subscribe();
-                return id;
             }));
     }
 
-    editOperation(request: EditOperationRequest): Observable<number> {
-        return this.http.put<ResultResponse<number>>(this.operationsUrl, request).pipe(map(result => result.result))
-            .pipe(map((id: number) => {
+    editOperation(request: EditOperationRequest): Observable<void> {
+        return this.http.put<void>(this.operationsUrl, request)
+            .pipe(map(() => {
                 this.profileService.getProfile().subscribe();
-                return id;
             }));
     }
 

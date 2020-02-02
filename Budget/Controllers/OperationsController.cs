@@ -5,13 +5,14 @@ using Budget.Contracts.Operation;
 using Budget.Dtos.Operation;
 using Budget.Models.Services;
 using Budget.System.Attributes;
+using Budget.System.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Budget.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class OperationsController : BaseController
+    public class OperationsController : ControllerBase
     {
         private readonly IOperationService _operationService;
 
@@ -22,52 +23,64 @@ namespace Budget.Controllers
 
         [HttpGet]
         [PermissionRequirement(Permissions.CanViewOperations)]
-        public async Task<ListResponse<OperationsListItemDto>> List([FromQuery] ListOperationsRequest request)
+        public async Task<IActionResult> List([FromQuery] ListOperationsRequest request)
         {
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+            
             var response = await _operationService.ListAsync(request);
-            return CreateResponse(response);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
 
         [HttpPost]
         [PermissionRequirement(Permissions.CanAddOperations)]
-        public async Task<ResultResponse<int>> Add([FromBody] AddOperationRequest request)
+        public async Task<IActionResult> Add([FromBody] AddOperationRequest request)
         {
-            var id = await _operationService.AddAsync(request);
-            return CreateResponse(new ResultResponse<int> {Result = id});
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+            
+            var response = await _operationService.AddAsync(request);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
 
         [HttpPut]
         [PermissionRequirement(Permissions.CanEditOperations)]
-        public async Task<ResultResponse<int>> Edit([FromBody] EditOperationRequest request)
+        public async Task<IActionResult> Edit([FromBody] EditOperationRequest request)
         {
-            var id = await _operationService.EditAsync(request);
-            return CreateResponse(new ResultResponse<int> {Result = id});
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+            
+            var response = await _operationService.EditAsync(request);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
         [PermissionRequirement(Permissions.CanViewOperations)]
-        public async Task<ResultResponse<OperationDto>> Edit([FromRoute] int id)
+        public async Task<IActionResult> Get([FromRoute] int id)
         {
-            var request = new GetOperationRequest {Id = id};
-            var categoryDto = await _operationService.GetAsync(request);
-            return CreateResponse(new ResultResponse<OperationDto> {Result = categoryDto});
+            var response = await _operationService.GetAsync(id);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]
         [PermissionRequirement(Permissions.CanDeleteOperations)]
-        public async Task<BaseResponse> Delete([FromRoute] int id)
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var request = new DeleteOperationRequest {Id = id};
-            await _operationService.DeleteAsync(request);
-            return CreateResponse(new BaseResponse());
+            var response = await _operationService.DeleteAsync(id);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
         
         [HttpDelete]
         [PermissionRequirement(Permissions.CanDeleteOperations)]
-        public async Task<BaseResponse> Delete([FromRoute] DeleteOperationsRequest request)
+        public async Task<IActionResult> Delete([FromRoute] DeleteOperationsRequest request)
         {
-            await _operationService.DeleteListAsync(request);
-            return CreateResponse(new BaseResponse());
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+            
+            var response = await _operationService.DeleteListAsync(request);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
         }
     }
 }

@@ -1,0 +1,86 @@
+@import "../../../assets/scss/variables/module";
+
+.banner {
+    width: 100%;
+    background-color: $color-white;
+    margin-bottom: 15px;
+    border: 1px solid #e7e8f2;
+
+    .navigation {
+        width: 100%;
+        padding: 15px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .navigation-item {
+            font-size: 11px;
+            display: block;
+            margin: 0 10px;
+            color: #33343d;
+        }
+    }
+
+    .hero {
+        width: 100%;
+        height: 150px;
+        background-image: url('../../../assets/images/background.jpg');
+        background-size: 100% auto;
+        background-position: 50% 65%;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-start;
+        padding: 10px 50px;
+        z-index: 1;
+
+        &:before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            content: '';
+            background-color: $color-black;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .profile {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            > div {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                img {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 25px;
+                    object-fit: cover;
+                    margin-right: 15px;
+                }
+
+                .details {
+                    span {
+                        color: $color-white;
+                        font-size: 13px;
+                        display: block;
+                    }
+
+                    small {
+                        font-size: 11px;
+                        color: darken($color-white, 15%);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
