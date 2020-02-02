@@ -2,7 +2,9 @@ table {
     width: 100%;
     border-collapse: collapse;
 
-    thead {
+    app-datatable-header {
+        display: table-header-group;
+
         tr {
             height: 40px;
             border-bottom: solid 1px #e7e8f2;
@@ -14,8 +16,14 @@ table {
                 white-space: nowrap;
                 text-align: left;
 
-                &.center {
-                    text-align: center;
+                > div {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                }
+
+                &.center > div {
+                    justify-content: center;
                 }
 
                 &.small-column {
@@ -31,10 +39,12 @@ table {
                     padding-left: 25px;
                 }
 
-                &:hover,
-                &.active {
-                    color: #01058A;
-                    cursor: pointer;
+                &.sortable {
+                    &:hover,
+                    &.active {
+                        color: #01058A;
+                        cursor: pointer;
+                    }
                 }
             }
         }
@@ -45,10 +55,6 @@ table {
         tr {
             border-bottom: solid 1px #e7e8f2;
             height: 60px;
-
-            &:last-of-type {
-                border-bottom: none;
-            }
 
             &:nth-of-type(even) {
                 background-color: #FDFDFE;
@@ -79,7 +85,6 @@ table {
                         width: 40px;
                         object-fit: cover;
                         border-radius: 20px;
-                        margin-right: 10px;
                     }
 
                     .details {
@@ -87,6 +92,7 @@ table {
                         align-items: flex-start;
                         justify-content: center;
                         flex-direction: column;
+                        margin-left: 10px;
 
                         span {
                             color: #25233a;
@@ -108,10 +114,101 @@ table {
 
                     i {
                         margin-right: 5px;
+                        color: #33343d;
                         font-size: 18px;
+
+                        &:hover {
+                            cursor: pointer;
+                            color: #01058A;
+                        }
 
                         &:last-of-type {
                             margin-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    app-datatable-footer {
+        display: table-footer-group;
+        background-color: #FDFDFE;
+
+        tr {
+            height: 40px;
+
+            td {
+                color: $color-text;
+
+                .pagination-container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 0 20px;
+                    height: 40px;
+
+                    .total {
+                        color: $color-text;
+                        font-size: 11px;
+                    }
+
+                    .pagination {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-end;
+
+                        a {
+                            text-decoration: none;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            padding: 0 5px;
+
+                            i {
+                                font-size: 16px;
+                                color: $color-text;
+                            }
+
+                            &.active,
+                            &:hover {
+                                cursor: pointer;
+
+                                i {
+                                    color: $color-primary;
+                                }
+                            }
+                        }
+
+                        .pages {
+                            margin: 0 5px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+
+                            a {
+                                width: 30px;
+                                height: 30px;
+                                border-radius: 15px;
+                                margin: 0 2.5px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-size: 12px;
+                                font-weight: 500;
+                                color: $color-text;
+                                text-decoration: none;
+
+                                &:hover {
+                                    color: #01058A;
+                                    cursor: pointer;
+                                }
+
+                                &.active{
+                                    color: $color-white;
+                                    background-color: #01058A;
+                                }
+                            }
                         }
                     }
                 }

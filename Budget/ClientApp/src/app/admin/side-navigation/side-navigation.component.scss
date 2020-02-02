@@ -92,7 +92,7 @@ aside.side-navigation {
             &:hover,
             &.active {
                 color: $color-white;
-                background-color: #01048a;
+                background-color: rgba(#01048a, 0.7);
             }
         }
     }

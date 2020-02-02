@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Budget.Constants.Enums;
 using Budget.Contracts;
 using Budget.Contracts.Operation;
 using Budget.Dtos.Operation;
@@ -14,10 +15,12 @@ namespace Budget.Services
     public class OperationService : IOperationService
     {
         private readonly IOperationRepository _operationRepository;
+        private readonly IFileService _fileService;
         private readonly IMapper _mapper;
 
-        public OperationService(IOperationRepository operationRepository, IMapper mapper)
+        public OperationService(IOperationRepository operationRepository, IMapper mapper, IFileService fileService)
         {
+            _fileService = fileService;
             _mapper = mapper;
             _operationRepository = operationRepository;
         }
@@ -25,6 +28,12 @@ namespace Budget.Services
         public async Task<int> AddAsync(AddOperationRequest request)
         {
             var operation = _mapper.Map<AddOperationRequest, Operation>(request);
+            
+            if (request.DocumentBase64String != null)
+            {
+                operation.Document = await _fileService.UploadBase64FileAsync(request.DocumentBase64String, FileTypes.Document);
+            }
+            
             await _operationRepository.AddAsync(operation);
             return operation.Id;
         }
@@ -37,6 +46,12 @@ namespace Budget.Services
             operation.Description = request.Description;
             operation.Amount = request.Amount;
             operation.CategoryId = request.CategoryId;
+            
+            if (request.DocumentBase64String != null)
+            {
+                operation.Document = await _fileService.UploadBase64FileAsync(request.DocumentBase64String, FileTypes.Document);
+            }
+            
             await _operationRepository.UpdateAsync(operation);
             return operation.Id;
         }
@@ -44,6 +59,7 @@ namespace Budget.Services
         public async Task DeleteAsync(DeleteOperationRequest request)
         {
             var operation = await _operationRepository.GetAsync(operation => operation.Id == request.Id);
+            if (operation.Document != null) await _fileService.DeleteFile(operation.Document);
             await _operationRepository.DeleteAsync(operation);
         }
 
@@ -51,6 +67,16 @@ namespace Budget.Services
         {
             var operation = await _operationRepository.GetAsync(operation => operation.Id == request.Id);
             return _mapper.Map<Operation, OperationDto>(operation);
+        }
+
+        public async Task DeleteListAsync(DeleteOperationsRequest request)
+        {
+            foreach (var operationId in request.OperationsIds)
+            {
+                var operation = await _operationRepository.GetAsync(operation => operation.Id == operationId);
+                if (operation.Document != null) await _fileService.DeleteFile(operation.Document);
+                await _operationRepository.DeleteAsync(operation);
+            }
         }
 
         public async Task<ListResponse<OperationsListItemDto>> ListAsync(ListOperationsRequest request)

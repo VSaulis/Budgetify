@@ -17,17 +17,25 @@ namespace Budget.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IFileService _fileService;
         private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(IUserRepository userRepository, IMapper mapper, IFileService fileService)
         {
             _mapper = mapper;
             _userRepository = userRepository;
+            _fileService = fileService;
         }
         
         public async Task<int> AddAsync(AddUserRequest request)
         {
             var user = _mapper.Map<AddUserRequest, User>(request);
+            
+            if (request.AvatarBase64String != null)
+            {
+                user.Avatar = await _fileService.UploadBase64FileAsync(request.AvatarBase64String, FileTypes.Avatar);
+            }
+            
             await _userRepository.AddAsync(user);
             return user.Id;
         }
@@ -36,7 +44,15 @@ namespace Budget.Services
         {
             var user = await _userRepository.GetAsync(user => user.Id == request.Id);
             user.Email = request.Email;
+            user.FirstName = request.FirstName;
+            user.LastName = request.LastName;
             user.Roles = request.Roles.Select(Enum.Parse<Roles>).ToList();
+            
+            if (request.AvatarBase64String != null)
+            {
+                user.Avatar = await _fileService.UploadBase64FileAsync(request.AvatarBase64String, FileTypes.Avatar);
+            }
+            
             await _userRepository.UpdateAsync(user);
             return user.Id;
         }
@@ -44,6 +60,7 @@ namespace Budget.Services
         public async Task DeleteAsync(DeleteUserRequest request)
         {
             var user = await _userRepository.GetAsync(user => user.Id == request.Id);
+            if (user.Avatar != null) await _fileService.DeleteFile(user.Avatar);
             await _userRepository.DeleteAsync(user);
         }
 
@@ -51,6 +68,16 @@ namespace Budget.Services
         {
             var user = await _userRepository.GetAsync(user => user.Id == request.Id);
             return _mapper.Map<User, UserDto>(user);
+        }
+        
+        public async Task DeleteListAsync(DeleteUsersRequest request)
+        {
+            foreach (var userId in request.UsersIds)
+            {
+                var user = await _userRepository.GetAsync(user => user.Id == userId);
+                if (user.Avatar != null) await _fileService.DeleteFile(user.Avatar);
+                await _userRepository.DeleteAsync(user);
+            }
         }
 
         public async Task<ListResponse<UsersListItemDto>> ListAsync(ListUsersRequest request)

@@ -10,6 +10,7 @@ namespace Budget.Models.Services
         Task<int> AddAsync(AddUserRequest request);
         Task<int> EditAsync(EditUserRequest request);
         Task DeleteAsync(DeleteUserRequest request);
+        Task DeleteListAsync(DeleteUsersRequest request);
         Task<UserDto> GetAsync(GetUserRequest request);
         Task<ListResponse<UsersListItemDto>> ListAsync(ListUsersRequest request);
     }

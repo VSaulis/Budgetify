@@ -3,15 +3,13 @@ import {DatatableColumn} from '../../../models/datatable/DatatableColumn';
 import {Sort} from '../../../contracts/Sort';
 import {SortTypes} from '../../../enums/SortTypes';
 import {BehaviorSubject} from 'rxjs';
-import {DatatableAction} from '../../../models/datatable/DatatableAction';
-import {DatatableActionsTypes} from '../../../enums/DatatableActionsTypes';
 
 @Component({
     selector: 'app-datatable-header',
     templateUrl: './datatable-header.component.html',
     styleUrls: ['./datatable-header.component.scss']
 })
-export class DatatableHeaderComponent implements OnInit {
+export class DatatableHeaderComponent {
 
     @Input() columns: DatatableColumn[];
     @Input() isLoading: boolean;
@@ -25,31 +23,8 @@ export class DatatableHeaderComponent implements OnInit {
     });
 
     @Output() selectAll = new EventEmitter<boolean>();
-    @Output() action = new EventEmitter<DatatableAction>();
 
     sortTypes = SortTypes;
-    actionsTypes = DatatableActionsTypes;
-
-    ngOnInit(): void {
-        this.columns = this.columns.concat([
-            {
-                id: 'updated',
-                name: 'Updated',
-                sortable: true,
-                centered: true
-            },
-            {
-                id: 'created',
-                name: 'Created',
-                sortable: true,
-                centered: true
-            }
-        ]);
-    }
-
-    onSelectAllChange($event): void {
-        this.selectAll.emit($event.target.checked);
-    }
 
     updateSort(column: string): void {
         const sort = this.sort.value;

@@ -61,5 +61,13 @@ namespace Budget.Controllers
             await _userService.DeleteAsync(request);
             return CreateResponse(new BaseResponse());
         }
+        
+        [HttpDelete]
+        [PermissionRequirement(Permissions.CanDeleteUsers)]
+        public async Task<BaseResponse> Delete([FromRoute] DeleteUsersRequest request)
+        {
+            await _userService.DeleteListAsync(request);
+            return CreateResponse(new BaseResponse());
+        }
     }
 }

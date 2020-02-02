@@ -61,5 +61,13 @@ namespace Budget.Controllers
             await _categoryService.DeleteAsync(request);
             return CreateResponse(new BaseResponse());
         }
+        
+        [HttpDelete]
+        [PermissionRequirement(Permissions.CanDeleteCategories)]
+        public async Task<BaseResponse> Delete([FromRoute] DeleteCategoriesRequest request)
+        {
+            await _categoryService.DeleteListAsync(request);
+            return CreateResponse(new BaseResponse());
+        }
     }
 }

@@ -1,37 +1,30 @@
 <tr>
-    <th [colSpan]="colspan">
-        <div class="actions-container">
-            <div></div>
-            <div>
-                <i (click)="action.emit({id: null, type: actionsTypes.Add})" class="material-icons">add</i>
-            </div>
-        </div>
-    </th>
-</tr>
-<tr>
-    <th class="checkbox-column">
-        <div class="table-choice choice-row">
+    <th class="center small-column">
+        <div (click)="$event.stopPropagation()"  class="table-choice choice-row">
             <input [checked]="selectedRowsCount === rowsCount && rowsCount > 0"
+                   id="all-rows-select"
                    (change)="selectAll.emit($event.target.checked)"
                    [disabled]="rowsCount === 0"
-                   id="all-select"
                    type="checkbox">
-            <label for="all-select"></label>
+            <label for="all-rows-select"></label>
         </div>
     </th>
     <ng-container *ngFor="let column of columns">
-        <ng-container *ngIf="column.sortable">
-            <th class="sortable {{column.centered ? 'center' : ''}}" [ngClass]="sort.value.column === column.id ? 'active sortable' : 'sortable'" (click)="updateSort(column.id)">
-                <div>
-                    <span>{{column.name}}</span>
-                    <i *ngIf="sort.value.column === column.id && sort.value.type === sortTypes.desc" class="material-icons">arrow_drop_down</i>
-                    <i *ngIf="sort.value.column === column.id && sort.value.type === sortTypes.asc" class="material-icons">arrow_drop_up</i>
-                </div>
-            </th>
-        </ng-container>
-        <ng-container *ngIf="!column.sortable">
-            <th [ngClass]="column.centered ? 'center' : ''">{{column.name}}</th>
-        </ng-container>
+        <th [class.active]="column.sortable && sort.value.column === column.id"
+            (click)="column.sortable && updateSort(column.id)"
+            [class.sortable]="column.sortable"
+            [ngClass]="column.class">
+            <div>
+                <span>{{column.name}}</span>
+                <i *ngIf="sort.value.column === column.id && sort.value.type === sortTypes.desc" class="material-icons">arrow_drop_down</i>
+                <i *ngIf="sort.value.column === column.id && sort.value.type === sortTypes.asc" class="material-icons">arrow_drop_up</i>
+            </div>
+        </th>
     </ng-container>
-    <th>Actions</th>
+
+    <th class="center medium-column">
+        <div>
+            <span>Actions</span>
+        </div>
+    </th>
 </tr>

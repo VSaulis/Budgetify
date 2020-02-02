@@ -1,5 +1,5 @@
 <div class="messages" [ngClass]="messages.length > 0 ? 'visible' : ''">
-    <div *ngFor="let message of messages" class="elevated message {{message.type}}">
+    <div *ngFor="let message of messages" class="message {{message.type}}">
         <i (click)="removeMessage(message)" class="material-icons close">clear</i>
         <div class="logo">
             <i class="material-icons">check_circle</i>

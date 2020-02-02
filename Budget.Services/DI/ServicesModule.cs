@@ -14,6 +14,7 @@ namespace Budget.Services.DI
             services.AddScoped<IPermissionsService, PermissionsService>();
             services.AddScoped<IEncryptionService, EncryptionService>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IFileService, FileService>();
             
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();

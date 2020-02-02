@@ -3,7 +3,7 @@
         <img src="../../../assets/images/logo.png" alt="Budgetify">
         <h1>Budgetify</h1>
     </div>
-    <div class="aside-balance">
+    <div *ngIf="profile" class="aside-balance">
         <span>{{profile.balance | money }}</span>
         <small>Current balance</small>
     </div>

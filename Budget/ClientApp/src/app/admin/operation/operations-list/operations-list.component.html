@@ -6,56 +6,55 @@
         </div>
     </div>
     <div class="box-content">
+        <app-line-loader [isPositionAbsolute]="true" *ngIf="isLoading"></app-line-loader>
         <table>
-            <thead>
-            <tr>
-                <th class="center small-column">
-                    <div (click)="$event.stopPropagation()"  class="table-choice choice-row">
-                        <input id="category-all" type="checkbox">
-                        <label for="category-all"></label>
-                    </div>
-                </th>
-                <th class="center small-column">Id</th>
-                <th class="user-column">User</th>
-                <th>Category</th>
-                <th class="center medium-column">Total</th>
-                <th class="center medium-column">Date</th>
-                <th class="center medium-column">Updated</th>
-                <th class="center medium-column">Created</th>
-                <th class="center medium-column">Actions</th>
-            </tr>
-            </thead>
+            <app-datatable-header
+                [colspan]="colspan"
+                [columns]="columns"
+                [rowsCount]="operations.length"
+                [selectedRowsCount]="selectedOperationsIds.length"
+                (selectAll)="selectAll($event)"
+                (sort)="sortChange($event)">
+            </app-datatable-header>
             <tbody>
-            <tr *ngFor="let operation of operations">
-                <td class="center">
-                    <div (click)="$event.stopPropagation()"  class="table-choice choice-row">
-                        <input value="{{operation.id}}" id="operation-{{operation.id}}" type="checkbox">
-                        <label for="operation-{{operation.id}}"></label>
-                    </div>
-                </td>
-                <td class="center">{{operation.id}}</td>
-                <td>
-                    <div class="user">
-                        <img [alt]="operation.user.email" src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg">
-                        <div class="details">
-                            <span>{{operation.user.email}}</span>
-                            <small>{{operation.user.roles}}</small>
+                <tr *ngFor="let operation of operations">
+                    <td class="center">
+                        <div (click)="$event.stopPropagation()"  class="table-choice choice-row">
+                            <input [checked]="selectedOperationsIds.indexOf(operation.id) !== -1"
+                                   value="{{operation.id}}"
+                                   (change)="handleOperationSelect($event)"
+                                   id="operation-{{operation.id}}"
+                                   type="checkbox">
+                            <label for="operation-{{operation.id}}"></label>
                         </div>
-                    </div>
-                </td>
-                <td>{{operation.category.name}}</td>
-                <td [class.success]="operation.amount >= 0" [class.danger]="operation.amount < 0" class="center">{{operation.amount | money}}</td>
-                <td class="center">{{operation.date | date}}</td>
-                <td class="center">{{operation.updated | date: true}}</td>
-                <td class="center">{{operation.created | date: true}}</td>
-                <td class="center">
-                    <div class="actions-container">
-                        <i class="material-icons">create</i>
-                        <i class="material-icons">delete</i>
-                    </div>
-                </td>
-            </tr>
+                    </td>
+                    <td>{{operation.category.name}}</td>
+                    <td [class.success]="operation.amount >= 0" [class.danger]="operation.amount < 0" class="center">{{operation.amount | money}}</td>
+                    <td>
+                        <div class="user">
+                            <img [alt]="operation.user.email" src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg">
+                            <div class="details">
+                                <span>{{operation.user.email}}</span>
+                                <small>{{operation.user.roles}}</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="center">{{operation.date | date}}</td>
+                    <td class="center">{{operation.updated | date: true}}</td>
+                    <td class="center">{{operation.created | date: true}}</td>
+                    <td class="center">
+                        <div class="actions-container">
+                            <i (click)="openEditOperationFormModal(operation.id)" class="material-icons">create</i>
+                            <i (click)="openDeleteOperationFormModal(operation.id)" class="material-icons">delete</i>
+                        </div>
+                    </td>
+                </tr>
             </tbody>
+            <app-datatable-footer
+                (paging)="pagingChange($event)"
+                [colspan]="colspan"
+                [count]="operationsCount">
+            </app-datatable-footer>
         </table>
     </div>
 </div>

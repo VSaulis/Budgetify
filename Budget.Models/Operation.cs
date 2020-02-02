@@ -10,6 +10,8 @@ namespace Budget.Models
         public int CategoryId { get; set; }
         public Category Category { get; set; }
         
+        public string? Document { get; set; }
+        
         [Required]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(10,2)")]

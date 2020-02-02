@@ -1,0 +1,50 @@
+.button {
+    height: 40px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i {
+        margin-right: 10px;
+        font-size: 16px;
+    }
+
+    span {
+        font-size: 12px;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &.primary {
+        color: $color-white;
+        background-color: #01058A;
+        border: 1px solid #01058A;
+
+        &:hover {
+            background-color: darken(#01058A, 5%);
+        }
+    }
+
+    &.danger {
+        color: $color-white;
+        background-color: $color-danger;
+        border: 1px solid $color-danger;
+
+        &:hover {
+            background-color: darken($color-danger, 5%);
+        }
+    }
+
+    &.secondary {
+        color: #33343d;
+        background-color: rgba(#25233a, 0.15);
+        border: 1px solid rgba(#25233a, 0.15);
+
+        &:hover {
+            background-color: darken(rgba(#25233a, 0.15), 5%);
+        }
+    }
+}

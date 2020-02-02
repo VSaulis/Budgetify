@@ -20,9 +20,6 @@ export class DatatableFooterComponent implements OnChanges {
     pagesCount = 0;
     currentPage = 1;
 
-    constructor() {
-    }
-
     ngOnChanges(changes: SimpleChanges): void {
         this.count = changes.count.currentValue;
         this.pagesCount = Math.ceil(this.count / this.paging.value.limit);

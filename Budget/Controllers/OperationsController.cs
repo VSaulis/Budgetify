@@ -61,5 +61,13 @@ namespace Budget.Controllers
             await _operationService.DeleteAsync(request);
             return CreateResponse(new BaseResponse());
         }
+        
+        [HttpDelete]
+        [PermissionRequirement(Permissions.CanDeleteOperations)]
+        public async Task<BaseResponse> Delete([FromRoute] DeleteOperationsRequest request)
+        {
+            await _operationService.DeleteListAsync(request);
+            return CreateResponse(new BaseResponse());
+        }
     }
 }

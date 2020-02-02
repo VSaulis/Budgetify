@@ -13,7 +13,7 @@
         </button>
         <button (click)="confirm()" type="submit" class="button {{buttonClass}} outline">
             <ng-container *ngIf="buttonClass == buttonClasses.danger">
-                <i class="material-icons">remove</i>
+                <i class="material-icons">delete</i>
                 <span>Delete</span>
             </ng-container>
             <ng-container *ngIf="buttonClass == buttonClasses.primary">

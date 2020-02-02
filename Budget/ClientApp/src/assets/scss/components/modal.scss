@@ -19,7 +19,7 @@
     }
 
     .modal-dialog {
-        width: 800px;
+        width: 700px;
         max-width: calc(100% - 10px);
         box-shadow: -0.2px 2px 6px 0 rgba($color-black, 0.3);
         background-color: $color-white;
@@ -83,16 +83,15 @@
                     height: 40px;
                     display: flex;
                     align-items: center;
-                    justify-content: center;
+                    justify-content: flex-start;
                     width: 100%;
                     margin-bottom: 15px;
-                    border-bottom: 1px solid darken($color-white, 10%);
 
                     h3 {
-                        font-size: 17px;
+                        font-size: 16px;
                         margin: 0;
                         font-weight: 500;
-                        color: $color-text;
+                        color: #33343d;
                     }
                 }
 
@@ -114,8 +113,8 @@
                     width: 100%;
 
                     > p {
-                        font-size: 12px;
-                        color: $color-text;
+                        font-size: 11px;
+                        color: #8b8c99;
                         line-height: 1.5;
                         padding-bottom: 15px;
                         margin: 0 0 25px 0;

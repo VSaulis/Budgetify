@@ -17,6 +17,7 @@ import { DatatableHeaderComponent } from './components/datatable/datatable-heade
 import { LineLoaderComponent } from './components/line-loader/line-loader.component';
 import { MoneyPipe } from './pipes/money/money.pipe';
 import { DatePipe } from './pipes/date/date.pipe';
+import {Line} from 'tslint/lib/verify/lines';
 
 @NgModule({
     declarations: [
@@ -54,7 +55,10 @@ import { DatePipe } from './pipes/date/date.pipe';
         DatatableComponent,
         NgbDropdownModule,
         MoneyPipe,
-        DatePipe
+        DatePipe,
+        DatatableFooterComponent,
+        LineLoaderComponent,
+        DatatableHeaderComponent
     ],
     entryComponents: [
         ConfirmModalComponent

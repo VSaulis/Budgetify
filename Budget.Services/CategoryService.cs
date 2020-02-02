@@ -8,6 +8,7 @@ using Budget.Models;
 using Budget.Models.Repositories;
 using Budget.Models.Services;
 using Budget.System.Helpers;
+using NotImplementedException = System.NotImplementedException;
 
 namespace Budget.Services
 {
@@ -45,6 +46,15 @@ namespace Budget.Services
         {
             var category = await _categoryRepository.GetAsync(category => category.Id == request.Id);
             await _categoryRepository.DeleteAsync(category);
+        }
+
+        public async Task DeleteListAsync(DeleteCategoriesRequest request)
+        {
+            foreach (var categoryId in request.CategoriesIds)
+            {
+                var category = await _categoryRepository.GetAsync(category => category.Id == categoryId);
+                await _categoryRepository.DeleteAsync(category);
+            }
         }
 
         public async Task<CategoryDto> GetAsync(GetCategoryRequest request)
