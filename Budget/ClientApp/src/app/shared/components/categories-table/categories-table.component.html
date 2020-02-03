@@ -33,7 +33,7 @@
                 <td [class.success]="category.total >= 0" [class.danger]="category.total < 0" class="center">{{category.total | money}}</td>
                 <td>
                     <div class="user">
-                        <img [alt]="category.user.email" src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg">
+                        <app-avatar [user]="category.user"></app-avatar>
                         <div class="details">
                             <span>{{category.user.email}}</span>
                             <small>{{category.user.roles}}</small>
@@ -44,10 +44,13 @@
                 <td class="center">{{category.created | date: true}}</td>
                 <td class="center">
                     <div class="actions-container">
-                        <i class="material-icons">create</i>
+                        <i (click)="openEditCategoryFormModal(category.id)" class="material-icons">create</i>
                         <i (click)="openDeleteCategoryFormModal(category.id)" class="material-icons">delete</i>
                     </div>
                 </td>
+            </tr>
+            <tr *ngIf="categoriesCount === 0">
+                <td class="center" [colSpan]="colspan">No data</td>
             </tr>
             </tbody>
             <app-datatable-footer

@@ -4,7 +4,7 @@
     width: 100%;
     background-color: $color-white;
     margin-bottom: 15px;
-    border: 1px solid #e7e8f2;
+    border: 1px solid $color-border;
 
     .navigation {
         width: 100%;
@@ -17,7 +17,7 @@
             font-size: 11px;
             display: block;
             margin: 0 10px;
-            color: #33343d;
+            color: $color-text;
         }
     }
 

@@ -9,7 +9,7 @@ header.header {
     left: 270px;
     z-index: 99;
     background-color: $color-white;
-    border-bottom: 1px solid #E7E8F2;
+    border-bottom: 1px solid $color-border;
     display: flex;
     align-items: stretch;
     justify-content: space-between;
@@ -22,13 +22,13 @@ header.header {
     }
 
     h2 {
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 500;
-        color: #33343d;
+        color: $color-text;
     }
 
     .header-box {
-        border-left: 1px solid #E7E8F2;
+        border-left: 1px solid $color-border;
         display: flex;
         height: 100%;
         width: 55px;
@@ -37,23 +37,15 @@ header.header {
         justify-content: center;
         cursor: pointer;
 
-        &:not(.profile):hover,
-        &:not(.profile).active {
-            background-color: #01058a;
-
-            i {
-                color: $color-white;
-            }
+        &:hover,
+        &.active {
+            background-color: darken($color-white, 5%);
         }
 
         &.profile {
             width: auto;
 
-            img {
-                width: 40px;
-                height: 40px;
-                border-radius: 20px;
-                object-fit: cover;
+            app-avatar {
                 margin-right: 10px;
             }
 
@@ -65,13 +57,12 @@ header.header {
                 margin-right: 10px;
 
                 span {
-                    color: #25233a;
-                    font-size: 13px;
-                    margin-bottom: 3px;
+                    color: $color-text;
+                    font-size: 12px;
                 }
 
                 small {
-                    color: #8b8c99;
+                    color: $color-text-secondary;
                     font-size: 11px;
                 }
             }
@@ -79,7 +70,7 @@ header.header {
 
         i {
             font-size: 20px;
-            color: #a7a9c0;
+            color: $color-text-secondary;
         }
     }
 }

@@ -30,7 +30,7 @@
                 </td>
                 <td>
                     <div class="user">
-                        <img [alt]="user.email" src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg">
+                        <app-avatar [user]="user"></app-avatar>
                     </div>
                 </td>
                 <td>{{user.email}}</td>
@@ -45,6 +45,9 @@
                         <i (click)="openDeleteUserFormModal(user.id)" class="material-icons">delete</i>
                     </div>
                 </td>
+            </tr>
+            <tr *ngIf="usersCount === 0">
+                <td class="center" [colSpan]="colspan">No data</td>
             </tr>
             </tbody>
             <app-datatable-footer

@@ -1,7 +1,7 @@
 .box {
     width: 100%;
     background-color: $color-white;
-    border: solid 1px #e7e8f2;
+    border: solid 1px $color-border;
 
     .box-header {
         width: 100%;
@@ -10,13 +10,13 @@
         align-items: center;
         justify-content: space-between;
         padding: 0 15px;
-        border-bottom: solid 1px #e7e8f2;
-        background-color: #FDFDFE;
+        border-bottom: solid 1px $color-border;
+        background-color: $color-background;
 
         h4 {
             font-weight: 500;
             font-size: 12px;
-            color: #01058A;
+            color: $color-primary;
         }
 
         > div {
@@ -26,7 +26,7 @@
 
             i {
                 font-size: 20px;
-                color: #33343d;
+                color: $color-text-secondary;
                 margin-right: 5px;
 
                 &:last-of-type {
@@ -35,7 +35,7 @@
 
                 &:hover {
                     cursor: pointer;
-                    color: #01058A;
+                    color: $color-primary;
                 }
             }
         }

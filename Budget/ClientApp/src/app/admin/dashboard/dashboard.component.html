@@ -1,11 +1,70 @@
-<div class="box">
-    <div class="box-header">
-        <h4>Operations per date</h4>
+<section class="section">
+    <div class="dashboard-item">
+        <div>
+            <small>Balance</small>
+            <span class="success">{{3456 | money}}</span>
+        </div>
+        <div>
+
+        </div>
     </div>
-    <div class="box-content">
-        <ngx-charts-line-chart
-            class="chart-container"
-            [results]="[100, 200]">
-        </ngx-charts-line-chart>
+    <div class="dashboard-item">
+        <div>
+            <small>Total incomes</small>
+            <span class="success">{{3456 | money}}</span>
+        </div>
+        <div>
+
+        </div>
     </div>
-</div>
+    <div class="dashboard-item">
+        <div>
+            <small>Total expenses</small>
+            <span class="danger">{{-3456 | money}}</span>
+        </div>
+        <div>
+
+        </div>
+    </div>
+    <div class="dashboard-item">
+        <div>
+            <small>Total incomes</small>
+            <span>{{3456 | money}}</span>
+        </div>
+        <div>
+
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="box two-third-width">
+        <div class="box-header">
+            <h4>Daily operations</h4>
+        </div>
+        <div class="box-content">
+
+        </div>
+    </div>
+    <div class="box one-third-width">
+        <div class="box-header">
+            <h4>Last operations</h4>
+        </div>
+        <div class="box-content">
+            <div class="operations">
+                <div class="operation" *ngFor="let operation of operations">
+                    <div>
+                        <app-avatar [user]="operation.user"></app-avatar>
+                        <div class="details">
+                            <span>{{operation.category.name}}</span>
+                            <small>{{operation.date | date}}</small>
+                        </div>
+                    </div>
+                    <span [class.success]="operation.amount >= 0" [class.danger]="operation.amount < 0" class="amount">{{operation.amount | money}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

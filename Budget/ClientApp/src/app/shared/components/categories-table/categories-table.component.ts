@@ -11,6 +11,7 @@ import {MessagesTypes} from '../../enums/MessagesTypes';
 import {ConfirmModalComponent} from '../confirm-modal/confirm-modal.component';
 import {ButtonClasses} from '../../enums/ButtonClasses';
 import {ListResponse} from '../../contracts/ListResponse';
+import {OperationFormModalComponent} from '../operations-table/operation-form-modal/operation-form-modal.component';
 
 @Component({
     selector: 'app-categories-table',
@@ -63,6 +64,18 @@ export class CategoriesTableComponent implements OnInit {
         modalRef.result.then((result) => {
             if (result) {
                 this.appService.addMessage({text: 'Category is successfully deleted', type: MessagesTypes.success});
+                this.getCategories();
+            }
+        });
+    }
+
+    openEditCategoryFormModal(id: number): void {
+        const modalRef = this.modalService.open(CategoryFormModalComponent, {backdrop: false});
+        modalRef.componentInstance.id = id;
+
+        modalRef.result.then((result) => {
+            if (result) {
+                this.appService.addMessage({text: 'Category is successfully updated', type: MessagesTypes.success});
                 this.getCategories();
             }
         });

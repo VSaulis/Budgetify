@@ -8,7 +8,7 @@
     padding: 20px 0;
     position: fixed;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba($color-black, 0.6);
     z-index: 1100;
     display: flex;
 
@@ -91,12 +91,12 @@
                         font-size: 16px;
                         margin: 0;
                         font-weight: 500;
-                        color: #33343d;
+                        color: $color-text;
                     }
                 }
 
                 .modal-footer {
-                    border-top: 1px solid darken($color-white, 10%);
+                    border-top: 1px solid $color-border;
                     height: 60px;
                     display: flex;
                     align-items: center;
@@ -114,11 +114,11 @@
 
                     > p {
                         font-size: 11px;
-                        color: #8b8c99;
+                        color: $color-text-secondary;
                         line-height: 1.5;
                         padding-bottom: 15px;
                         margin: 0 0 25px 0;
-                        border-bottom: 1px solid darken($color-white, 10%);
+                        border-bottom: 1px solid $color-border;
                     }
                 }
             }

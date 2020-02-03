@@ -11,7 +11,6 @@ import {LoaderComponent} from './components/loader/loader.component';
 import {NgbDropdownModule, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ConfirmModalComponent} from './components/confirm-modal/confirm-modal.component';
-import {DatatableComponent} from './components/datatable/datatable.component';
 import {DatatableFooterComponent} from './components/datatable/datatable-footer/datatable-footer.component';
 import {DatatableHeaderComponent} from './components/datatable/datatable-header/datatable-header.component';
 import {LineLoaderComponent} from './components/line-loader/line-loader.component';
@@ -23,6 +22,7 @@ import {UsersTableComponent} from './components/users-table/users-table.componen
 import {UserFormModalComponent} from './components/users-table/user-form-modal/user-form-modal.component';
 import {CategoryFormModalComponent} from './components/categories-table/category-form-modal/category-form-modal.component';
 import {OperationFormModalComponent} from './components/operations-table/operation-form-modal/operation-form-modal.component';
+import { AvatarComponent } from './components/avatar/avatar.component';
 
 @NgModule({
     declarations: [
@@ -31,7 +31,6 @@ import {OperationFormModalComponent} from './components/operations-table/operati
         MessagesComponent,
         LoaderComponent,
         ConfirmModalComponent,
-        DatatableComponent,
         DatatableFooterComponent,
         DatatableHeaderComponent,
         LineLoaderComponent,
@@ -42,7 +41,8 @@ import {OperationFormModalComponent} from './components/operations-table/operati
         UsersTableComponent,
         UserFormModalComponent,
         CategoryFormModalComponent,
-        OperationFormModalComponent
+        OperationFormModalComponent,
+        AvatarComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -63,7 +63,6 @@ import {OperationFormModalComponent} from './components/operations-table/operati
         NgbModalModule,
         NgSelectModule,
         ConfirmModalComponent,
-        DatatableComponent,
         NgbDropdownModule,
         MoneyPipe,
         DatePipe,
@@ -75,7 +74,8 @@ import {OperationFormModalComponent} from './components/operations-table/operati
         UsersTableComponent,
         UserFormModalComponent,
         CategoryFormModalComponent,
-        OperationFormModalComponent
+        OperationFormModalComponent,
+        AvatarComponent
     ],
     entryComponents: [
         ConfirmModalComponent,

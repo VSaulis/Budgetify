@@ -16,7 +16,7 @@
     &.ng-select-focused {
         &:not(.ng-select-disabled) {
             .ng-select-container {
-                border: 1px solid rgba(#25233a, 0.26);
+                border: 1px solid $color-border;
 
                 .ng-value-container {
 
@@ -87,7 +87,7 @@
         height: 40px;
         background-color: transparent;
         color: $color-text;
-        border: 1px solid rgba(#25233a, 0.26);
+        border: 1px solid $color-border;
 
         .ng-value-container {
 

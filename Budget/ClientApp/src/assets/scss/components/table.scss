@@ -7,12 +7,12 @@ table {
 
         tr {
             height: 40px;
-            border-bottom: solid 1px #e7e8f2;
+            border-bottom: solid 1px $color-border;
 
             th {
                 padding: 0 20px;
                 font-size: 12px;
-                color: rgba(#25233a, 0.26);
+                color: rgba($color-text, 0.26);
                 white-space: nowrap;
                 text-align: left;
 
@@ -42,7 +42,7 @@ table {
                 &.sortable {
                     &:hover,
                     &.active {
-                        color: #01058A;
+                        color: $color-primary;
                         cursor: pointer;
                     }
                 }
@@ -53,21 +53,21 @@ table {
     tbody {
 
         tr {
-            border-bottom: solid 1px #e7e8f2;
-            height: 60px;
+            border-bottom: solid 1px $color-border;
+            height: 55px;
 
             &:nth-of-type(even) {
-                background-color: #FDFDFE;
+                background-color: $color-background;
             }
 
             &:hover {
-                background-color: #FDFDFE;
+                background-color: $color-background;
                 cursor: pointer;
             }
 
             td {
                 padding: 0 20px;
-                color: #33343d;
+                color: $color-text;
                 font-size: 12px;
                 white-space: nowrap;
 
@@ -95,13 +95,12 @@ table {
                         margin-left: 10px;
 
                         span {
-                            color: #25233a;
-                            font-size: 13px;
-                            margin-bottom: 3px;
+                            color: $color-text;
+                            font-size: 12px;
                         }
 
                         small {
-                            color: #8b8c99;
+                            color: $color-text-secondary;
                             font-size: 11px;
                         }
                     }
@@ -114,12 +113,12 @@ table {
 
                     i {
                         margin-right: 5px;
-                        color: #33343d;
+                        color: $color-text-secondary;
                         font-size: 18px;
 
                         &:hover {
                             cursor: pointer;
-                            color: #01058A;
+                            color: $color-primary;
                         }
 
                         &:last-of-type {
@@ -133,7 +132,7 @@ table {
 
     app-datatable-footer {
         display: table-footer-group;
-        background-color: #FDFDFE;
+        background-color: $color-background;
 
         tr {
             height: 40px;
@@ -200,13 +199,13 @@ table {
                                 text-decoration: none;
 
                                 &:hover {
-                                    color: #01058A;
+                                    color: $color-primary;
                                     cursor: pointer;
                                 }
 
                                 &.active{
                                     color: $color-white;
-                                    background-color: #01058A;
+                                    background-color: $color-primary;
                                 }
                             }
                         }

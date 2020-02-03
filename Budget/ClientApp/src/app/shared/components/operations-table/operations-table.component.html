@@ -32,7 +32,7 @@
                 <td [class.success]="operation.amount >= 0" [class.danger]="operation.amount < 0" class="center">{{operation.amount | money}}</td>
                 <td>
                     <div class="user">
-                        <img [alt]="operation.user.email" src="https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg">
+                        <app-avatar [user]="operation.user"></app-avatar>
                         <div class="details">
                             <span>{{operation.user.email}}</span>
                             <small>{{operation.user.roles}}</small>
@@ -48,6 +48,9 @@
                         <i (click)="openDeleteOperationFormModal(operation.id)" class="material-icons">delete</i>
                     </div>
                 </td>
+            </tr>
+            <tr *ngIf="operationsCount === 0">
+                <td class="center" [colSpan]="colspan">No data</td>
             </tr>
             </tbody>
             <app-datatable-footer
