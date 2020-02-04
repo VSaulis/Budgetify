@@ -200,12 +200,13 @@ table {
 
                                 &:hover {
                                     color: $color-primary;
+                                    background-color: darken($color-white, 5%);
                                     cursor: pointer;
                                 }
 
                                 &.active{
-                                    color: $color-white;
-                                    background-color: $color-primary;
+                                    color: $color-primary;
+                                    background-color: darken($color-white, 5%);
                                 }
                             }
                         }

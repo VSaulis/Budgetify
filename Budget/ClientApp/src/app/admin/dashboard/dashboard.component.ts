@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
     }
 
     private getOperations(): void {
-        this.operationService.getOperations(null, null, {limit: 10, offset: 0}).subscribe((operationsListResponse: ListResponse<OperationsListItem>) => {
+        this.operationService.getOperations(null, null, {limit: 5, offset: 0}).subscribe((operationsListResponse: ListResponse<OperationsListItem>) => {
              this.operations = operationsListResponse.result;
         });
     }
