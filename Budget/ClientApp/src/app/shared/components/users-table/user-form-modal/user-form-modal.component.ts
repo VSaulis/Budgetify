@@ -65,6 +65,7 @@ export class UserFormModalComponent implements OnInit {
         this.form.get('firstName').setValue(user.firstName);
         this.form.get('lastName').setValue(user.lastName);
         this.form.get('roles').setValue(user.roles);
+        FormHelper.markFormAsTouched(this.form);
     }
 
     private createForm(): void {

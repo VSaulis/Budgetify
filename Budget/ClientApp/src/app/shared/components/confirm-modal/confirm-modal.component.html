@@ -7,18 +7,18 @@
         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.</p>
     </div>
     <div class="modal-footer">
-        <button type="button" (click)="activeModal.close()" class="button secondary outline">
-            <i class="material-icons">reply</i>
-            Cancel
+        <button type="button" (click)="activeModal.close()" class="button secondary">
+            <span class="title">Cancel</span>
+            <span class="icon-container"><i class="material-icons">reply</i></span>
         </button>
         <button (click)="confirm()" type="submit" class="button {{buttonClass}} outline">
             <ng-container *ngIf="buttonClass == buttonClasses.danger">
-                <i class="material-icons">delete</i>
-                <span>Delete</span>
+                <span class="title">Delete</span>
+                <span class="icon-container"><i class="material-icons">delete</i></span>
             </ng-container>
             <ng-container *ngIf="buttonClass == buttonClasses.primary">
-                <i class="material-icons">save_alt</i>
-                <span>Confirm</span>
+                <span class="title">Confirm</span>
+                <span class="icon-container"><i class="material-icons">save_alt</i></span>
             </ng-container>
         </button>
     </div>

@@ -3,8 +3,5 @@ using System.Threading.Tasks;
 
 namespace Budget.Models.Repositories
 {
-    public interface IOperationRepository : IBaseRepository<Operation>
-    {
-        Task<List<OperationStatisticsItem>> GetStatisticsAsync();
-    }
+    public interface IOperationRepository : IBaseRepository<Operation> { }
 }

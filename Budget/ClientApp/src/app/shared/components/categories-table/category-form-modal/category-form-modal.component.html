@@ -12,23 +12,21 @@
                     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.
                 </p>
                 <div class="form-fields">
-                    <div class="form-field inline">
+                    <div class="form-field">
+                        <input id="name" formControlName="name">
                         <label for="name">Name : </label>
-                        <div class="form-input">
-                            <input id="name" formControlName="name">
-                        </div>
                         <small [appFormError]="form.get('name')" errorType="required">Field is required</small>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" (click)="activeModal.close()" class="button secondary outline">
-                    <i class="material-icons">reply</i>
-                    <span>Cancel</span>
+                <button type="button" (click)="activeModal.close()" class="button secondary">
+                    <span class="title">Cancel</span>
+                    <span class="icon-container"><i class="material-icons">reply</i></span>
                 </button>
-                <button type="submit" class="button primary outline">
-                    <i class="material-icons">save_alt</i>
-                    <span>Save</span>
+                <button type="submit" class="button primary">
+                    <span class="title">Save</span>
+                    <span class="icon-container"><i class="material-icons">save_alt</i></span>
                 </button>
             </div>
         </form>

@@ -62,6 +62,7 @@ export class CategoryFormModalComponent implements OnInit {
 
     private setForm(category: Category): void {
         this.form.get('name').setValue(category.name);
+        FormHelper.markFormAsTouched(this.form);
     }
 
     private createForm(): void {

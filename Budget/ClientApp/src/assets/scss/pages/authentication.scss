@@ -1,8 +1,78 @@
-.authentication-content {
-    h2 {
-        font-size: 20px;
-        text-align: center;
-        font-weight: 500;
-        margin-bottom: 50px;
+.authentication {
+    width: 100%;
+    min-height: 100vh;
+    background-color: $color-background;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    .authentication-container {
+        margin-top: 75px;
+        padding: 30px;
+        height: auto;
+        width: 450px;
+        border: 1px solid $color-border;
+        background-color: $color-white;
+
+        .logo {
+            width: 100%;
+            display: flex;
+            height: 35px;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 50px;
+
+            img {
+                height: 100%;
+                margin-right: 10px;
+            }
+
+            h1 {
+                font-weight: 500;
+                font-size: 16px;
+                color: $color-primary;
+            }
+        }
+    }
+
+    .authentication-content {
+        width: 100%;
+        padding: 0 15px;
+
+        h2 {
+            font-size: 18px;
+            text-align: center;
+            font-weight: 500;
+            margin-bottom: 25px;
+            color: $color-text;
+        }
+
+        .form-fields {
+            margin-bottom: 40px;
+        }
+
+        .choice-row {
+            margin-top: 15px;
+        }
+
+        .button {
+            margin-bottom: 75px;
+        }
+
+        .link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            p {
+                font-size: 12px;
+                margin-right: 5px;
+            }
+
+            a {
+                font-size: 12px;
+                color: $color-primary;
+            }
+        }
     }
 }

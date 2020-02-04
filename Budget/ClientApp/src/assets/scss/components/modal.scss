@@ -19,7 +19,7 @@
     }
 
     .modal-dialog {
-        width: 700px;
+        width: 600px;
         max-width: calc(100% - 10px);
         box-shadow: -0.2px 2px 6px 0 rgba($color-black, 0.3);
         background-color: $color-white;
@@ -96,7 +96,6 @@
                 }
 
                 .modal-footer {
-                    border-top: 1px solid $color-border;
                     height: 60px;
                     display: flex;
                     align-items: center;
@@ -109,16 +108,14 @@
                 }
 
                 .modal-body {
-                    margin-bottom: 15px;
+                    margin-bottom: 25px;
                     width: 100%;
 
                     > p {
                         font-size: 11px;
                         color: $color-text-secondary;
                         line-height: 1.5;
-                        padding-bottom: 15px;
-                        margin: 0 0 25px 0;
-                        border-bottom: 1px solid $color-border;
+                        margin-bottom: 30px;
                     }
                 }
             }

@@ -12,61 +12,51 @@
                     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.
                 </p>
                 <div class="form-field">
+                    <input id="amount" type="number" formControlName="amount">
                     <label for="amount">Amount : </label>
-                    <div class="form-input">
-                        <input id="amount" type="number" formControlName="amount">
-                        <small [appFormError]="form.get('amount')" errorType="required">Field is required</small>
-                    </div>
+                    <small [appFormError]="form.get('amount')" errorType="required">Field is required</small>
                 </div>
                 <div class="form-fields">
                     <div class="form-field inline">
+                        <input id="date" formControlName="date">
                         <label for="date">Date : </label>
-                        <div class="form-input">
-                            <input id="date" type="date" formControlName="date">
-                            <small [appFormError]="form.get('date')" errorType="required">Field is required</small>
-                        </div>
+                        <small [appFormError]="form.get('date')" errorType="required">Field is required</small>
                     </div>
                     <div class="form-field inline">
+                        <ng-select id="categories"
+                                   [items]="categories"
+                                   formControlName="categoryId"
+                                   bindLabel="name"
+                                   bindValue="id">
+                        </ng-select>
                         <label for="categories">Category: </label>
-                        <div class="form-input">
-                            <ng-select id="categories"
-                                       [items]="categories"
-                                       formControlName="categoryId"
-                                       bindLabel="name"
-                                       bindValue="id">
-                            </ng-select>
-                            <small [appFormError]="form.get('categoryId')" errorType="required">Field is required</small>
-                        </div>
+                        <small [appFormError]="form.get('categoryId')" errorType="required">Field is required</small>
                     </div>
                     <div class="form-field inline">
+                        <ng-select id="users"
+                                   [items]="users"
+                                   formControlName="userId"
+                                   bindLabel="email"
+                                   bindValue="id">
+                        </ng-select>
                         <label for="users">User: </label>
-                        <div class="form-input">
-                            <ng-select id="users"
-                                       [items]="users"
-                                       formControlName="userId"
-                                       bindLabel="email"
-                                       bindValue="id">
-                            </ng-select>
-                            <small [appFormError]="form.get('userId')" errorType="required">Field is required</small>
-                        </div>
+                        <small [appFormError]="form.get('userId')" errorType="required">Field is required</small>
                     </div>
                     <div class="form-field inline">
+                        <input id="description" formControlName="description" />
                         <label for="description">Description : </label>
-                        <div class="form-input">
-                            <textarea id="description" formControlName="description"></textarea>
-                            <small [appFormError]="form.get('description')" errorType="required">Field is required</small>
-                        </div>
+                        <small [appFormError]="form.get('description')" errorType="required">Field is required</small>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" (click)="activeModal.close()" class="button secondary">
-                    <i class="material-icons">reply</i>
-                    <span>Cancel</span>
+                    <span class="title">Cancel</span>
+                    <span class="icon-container"><i class="material-icons">reply</i></span>
                 </button>
                 <button type="submit" class="button primary">
-                    <i class="material-icons">save_alt</i>
-                    <span>Save</span>
+                    <span class="title">Save</span>
+                    <span class="icon-container"><i class="material-icons">save_alt</i></span>
                 </button>
             </div>
         </form>

@@ -1,18 +1,27 @@
 <div class="authentication-content">
     <h2>Sign in</h2>
-
     <form [formGroup]="form" (ngSubmit)="login()" novalidate>
-        <div class="form-group">
-            <div class="form-input-group">
-                <input class="form-input" [appFormControlError]="form.get('email')" formControlName="email">
+        <div class="form-fields">
+            <div class="form-field">
+                <input id="email" formControlName="email">
+                <label for="email">Email : </label>
+                <small [appFormError]="form.get('email')" errorType="required">Field is required</small>
             </div>
-            <div class="form-input-group">
-                <input class="form-input" [appFormControlError]="form.get('password')" type="password" formControlName="password">
+            <div class="form-field">
+                <input id="password" type="password" formControlName="password">
+                <label for="password">Password : </label>
+                <small [appFormError]="form.get('password')" errorType="required">Field is required</small>
             </div>
         </div>
-        <button type="submit" class="button full-width">Sign in</button>
+        <button type="submit" class="button primary full-width">
+            <span class="title">Sign in</span>
+            <span class="icon-container"><i class="material-icons">exit_to_app</i></span>
+        </button>
+        <div class="link">
+            <p>Do not have an account?</p>
+            <a routerLink="/registration">Sign in</a>
+        </div>
     </form>
-
 </div>
 
 

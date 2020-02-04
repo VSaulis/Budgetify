@@ -73,6 +73,7 @@ export class OperationFormModalComponent implements OnInit {
         this.form.get('description').setValue(operation.description);
         this.form.get('amount').setValue(operation.amount);
         this.form.get('userId').setValue(operation.user.id);
+        FormHelper.markFormAsTouched(this.form);
     }
 
     private createForm(): void {

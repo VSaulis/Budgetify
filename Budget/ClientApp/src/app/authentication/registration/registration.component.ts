@@ -47,14 +47,15 @@ export class RegistrationComponent implements OnInit {
     private createForm(): void {
         this.form = this.fb.group({
             email: [null, Validators.required],
-            password: [null, Validators.required]
+            password: [null, Validators.required],
+            repeatPassword: [null, Validators.required]
         });
     }
 
     private mapRegisterRequest(): RegisterRequest {
         return {
             email: this.form.get('email').value,
-            password: this.form.get('password').value,
+            password: this.form.get('password').value
         };
     }
 

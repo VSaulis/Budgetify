@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Budget.Models;
 using Budget.Models.Repositories;
 using Budget.Repositories.Context;
@@ -19,19 +17,6 @@ namespace Budget.Repositories
             return query
                 .Include(operation => operation.Category)
                 .Include(operation => operation.User);
-        }
-
-        public async Task<List<OperationStatisticsItem>> GetStatisticsAsync()
-        {
-            var query = Context.Operations;
-
-            var operationStatisticsItems = query.Select(operation => new OperationStatisticsItem
-            {
-                Date = operation.Date,
-                Total = operation.Amount
-            });
-            
-            return await operationStatisticsItems.ToListAsync();
         }
     }
 }
