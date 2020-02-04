@@ -45,6 +45,10 @@ export class AppService {
         return this.messagesBehaviorSubject.asObservable();
     }
 
+    setMessage(message: Message): void {
+        this.messagesBehaviorSubject.next([message]);
+    }
+
     addMessage(message: Message): void {
         const messages = this.messagesBehaviorSubject.value;
         messages.push(message);

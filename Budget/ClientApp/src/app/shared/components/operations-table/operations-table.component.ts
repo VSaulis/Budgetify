@@ -77,7 +77,7 @@ export class OperationsTableComponent implements OnInit {
 
         modalRef.result.then((result) => {
             if (result) {
-                this.appService.addMessage({text: 'Operation is successfully added', type: MessagesTypes.success});
+                this.appService.setMessage({text: 'Operation is successfully added', type: MessagesTypes.success});
                 this.getOperations();
             }
         });
@@ -89,7 +89,7 @@ export class OperationsTableComponent implements OnInit {
 
         modalRef.result.then((result) => {
             if (result) {
-                this.appService.addMessage({text: 'Operation is successfully updated', type: MessagesTypes.success});
+                this.appService.setMessage({text: 'Operation is successfully updated', type: MessagesTypes.success});
                 this.getOperations();
             }
         });
@@ -103,7 +103,7 @@ export class OperationsTableComponent implements OnInit {
 
         modalRef.result.then((result) => {
             if (result) {
-                this.appService.addMessage({text: 'Operation is successfully deleted', type: MessagesTypes.success});
+                this.appService.setMessage({text: 'Operation is successfully deleted', type: MessagesTypes.success});
                 this.getOperations();
             }
         });

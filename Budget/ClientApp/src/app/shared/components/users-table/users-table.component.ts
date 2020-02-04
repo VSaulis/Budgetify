@@ -51,7 +51,7 @@ export class UsersTableComponent implements OnInit {
 
         modalRef.result.then((result) => {
             if (result) {
-                this.appService.addMessage({text: 'User is successfully added', type: MessagesTypes.success});
+                this.appService.setMessage({text: 'User is successfully added', type: MessagesTypes.success});
                 this.getUsers();
             }
         });
@@ -63,7 +63,7 @@ export class UsersTableComponent implements OnInit {
 
         modalRef.result.then((result) => {
             if (result) {
-                this.appService.addMessage({text: 'User is successfully updated', type: MessagesTypes.success});
+                this.appService.setMessage({text: 'User is successfully updated', type: MessagesTypes.success});
                 this.getUsers();
             }
         });
@@ -77,7 +77,7 @@ export class UsersTableComponent implements OnInit {
 
         modalRef.result.then((result) => {
             if (result) {
-                this.appService.addMessage({text: 'User is successfully deleted', type: MessagesTypes.success});
+                this.appService.setMessage({text: 'User is successfully deleted', type: MessagesTypes.success});
                 this.getUsers();
             }
         });

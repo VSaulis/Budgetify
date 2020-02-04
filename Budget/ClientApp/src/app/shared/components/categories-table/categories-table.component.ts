@@ -49,7 +49,7 @@ export class CategoriesTableComponent implements OnInit {
 
         modalRef.result.then((result) => {
             if (result) {
-                this.appService.addMessage({text: 'Category is successfully added', type: MessagesTypes.success});
+                this.appService.setMessage({text: 'Category is successfully added', type: MessagesTypes.success});
                 this.getCategories();
             }
         });
@@ -63,7 +63,7 @@ export class CategoriesTableComponent implements OnInit {
 
         modalRef.result.then((result) => {
             if (result) {
-                this.appService.addMessage({text: 'Category is successfully deleted', type: MessagesTypes.success});
+                this.appService.setMessage({text: 'Category is successfully deleted', type: MessagesTypes.success});
                 this.getCategories();
             }
         });
@@ -75,7 +75,7 @@ export class CategoriesTableComponent implements OnInit {
 
         modalRef.result.then((result) => {
             if (result) {
-                this.appService.addMessage({text: 'Category is successfully updated', type: MessagesTypes.success});
+                this.appService.setMessage({text: 'Category is successfully updated', type: MessagesTypes.success});
                 this.getCategories();
             }
         });
