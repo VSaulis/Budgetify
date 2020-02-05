@@ -6,6 +6,8 @@ import {catchError} from 'rxjs/operators';
 import {RefreshTokenRequest} from '../../contracts/authentication/RefreshTokenRequest';
 import {LoggedUser} from '../../models/authentication/LoggedUser';
 import {Router} from '@angular/router';
+import {AppService} from '../../services/app/app.service';
+import {MessagesTypes} from '../../enums/MessagesTypes';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -13,7 +15,7 @@ export class JwtInterceptor implements HttpInterceptor {
     private isRefreshingToken = false;
     private loggedUser: LoggedUser;
 
-    constructor(private authenticationService: AuthenticationService, private router: Router) {
+    constructor(private authenticationService: AuthenticationService, private router: Router, private appService: AppService) {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -24,12 +26,20 @@ export class JwtInterceptor implements HttpInterceptor {
         }
 
         return next.handle(request).pipe(catchError(error => {
+
             if (!(error instanceof HttpErrorResponse)) {
                 return throwError(error);
             }
             if (error.status === 401) {
                 return this.handle401Error(request, next, error);
             }
+
+            if (error.status === 400) {
+                this.appService.setMessage({text: error.error, type: MessagesTypes.error});
+            } else {
+                this.appService.setMessage({text: 'An error has occurred', type: MessagesTypes.error});
+            }
+
             return throwError(error);
         }));
     }

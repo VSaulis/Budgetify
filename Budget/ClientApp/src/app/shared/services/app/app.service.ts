@@ -60,4 +60,8 @@ export class AppService {
         messages = messages.filter((m: Message) => m !== message);
         this.messagesBehaviorSubject.next(messages);
     }
+
+    removeMessages(): void {
+        this.messagesBehaviorSubject.next([]);
+    }
 }

@@ -44,6 +44,23 @@
             }
         }
 
+        &.error {
+            background-color: rgba($color-danger, 0.2);
+            border: 1px solid $color-danger;
+
+            .close {
+                color: $color-danger;
+            }
+
+            p {
+                color: $color-danger;
+            }
+
+            .logo i {
+                color: darken($color-danger, 10%);
+            }
+        }
+
         .logo {
             display: flex;
             align-items: center;

@@ -69,6 +69,7 @@ export class AuthenticationService {
     }
 
     private setUser(loggedUser: LoggedUser): void {
+        this.appService.removeMessages();
         this.appService.setLoggedUser(loggedUser);
         this.permissionService.loadPermissions(loggedUser.permissions);
         localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
