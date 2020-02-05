@@ -1,0 +1,25 @@
+@import "../../../../assets/scss/variables/module";
+
+.user-box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    .details {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        margin-left: 10px;
+
+        span {
+            color: $color-text;
+            font-size: 12px;
+        }
+
+        small {
+            color: $color-text-secondary;
+            font-size: 11px;
+        }
+    }
+}

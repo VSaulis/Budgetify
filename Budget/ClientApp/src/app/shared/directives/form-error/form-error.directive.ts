@@ -1,5 +1,5 @@
 import {Directive, HostBinding, Input} from '@angular/core';
-import {AbstractControl, NgControl} from '@angular/forms';
+import {AbstractControl} from '@angular/forms';
 import * as _ from 'lodash';
 
 @Directive({

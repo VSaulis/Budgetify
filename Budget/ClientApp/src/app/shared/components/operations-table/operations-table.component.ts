@@ -11,6 +11,8 @@ import {MessagesTypes} from '../../enums/MessagesTypes';
 import {ConfirmModalComponent} from '../confirm-modal/confirm-modal.component';
 import {ButtonClasses} from '../../enums/ButtonClasses';
 import {ListResponse} from '../../contracts/ListResponse';
+import {CategoryDetailsModalComponent} from '../categories-table/category-details-modal/category-details-modal.component';
+import {OperationDetailsModalComponent} from './operation-details-modal/operation-details-modal.component';
 
 @Component({
     selector: 'app-operations-table',
@@ -81,6 +83,11 @@ export class OperationsTableComponent implements OnInit {
                 this.getOperations();
             }
         });
+    }
+
+    openOperationDetailsModal(id: number): void {
+        const modalRef = this.modalService.open(OperationDetailsModalComponent, {backdrop: false});
+        modalRef.componentInstance.id = id;
     }
 
     openEditOperationFormModal(id: number): void {

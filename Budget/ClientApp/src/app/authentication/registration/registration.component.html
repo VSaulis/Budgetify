@@ -8,12 +8,12 @@
                 <small [appFormError]="form.get('email')" errorType="required">Field is required</small>
             </div>
             <div class="form-field">
-                <input id="password" type="password" formControlName="password">
+                <input [appFormControl]="form.get('password')" id="password" type="password" formControlName="password">
                 <label for="password">Password : </label>
                 <small [appFormError]="form.get('password')" errorType="required">Field is required</small>
             </div>
             <div class="form-field">
-                <input id="repeatPassword" type="password" formControlName="repeatPassword">
+                <input [appFormControl]="form.get('repeatPassword')" id="repeatPassword" type="password" formControlName="repeatPassword">
                 <label for="repeatPassword">Repeat password : </label>
                 <small [appFormError]="form.get('repeatPassword')" errorType="required">Field is required</small>
             </div>

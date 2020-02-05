@@ -1,0 +1,70 @@
+<span (click)="activeModal.close()" class="close-icon"><i class="material-icons">clear</i></span>
+<div class="modal-container">
+    <app-loader *ngIf="isLoading"></app-loader>
+    <ng-container *ngIf="!isLoading">
+        <div class="modal-header">
+            <h3>Operation details</h3>
+        </div>
+        <div class="modal-body">
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.
+            </p>
+            <div class="details-header">
+                <div class="details-field">
+                    <label>Created by :</label>
+                    <div class="user">
+                        <app-avatar [user]="operation.user"></app-avatar>
+                        <div class="details">
+                            <span>{{operation.user.email}}</span>
+                            <small>{{operation.user.roles}}</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="details-field">
+                    <label>Created :</label>
+                    <span class="value">{{operation.created | date}}</span>
+                </div>
+                <div class="details-field">
+                    <label>Updated :</label>
+                    <span class="value">{{operation.updated | date}}</span>
+                </div>
+            </div>
+            <div class="details-fields">
+                <div class="details-field">
+                    <label>Amount :</label>
+                    <span [class.success]="operation.amount >= 0" [class.danger]="operation.amount < 0" class="value">{{operation.amount | money}}</span>
+                </div>
+                <div class="details-field">
+                    <label>Category :</label>
+                    <span class="value">{{operation.category.name}}</span>
+                </div>
+                <div class="details-field">
+                    <label>Date :</label>
+                    <span class="value">{{operation.date | date}}</span>
+                </div>
+                <div class="details-field">
+                    <label>Description :</label>
+                    <span class="value">{{operation.description }}</span>
+                </div>
+                <div class="details-field">
+                    <label>User :</label>
+                    <div class="user">
+                        <app-avatar [user]="operation.user"></app-avatar>
+                        <div class="details">
+                            <span>{{operation.user.email}}</span>
+                            <small>{{operation.user.roles}}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" (click)="activeModal.close()" class="button secondary">
+                <span class="title">Cancel</span>
+                <span class="icon-container"><i class="material-icons">reply</i></span>
+            </button>
+        </div>
+    </ng-container>
+</div>
+

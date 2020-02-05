@@ -13,7 +13,7 @@
                 </p>
                 <div class="form-fields">
                     <div class="form-field">
-                        <input id="name" formControlName="name">
+                        <input [appFormControl]="form.get('name')" id="name" formControlName="name">
                         <label for="name">Name : </label>
                         <small [appFormError]="form.get('name')" errorType="required">Field is required</small>
                     </div>

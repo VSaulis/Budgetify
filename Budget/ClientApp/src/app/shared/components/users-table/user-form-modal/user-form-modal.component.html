@@ -12,30 +12,31 @@
                     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.
                 </p>
                 <div class="form-fields">
-                    <div class="form-field inline">
-                        <input id="email" formControlName="email">
-                        <label for="email">Email : </label>
+                    <div class="form-field">
+                        <input [appFormControl]="form.get('email')" id="email" formControlName="email">
+                        <label for="email">Email :</label>
                         <small [appFormError]="form.get('email')" errorType="required">Field is required</small>
                     </div>
-                    <div class="form-field inline">
-                        <input id="firstName" formControlName="firstName">
-                        <label for="firstName">First name : </label>
+                    <div class="form-field">
+                        <input [appFormControl]="form.get('firstName')" id="firstName" formControlName="firstName">
+                        <label for="firstName">First name :</label>
                         <small [appFormError]="form.get('firstName')" errorType="required">Field is required</small>
                     </div>
-                    <div class="form-field inline">
-                        <input id="lastName" formControlName="lastName">
-                        <label for="lastName">Last name : </label>
+                    <div class="form-field">
+                        <input [appFormControl]="form.get('lastName')" id="lastName" formControlName="lastName">
+                        <label for="lastName">Last name :</label>
                         <small [appFormError]="form.get('lastName')" errorType="required">Field is required</small>
                     </div>
                     <div class="form-field inline">
                         <ng-select id="roles"
+                                   [appFormControl]="form.get('roles')"
                                    [items]="['Owner', 'FamilyMember', 'Guest']"
                                    formControlName="roles"
                                    [multiple]="true"
                                    bindLabel="title"
                                    bindValue="id">
                         </ng-select>
-                        <label for="roles">Roles: </label>
+                        <label for="roles">Roles :</label>
                         <small [appFormError]="form.get('roles')" errorType="required">Field is required</small>
                     </div>
                 </div>

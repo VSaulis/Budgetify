@@ -12,6 +12,8 @@ import {ListResponse} from '../../contracts/ListResponse';
 import {OperationFormModalComponent} from '../operations-table/operation-form-modal/operation-form-modal.component';
 import {ConfirmModalComponent} from '../confirm-modal/confirm-modal.component';
 import {ButtonClasses} from '../../enums/ButtonClasses';
+import {CategoryDetailsModalComponent} from '../categories-table/category-details-modal/category-details-modal.component';
+import {UserDetailsModalComponent} from './user-details-modal/user-details-modal.component';
 
 @Component({
     selector: 'app-users-table',
@@ -55,6 +57,11 @@ export class UsersTableComponent implements OnInit {
                 this.getUsers();
             }
         });
+    }
+
+    openUserDetailsModal(id: number): void {
+        const modalRef = this.modalService.open(UserDetailsModalComponent, {backdrop: false});
+        modalRef.componentInstance.id = id;
     }
 
     openEditUserFormModal(id: number): void {

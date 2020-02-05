@@ -17,7 +17,7 @@
                 (sort)="sortChange($event)">
             </app-datatable-header>
             <tbody>
-            <tr *ngFor="let operation of operations">
+            <tr (click)="openOperationDetailsModal(operation.id)" *ngFor="let operation of operations">
                 <td class="center">
                     <div (click)="$event.stopPropagation()"  class="table-choice choice-row">
                         <input [checked]="selectedOperationsIds.indexOf(operation.id) !== -1"
@@ -30,19 +30,11 @@
                 </td>
                 <td>{{operation.category.name}}</td>
                 <td [class.success]="operation.amount >= 0" [class.danger]="operation.amount < 0" class="center">{{operation.amount | money}}</td>
-                <td>
-                    <div class="user">
-                        <app-avatar [user]="operation.user"></app-avatar>
-                        <div class="details">
-                            <span>{{operation.user.email}}</span>
-                            <small>{{operation.user.roles}}</small>
-                        </div>
-                    </div>
-                </td>
+                <td><app-user-box [user]="operation.user"></app-user-box></td>
                 <td class="center">{{operation.date | date}}</td>
                 <td class="center">{{operation.updated | date: true}}</td>
                 <td class="center">{{operation.created | date: true}}</td>
-                <td class="center">
+                <td (click)="$event.stopPropagation()" class="center">
                     <div class="actions-container">
                         <i (click)="openEditOperationFormModal(operation.id)" class="material-icons">create</i>
                         <i (click)="openDeleteOperationFormModal(operation.id)" class="material-icons">delete</i>

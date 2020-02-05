@@ -4,11 +4,9 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './interceptors/jwt/jwt.interceptor';
 import {NgxPermissionsModule} from 'ngx-permissions';
-import {FormErrorDirective} from './directives/form-error/form-error.directive';
-import {FormControlErrorDirective} from './directives/form-control-error/form-control-error.directive';
 import {MessagesComponent} from './components/messages/messages.component';
 import {LoaderComponent} from './components/loader/loader.component';
-import {NgbDropdownModule, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDatepickerModule, NgbDropdownModule, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ConfirmModalComponent} from './components/confirm-modal/confirm-modal.component';
 import {DatatableFooterComponent} from './components/datatable/datatable-footer/datatable-footer.component';
@@ -22,12 +20,17 @@ import {UsersTableComponent} from './components/users-table/users-table.componen
 import {UserFormModalComponent} from './components/users-table/user-form-modal/user-form-modal.component';
 import {CategoryFormModalComponent} from './components/categories-table/category-form-modal/category-form-modal.component';
 import {OperationFormModalComponent} from './components/operations-table/operation-form-modal/operation-form-modal.component';
-import { AvatarComponent } from './components/avatar/avatar.component';
+import {AvatarComponent} from './components/avatar/avatar.component';
+import {CategoryDetailsModalComponent} from './components/categories-table/category-details-modal/category-details-modal.component';
+import {OperationDetailsModalComponent} from './components/operations-table/operation-details-modal/operation-details-modal.component';
+import {UserDetailsModalComponent} from './components/users-table/user-details-modal/user-details-modal.component';
+import { UserBoxComponent } from './components/user-box/user-box.component';
+import { FormControlDirective } from './directives/form-control/form-control.directive';
+import {FormErrorDirective} from './directives/form-error/form-error.directive';
+import { CategoriesFilterModalComponent } from './components/categories-table/categories-filter-modal/categories-filter-modal.component';
 
 @NgModule({
     declarations: [
-        FormErrorDirective,
-        FormControlErrorDirective,
         MessagesComponent,
         LoaderComponent,
         ConfirmModalComponent,
@@ -42,7 +45,14 @@ import { AvatarComponent } from './components/avatar/avatar.component';
         UserFormModalComponent,
         CategoryFormModalComponent,
         OperationFormModalComponent,
-        AvatarComponent
+        AvatarComponent,
+        CategoryDetailsModalComponent,
+        OperationDetailsModalComponent,
+        UserDetailsModalComponent,
+        UserBoxComponent,
+        FormControlDirective,
+        FormErrorDirective,
+        CategoriesFilterModalComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -51,13 +61,13 @@ import { AvatarComponent } from './components/avatar/avatar.component';
         NgxPermissionsModule,
         NgbModalModule,
         NgSelectModule,
-        NgbDropdownModule
+        NgbDropdownModule,
+        NgbDatepickerModule
     ],
     exports: [
         ReactiveFormsModule,
         NgxPermissionsModule,
-        FormErrorDirective,
-        FormControlErrorDirective,
+        FormControlDirective,
         MessagesComponent,
         LoaderComponent,
         NgbModalModule,
@@ -75,13 +85,18 @@ import { AvatarComponent } from './components/avatar/avatar.component';
         UserFormModalComponent,
         CategoryFormModalComponent,
         OperationFormModalComponent,
-        AvatarComponent
+        AvatarComponent,
+        UserBoxComponent,
+        FormErrorDirective
     ],
     entryComponents: [
         ConfirmModalComponent,
         UserFormModalComponent,
         CategoryFormModalComponent,
-        OperationFormModalComponent
+        OperationFormModalComponent,
+        CategoryDetailsModalComponent,
+        OperationDetailsModalComponent,
+        UserDetailsModalComponent
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

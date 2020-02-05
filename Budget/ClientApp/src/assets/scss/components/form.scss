@@ -16,11 +16,11 @@
         position: absolute;
         width: 100%;
         white-space: nowrap;
-        font-size: 11px;
-        top: 24px;
+        font-size: 13px;
+        top: 22px;
         color: $color-text-secondary;
         z-index: 1;
-        transition: top 0.2s ease;
+        transition: all 0.2s ease;
     }
 
     input, select, textarea {
@@ -34,31 +34,22 @@
         border: none;
         border-bottom: 1px solid $color-text-secondary;
 
-        &:active,
         &:focus,
-        &:hover {
-            color: $color-text;
+        &.has-value {
             border-bottom: 1px solid $color-primary;
 
             &+label {
                 color: $color-primary;
-            }
-        }
-
-        &:focus,
-        &:not(.ng-pristine),
-        &.ng-touched {
-            &+label{
                 top: 1px;
+                font-size: 11px;
             }
         }
 
-        &:not(.ng-pristine),
+        &.has-value,
         &.ng-touched {
 
             &.ng-valid {
                 border-bottom: 1px solid $color-success !important;
-                color: $color-success;
 
                 &+label {
                     color: $color-success;
@@ -67,7 +58,6 @@
 
             &.ng-invalid {
                 border-bottom: 1px solid $color-danger !important;
-                color: $color-danger;
 
                 &+label {
                     color: $color-danger;
@@ -86,11 +76,5 @@
             display: block;
         }
 
-    }
-
-    textarea {
-        resize: none;
-        padding-top: 10px;
-        height: 150px !important;
     }
 }

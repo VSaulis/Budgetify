@@ -12,6 +12,7 @@ import {ConfirmModalComponent} from '../confirm-modal/confirm-modal.component';
 import {ButtonClasses} from '../../enums/ButtonClasses';
 import {ListResponse} from '../../contracts/ListResponse';
 import {OperationFormModalComponent} from '../operations-table/operation-form-modal/operation-form-modal.component';
+import {CategoryDetailsModalComponent} from './category-details-modal/category-details-modal.component';
 
 @Component({
     selector: 'app-categories-table',
@@ -79,6 +80,11 @@ export class CategoriesTableComponent implements OnInit {
                 this.getCategories();
             }
         });
+    }
+
+    openCategoryDetailsModal(id: number): void {
+        const modalRef = this.modalService.open(CategoryDetailsModalComponent, {backdrop: false});
+        modalRef.componentInstance.id = id;
     }
 
     selectAll(checked: boolean): void {

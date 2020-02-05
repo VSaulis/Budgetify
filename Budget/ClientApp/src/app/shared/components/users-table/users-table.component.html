@@ -17,7 +17,7 @@
                 (sort)="sortChange($event)">
             </app-datatable-header>
             <tbody>
-            <tr *ngFor="let user of users">
+            <tr (click)="openUserDetailsModal(user.id)" *ngFor="let user of users">
                 <td class="center">
                     <div (click)="$event.stopPropagation()"  class="table-choice choice-row">
                         <input [checked]="selectedUsersIds.indexOf(user.id) !== -1"
@@ -39,7 +39,7 @@
                 <td>{{user.roles }}</td>
                 <td class="center">{{user.updated | date: true}}</td>
                 <td class="center">{{user.created | date: true}}</td>
-                <td class="center">
+                <td (click)="$event.stopPropagation()" class="center">
                     <div class="actions-container">
                         <i (click)="openEditUserFormModal(user.id)" class="material-icons">create</i>
                         <i (click)="openDeleteUserFormModal(user.id)" class="material-icons">delete</i>

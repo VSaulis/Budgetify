@@ -75,37 +75,6 @@ table {
                     text-align: center;
                 }
 
-                .user {
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-start;
-
-                    img {
-                        height: 40px;
-                        width: 40px;
-                        object-fit: cover;
-                        border-radius: 20px;
-                    }
-
-                    .details {
-                        display: flex;
-                        align-items: flex-start;
-                        justify-content: center;
-                        flex-direction: column;
-                        margin-left: 10px;
-
-                        span {
-                            color: $color-text;
-                            font-size: 12px;
-                        }
-
-                        small {
-                            color: $color-text-secondary;
-                            font-size: 11px;
-                        }
-                    }
-                }
-
                 .actions-container {
                     display: flex;
                     align-items: center;

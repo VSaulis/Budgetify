@@ -3,12 +3,12 @@
     <form [formGroup]="form" (ngSubmit)="login()" novalidate>
         <div class="form-fields">
             <div class="form-field">
-                <input id="email" formControlName="email">
+                <input [appFormControl]="form.get('email')" id="email" formControlName="email">
                 <label for="email">Email : </label>
                 <small [appFormError]="form.get('email')" errorType="required">Field is required</small>
             </div>
             <div class="form-field">
-                <input id="password" type="password" formControlName="password">
+                <input [appFormControl]="form.get('password')" id="password" type="password" formControlName="password">
                 <label for="password">Password : </label>
                 <small [appFormError]="form.get('password')" errorType="required">Field is required</small>
             </div>

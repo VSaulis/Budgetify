@@ -1,29 +1,41 @@
 .ng-select {
     width: 100%;
 
-    &.ng-touched.ng-invalid {
+    &:focus,
+    &.has-value,
+    &.ng-select-opened {
         .ng-select-container {
-            border-bottom: 1px solid $color-danger;
+            border-bottom: 1px solid $color-primary;
+        }
+
+        &+label {
+            color: $color-primary;
+            top: 1px;
+            font-size: 11px;
         }
     }
 
-    &:disabled {
-        opacity: 0.8;
-    }
+    &.has-value,
+    &.ng-touched {
 
-    &:hover,
-    &.ng-select-opened,
-    &.ng-select-focused {
-        &:not(.ng-select-disabled) {
+        &.ng-valid {
+
             .ng-select-container {
-                border-bottom: 1px solid $color-primary;
+                border-bottom: 1px solid $color-success !important;
+            }
 
-                .ng-value-container {
+            &+label {
+                color: $color-success;
+            }
+        }
 
-                    .ng-value {
-                        color: $color-text;
-                    }
-                }
+        &.ng-invalid {
+            .ng-select-container {
+                border-bottom: 1px solid $color-danger !important;
+            }
+
+            &+label {
+                color: $color-danger;
             }
         }
     }
@@ -84,6 +96,7 @@
     .ng-select-container {
         font-size: 13px;
         width: 100%;
+        z-index: 2;
         height: 35px;
         background-color: transparent;
         color: $color-text;
@@ -115,7 +128,7 @@
                 }
 
                 .ng-value-label {
-                    font-size: 11px;
+                    font-size: 13px;
                     color: $color-text;
                     display: flex;
                     align-items: center;
@@ -126,6 +139,7 @@
 
             .ng-input {
                 height: 100%;
+                padding-right: 50px;
 
                 > input {
                     box-sizing: border-box !important;

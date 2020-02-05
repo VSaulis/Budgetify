@@ -16,10 +16,6 @@ export class AvatarComponent implements OnInit {
     color: string;
     initials: string;
 
-    constructor() {
-        console.log(this.size);
-    }
-
     ngOnInit() {
         this.getColor();
         this.getInitials();

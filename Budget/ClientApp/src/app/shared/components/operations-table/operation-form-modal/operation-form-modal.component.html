@@ -12,28 +12,30 @@
                     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.
                 </p>
                 <div class="form-field">
-                    <input id="amount" type="number" formControlName="amount">
-                    <label for="amount">Amount : </label>
+                    <input [appFormControl]="form.get('amount')" id="amount" type="number" formControlName="amount">
+                    <label for="amount">Amount :</label>
                     <small [appFormError]="form.get('amount')" errorType="required">Field is required</small>
                 </div>
                 <div class="form-fields">
-                    <div class="form-field inline">
-                        <input id="date" formControlName="date">
-                        <label for="date">Date : </label>
+                    <div class="form-field">
+                        <input [appFormControl]="form.get('date')" autocomplete="off" (click)="datepicker.toggle()" ngbDatepicker #datepicker="ngbDatepicker" id="date" formControlName="date">
+                        <label for="date">Date :</label>
                         <small [appFormError]="form.get('date')" errorType="required">Field is required</small>
                     </div>
-                    <div class="form-field inline">
+                    <div class="form-field">
                         <ng-select id="categories"
+                                   [appFormControl]="form.get('categoryId')"
                                    [items]="categories"
                                    formControlName="categoryId"
                                    bindLabel="name"
                                    bindValue="id">
                         </ng-select>
-                        <label for="categories">Category: </label>
+                        <label for="categories">Category :</label>
                         <small [appFormError]="form.get('categoryId')" errorType="required">Field is required</small>
                     </div>
-                    <div class="form-field inline">
+                    <div class="form-field">
                         <ng-select id="users"
+                                   [appFormControl]="form.get('userId')"
                                    [items]="users"
                                    formControlName="userId"
                                    bindLabel="email"
@@ -42,9 +44,9 @@
                         <label for="users">User: </label>
                         <small [appFormError]="form.get('userId')" errorType="required">Field is required</small>
                     </div>
-                    <div class="form-field inline">
-                        <input id="description" formControlName="description" />
-                        <label for="description">Description : </label>
+                    <div class="form-field">
+                        <input [appFormControl]="form.get('description')" id="description" formControlName="description">
+                        <label for="description">Description :</label>
                         <small [appFormError]="form.get('description')" errorType="required">Field is required</small>
                     </div>
                 </div>
