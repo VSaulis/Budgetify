@@ -1,6 +1,6 @@
-﻿namespace Budget.Contracts.Category
+﻿namespace Budget.Models.Filters
 {
-    public class ListCategoriesRequest : ListRequest
+    public class CategoriesFilter : BaseFilter
     {
         public decimal? TotalFrom { get; set; }
         public decimal? TotalTo { get; set; }

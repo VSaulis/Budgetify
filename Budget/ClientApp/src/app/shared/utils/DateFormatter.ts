@@ -1,6 +1,8 @@
+import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
+
 export class DateFormatter {
 
-    static toDateString(bootstrapDateObject): string {
+    static toDateString(bootstrapDateObject: NgbDate): string {
         if (!bootstrapDateObject) {
             return null;
         }

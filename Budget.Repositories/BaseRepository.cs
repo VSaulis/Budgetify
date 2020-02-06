@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using Budget.Constants.Enums;
 using Budget.Contracts;
 using Budget.Models;
+using Budget.Models.Filters;
 using Budget.Models.Repositories;
 using Budget.Repositories.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace Budget.Repositories
 {
-    public abstract class BaseRepository<TModel> : IBaseRepository<TModel> where TModel : BaseModel
+    public abstract class BaseRepository<TModel, TFilter> : IBaseRepository<TModel, TFilter> where TModel : BaseModel where TFilter : BaseFilter
     {
         protected readonly SqlContext Context;
 
@@ -45,31 +46,32 @@ namespace Budget.Repositories
             return await models.FirstOrDefaultAsync(filter);
         }
 
-        public async Task<List<TModel>> GetListAsync(Expression<Func<TModel, bool>> filter = null, Sort<TModel> sort = null, Paging paging = null)
+        public async Task<List<TModel>> GetListAsync(TFilter filter = null, Sort sort = null, Paging paging = null)
         {
             IQueryable<TModel> models = Context.Set<TModel>();
             models = FormatQuery(models);
-
-            if (filter != null) models = models.Where(filter);
-
-            if (sort != null)
-            {
-                if (sort.Type == SortTypes.Asc) models = models.OrderBy(sort.Predicate);
-                if (sort.Type == SortTypes.Desc) models = models.OrderByDescending(sort.Predicate);
-            }
-            else models = models.OrderByDescending(model => model.Created);
-
-            if (paging != null) models = models.Skip(paging.Offset).Take(paging.Limit);
-
+            models = ApplyFilter(models, filter);
+            models = ApplySort(models, sort);
+            models = ApplyPaging(models, paging);
             return await models.ToListAsync();
         }
 
-        public async Task<int> CountAsync(Expression<Func<TModel, bool>> filter = null)
+        public async Task<int> CountAsync(TFilter filter = null)
         {
-            if (filter != null) return await Context.Set<TModel>().CountAsync(filter);
-            return await Context.Set<TModel>().CountAsync();
+            IQueryable<TModel> models = Context.Set<TModel>();
+            models = FormatQuery(models);
+            models = ApplyFilter(models, filter);
+            return await models.CountAsync();
         }
 
+        private IQueryable<TModel> ApplyPaging(IQueryable<TModel> query, Paging paging)
+        {
+            if (paging != null) query = query.Skip(paging.Offset).Take(paging.Limit);
+            return query;
+        }
+        
         protected abstract IQueryable<TModel> FormatQuery(IQueryable<TModel> query);
+        protected abstract IQueryable<TModel> ApplyFilter(IQueryable<TModel> query, TFilter filter);
+        protected abstract IQueryable<TModel> ApplySort(IQueryable<TModel> query, Sort sort);
     }
 }

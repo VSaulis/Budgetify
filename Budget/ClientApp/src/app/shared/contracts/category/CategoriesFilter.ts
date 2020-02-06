@@ -1,3 +1,4 @@
 export interface CategoriesFilter {
-    name: string;
+    totalFrom?: number;
+    totalTo?: number;
 }

@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Budget.Models.Filters;
 
 namespace Budget.Models.Repositories
 {
-    public interface IOperationRepository : IBaseRepository<Operation> { }
+    public interface IOperationRepository : IBaseRepository<Operation, OperationsFilter>
+    {
+    }
 }

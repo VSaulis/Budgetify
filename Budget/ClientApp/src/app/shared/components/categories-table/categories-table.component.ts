@@ -11,8 +11,10 @@ import {MessagesTypes} from '../../enums/MessagesTypes';
 import {ConfirmModalComponent} from '../confirm-modal/confirm-modal.component';
 import {ButtonClasses} from '../../enums/ButtonClasses';
 import {ListResponse} from '../../contracts/ListResponse';
-import {OperationFormModalComponent} from '../operations-table/operation-form-modal/operation-form-modal.component';
 import {CategoryDetailsModalComponent} from './category-details-modal/category-details-modal.component';
+import {CategoriesFilterModalComponent} from './categories-filter-modal/categories-filter-modal.component';
+import {CategoriesFilter} from '../../contracts/category/CategoriesFilter';
+import {SortTypes} from '../../enums/SortTypes';
 
 @Component({
     selector: 'app-categories-table',
@@ -21,17 +23,19 @@ import {CategoryDetailsModalComponent} from './category-details-modal/category-d
 })
 export class CategoriesTableComponent implements OnInit {
 
+    filter: CategoriesFilter = {};
+    paging: Paging = {limit: 20, offset: 0};
+    sort: Sort = {column: 'created', type: SortTypes.desc};
+
     categories: CategoriesListItem[] = [];
     selectedCategoriesIds: number[] = [];
     categoriesCount = 0;
     colspan = 7;
-    paging: Paging;
-    sort: Sort;
     isLoading = true;
     columns: DatatableColumn[] = [
         {id: 'name', name: 'Name', sortable: true},
         {id: 'total', name: 'Total', sortable: true, class: 'center medium-column'},
-        {id: 'user.email', name: 'Created by', sortable: true, class: 'user-column'},
+        {id: 'user', name: 'Created by', sortable: true, class: 'user-column'},
         {id: 'updated', name: 'Updated', sortable: true, class: 'center medium-column'},
         {id: 'created', name: 'Created', sortable: true, class: 'center medium-column'}
     ];
@@ -82,6 +86,17 @@ export class CategoriesTableComponent implements OnInit {
         });
     }
 
+    openFilterCategoriesModal(): void {
+        const modalRef = this.modalService.open(CategoriesFilterModalComponent, {backdrop: false, windowClass: 'wide-modal'});
+        modalRef.componentInstance.filter = this.filter;
+
+        modalRef.result.then((result) => {
+            if (result) {
+                this.filterChange(result);
+            }
+        });
+    }
+
     openCategoryDetailsModal(id: number): void {
         const modalRef = this.modalService.open(CategoryDetailsModalComponent, {backdrop: false});
         modalRef.componentInstance.id = id;
@@ -107,6 +122,7 @@ export class CategoriesTableComponent implements OnInit {
 
     sortChange(sort: Sort): void {
         this.sort = sort;
+        this.paging = {...this.paging, offset: 0};
         this.getCategories();
     }
 
@@ -115,9 +131,15 @@ export class CategoriesTableComponent implements OnInit {
         this.getCategories();
     }
 
+    filterChange(filter: CategoriesFilter): void {
+        this.filter = filter;
+        this.paging = {...this.paging, offset: 0};
+        this.getCategories();
+    }
+
     private getCategories(): void {
         this.isLoading = true;
-        this.categoryService.getCategories(null, this.sort, this.paging).subscribe((categoriesListResponse: ListResponse<CategoriesListItem>) => {
+        this.categoryService.getCategories(this.filter, this.sort, this.paging).subscribe((categoriesListResponse: ListResponse<CategoriesListItem>) => {
             this.categories = categoriesListResponse.result;
             this.categoriesCount = categoriesListResponse.count;
             this.isLoading = false;

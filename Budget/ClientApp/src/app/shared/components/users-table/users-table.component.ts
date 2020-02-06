@@ -14,6 +14,7 @@ import {ConfirmModalComponent} from '../confirm-modal/confirm-modal.component';
 import {ButtonClasses} from '../../enums/ButtonClasses';
 import {CategoryDetailsModalComponent} from '../categories-table/category-details-modal/category-details-modal.component';
 import {UserDetailsModalComponent} from './user-details-modal/user-details-modal.component';
+import {SortTypes} from '../../enums/SortTypes';
 
 @Component({
     selector: 'app-users-table',
@@ -22,11 +23,12 @@ import {UserDetailsModalComponent} from './user-details-modal/user-details-modal
 })
 export class UsersTableComponent implements OnInit {
 
+    paging: Paging = {limit: 20, offset: 0};
+    sort: Sort = {column: 'created', type: SortTypes.desc};
+
     users: UsersListItem[] = [];
     usersCount = 0;
     colspan = 9;
-    paging: Paging;
-    sort: Sort;
     isLoading = true;
     selectedUsersIds: number[] = [];
     columns: DatatableColumn[] = [
@@ -97,6 +99,7 @@ export class UsersTableComponent implements OnInit {
 
     sortChange(sort: Sort): void {
         this.sort = sort;
+        this.paging = {...this.paging, offset: 0};
         this.getUsers();
     }
 

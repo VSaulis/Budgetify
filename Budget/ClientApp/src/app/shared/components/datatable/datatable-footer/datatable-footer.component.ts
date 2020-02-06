@@ -1,6 +1,5 @@
-import {Component, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {Paging} from '../../../contracts/Paging';
-import {BehaviorSubject} from 'rxjs';
 
 @Component({
     selector: 'app-datatable-footer',
@@ -11,18 +10,22 @@ export class DatatableFooterComponent implements OnChanges {
 
     @Input() colspan: number;
     @Input() count: number;
-
-    @Output() paging = new BehaviorSubject<Paging>({
-        limit: 20,
-        offset: 0
-    });
+    @Input() paging: Paging;
+    @Output() pagingChange = new EventEmitter<Paging>();
 
     pagesCount = 0;
     currentPage = 1;
 
     ngOnChanges(changes: SimpleChanges): void {
-        this.count = changes.count.currentValue;
-        this.pagesCount = Math.ceil(this.count / this.paging.value.limit);
+        if (changes.paging) {
+            this.paging = changes.paging.currentValue;
+            this.currentPage = (this.paging.offset % this.paging.limit) + 1;
+        }
+
+        if (changes.count) {
+            this.count = changes.count.currentValue;
+            this.pagesCount = Math.ceil(this.count / this.paging.limit);
+        }
     }
 
     range(): number[] {
@@ -35,9 +38,8 @@ export class DatatableFooterComponent implements OnChanges {
 
     setPage(page: number): void {
         this.currentPage = page;
-        const paging = this.paging.value;
-        paging.offset = (page - 1) * this.paging.value.limit;
-        this.paging.next(paging);
+        this.paging.offset = (page - 1) * this.paging.limit;
+        this.pagingChange.emit(this.paging);
     }
 
 }

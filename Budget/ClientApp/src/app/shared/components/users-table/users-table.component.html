@@ -14,7 +14,8 @@
                 [rowsCount]="users.length"
                 [selectedRowsCount]="selectedUsersIds.length"
                 (selectAll)="selectAll($event)"
-                (sort)="sortChange($event)">
+                [sort]="sort"
+                (sortChange)="sortChange($event)">
             </app-datatable-header>
             <tbody>
             <tr (click)="openUserDetailsModal(user.id)" *ngFor="let user of users">
@@ -51,7 +52,8 @@
             </tr>
             </tbody>
             <app-datatable-footer
-                (paging)="pagingChange($event)"
+                [paging]="paging"
+                (pagingChange)="pagingChange($event)"
                 [colspan]="colspan"
                 [count]="usersCount">
             </app-datatable-footer>

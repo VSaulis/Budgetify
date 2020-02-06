@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Budget.Contracts;
+using Budget.Models.Filters;
 
 namespace Budget.Models.Repositories
 {
-    public interface IBaseRepository<TModel> where TModel : BaseModel
+    public interface IBaseRepository<TModel, in TFilter> where TModel : BaseModel where TFilter : BaseFilter
     {
         Task AddAsync(TModel model);
 
@@ -16,8 +17,8 @@ namespace Budget.Models.Repositories
 
         Task<TModel> GetAsync(Expression<Func<TModel, bool>> filter);
 
-        Task<List<TModel>> GetListAsync(Expression<Func<TModel, bool>> filter = null, Sort<TModel> sort = null, Paging paging = null);
+        Task<List<TModel>> GetListAsync(TFilter filter = null, Sort sort = null, Paging paging = null);
 
-        Task<int> CountAsync(Expression<Func<TModel, bool>> filter = null);
+        Task<int> CountAsync(TFilter filter = null);
     }
 }

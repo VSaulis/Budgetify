@@ -3,6 +3,7 @@ import {DatatableColumn} from '../../../models/datatable/DatatableColumn';
 import {Sort} from '../../../contracts/Sort';
 import {SortTypes} from '../../../enums/SortTypes';
 import {BehaviorSubject} from 'rxjs';
+import {Paging} from '../../../contracts/Paging';
 
 @Component({
     selector: 'app-datatable-header',
@@ -16,26 +17,21 @@ export class DatatableHeaderComponent {
     @Input() rowsCount: number;
     @Input() selectedRowsCount: number;
     @Input() colspan: number;
+    @Input() sort: Sort;
 
-    @Output() sort = new BehaviorSubject<Sort>({
-        type: SortTypes.desc,
-        column: 'created'
-    });
-
+    @Output() sortChange = new EventEmitter<Sort>();
     @Output() selectAll = new EventEmitter<boolean>();
 
     sortTypes = SortTypes;
 
     updateSort(column: string): void {
-        const sort = this.sort.value;
-
-        if (sort.column === column) {
-            sort.type = sort.type === SortTypes.desc ? SortTypes.asc : SortTypes.desc;
+        if (this.sort.column === column) {
+            this.sort.type = this.sort.type === SortTypes.desc ? SortTypes.asc : SortTypes.desc;
         } else {
-            sort.type = SortTypes.desc;
+            this.sort.type = SortTypes.desc;
         }
 
-        sort.column = column;
-        this.sort.next(sort);
+        this.sort.column = column;
+        this.sortChange.emit(this.sort);
     }
 }

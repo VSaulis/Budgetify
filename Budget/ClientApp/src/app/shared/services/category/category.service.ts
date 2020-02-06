@@ -13,6 +13,7 @@ import {Category} from '../../models/category/Category';
 import {CategoriesListItem} from '../../models/category/CategoriesListItem';
 import {AddCategoryRequest} from '../../contracts/category/AddCategoryRequest';
 import {EditCategoryRequest} from '../../contracts/category/EditCategoryRequest';
+import {SortTypes} from '../../enums/SortTypes';
 
 @Injectable({
     providedIn: 'root'
@@ -28,19 +29,26 @@ export class CategoryService {
         const params: any = {};
 
         if (filter) {
-            if (filter.name) {
-                params.name = filter.name;
+            if (filter.totalFrom) {
+                params.totalFrom = filter.totalFrom;
+            }
+
+            if (filter.totalTo) {
+                params.totalTo = filter.totalTo;
             }
         }
 
         if (sort) {
             if (sort.column) {
-                params.sortColumn = StringHelper.capitalize(sort.column);
+                params.sortColumn = sort.column;
             }
 
             if (sort.type) {
                 params.sortType = sort.type;
             }
+        } else {
+            params.sortColumn = 'created';
+            params.sortType = SortTypes.desc;
         }
 
         if (paging) {
@@ -51,6 +59,9 @@ export class CategoryService {
             if (paging.offset || paging.offset === 0) {
                 params.offset = paging.offset;
             }
+        } else {
+            params.limit = 20;
+            params.offset = 0;
         }
 
         return this.http.get<ListResponse<CategoriesListItem>>(this.categoriesUrl, {params});

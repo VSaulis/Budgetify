@@ -8,9 +8,9 @@ using Budget.Contracts;
 using Budget.Contracts.User;
 using Budget.Dtos.User;
 using Budget.Models;
+using Budget.Models.Filters;
 using Budget.Models.Repositories;
 using Budget.Models.Services;
-using Budget.System.Helpers;
 
 namespace Budget.Services
 {
@@ -26,12 +26,12 @@ namespace Budget.Services
             _mapper = mapper;
             _userRepository = userRepository;
         }
-        
+
         public async Task<BaseResponse> AddAsync(AddUserRequest request)
         {
             var user = await _userRepository.GetAsync(user => user.Email == request.Email);
             if (user != null) return new BaseResponse("User with this email is already exist");
-            
+
             user = _mapper.Map<AddUserRequest, User>(request);
             await _userRepository.AddAsync(user);
             await _unitOfWork.SaveChangesAsync();
@@ -42,12 +42,12 @@ namespace Budget.Services
         {
             var user = await _userRepository.GetAsync(user => user.Id == request.Id);
             if (user == null) return new BaseResponse("User is not found");
-            
+
             user.Email = request.Email;
             user.FirstName = request.FirstName;
             user.LastName = request.LastName;
             user.Roles = request.Roles.Select(Enum.Parse<Roles>).ToList();
-            
+
             _userRepository.Update(user);
             await _unitOfWork.SaveChangesAsync();
             return new BaseResponse();
@@ -57,7 +57,7 @@ namespace Budget.Services
         {
             var user = await _userRepository.GetAsync(user => user.Id == id);
             if (user == null) return new BaseResponse("User is not found");
-            
+
             _userRepository.Delete(user);
             await _unitOfWork.SaveChangesAsync();
             return new BaseResponse();
@@ -70,7 +70,7 @@ namespace Budget.Services
             var userDto = _mapper.Map<User, UserDto>(user);
             return new ResultResponse<UserDto>(userDto);
         }
-        
+
         public async Task<BaseResponse> DeleteListAsync(DeleteUsersRequest request)
         {
             foreach (var userId in request.UsersIds)
@@ -79,18 +79,19 @@ namespace Budget.Services
                 if (user == null) return new BaseResponse(message: $"User with id : {userId} is not found");
                 _userRepository.Delete(user);
             }
-            
+
             await _unitOfWork.SaveChangesAsync();
             return new BaseResponse();
         }
 
         public async Task<ListResponse<UsersListItemDto>> ListAsync(ListUsersRequest request)
         {
-            var paging = ListHelper.FormatPaging(request);
-            var sort = ListHelper.FormatSort<User>(request);
+            var paging = _mapper.Map<ListUsersRequest, Paging>(request);
+            var sort = _mapper.Map<ListUsersRequest, Sort>(request);
+            var filter = _mapper.Map<ListUsersRequest, UsersFilter>(request);
 
-            var users = await _userRepository.GetListAsync(null, sort, paging);
-            var usersCount = await _userRepository.CountAsync(null);
+            var users = await _userRepository.GetListAsync(filter, sort, paging);
+            var usersCount = await _userRepository.CountAsync(filter);
 
             var usersDtosList = _mapper.Map<List<User>, List<UsersListItemDto>>(users);
             return new ListResponse<UsersListItemDto>(usersDtosList, usersCount);

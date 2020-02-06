@@ -13,6 +13,7 @@ import {AddUserRequest} from '../../contracts/user/AddUserRequest';
 import {EditUserRequest} from '../../contracts/user/EditUserRequest';
 import {map} from 'rxjs/operators';
 import {StringHelper} from '../../utils/StringHelper';
+import {SortTypes} from '../../enums/SortTypes';
 
 @Injectable({
     providedIn: 'root'
@@ -35,12 +36,15 @@ export class UserService {
 
         if (sort) {
             if (sort.column) {
-                params.sortColumn = StringHelper.capitalize(sort.column);
+                params.sortColumn = sort.column;
             }
 
             if (sort.type) {
                 params.sortType = sort.type;
             }
+        } else {
+            params.sortColumn = 'created';
+            params.sortType = SortTypes.desc;
         }
 
         if (paging) {
@@ -51,6 +55,9 @@ export class UserService {
             if (paging.offset || paging.offset === 0) {
                 params.offset = paging.offset;
             }
+        } else {
+            params.limit = 20;
+            params.offset = 0;
         }
 
         return this.http.get<ListResponse<UsersListItem>>(this.usersUrl, {params});

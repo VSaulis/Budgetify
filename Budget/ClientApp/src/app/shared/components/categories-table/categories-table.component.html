@@ -2,7 +2,7 @@
     <div class="box-header">
         <h4>Categories</h4>
         <div>
-            <i (click)="openAddCategoryFormModal()" class="material-icons">filter_list</i>
+            <i (click)="openFilterCategoriesModal()" class="material-icons">filter_list</i>
             <i (click)="openAddCategoryFormModal()" class="material-icons">add</i>
         </div>
     </div>
@@ -15,7 +15,8 @@
                 [rowsCount]="categories.length"
                 [selectedRowsCount]="selectedCategoriesIds.length"
                 (selectAll)="selectAll($event)"
-                (sort)="sortChange($event)">
+                (sortChange)="sortChange($event)"
+                [sort]="sort">
             </app-datatable-header>
             <tbody>
             <tr (click)="openCategoryDetailsModal(category.id)" *ngFor="let category of categories">
@@ -46,7 +47,8 @@
             </tr>
             </tbody>
             <app-datatable-footer
-                (paging)="pagingChange($event)"
+                [paging]="paging"
+                (onPagingChange)="pagingChange($event)"
                 [colspan]="colspan"
                 [count]="categoriesCount">
             </app-datatable-footer>

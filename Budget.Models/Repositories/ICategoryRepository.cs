@@ -1,4 +1,8 @@
-﻿namespace Budget.Models.Repositories
+﻿using Budget.Models.Filters;
+
+namespace Budget.Models.Repositories
 {
-    public interface ICategoryRepository : IBaseRepository<Category> { }
+    public interface ICategoryRepository : IBaseRepository<Category, CategoriesFilter>
+    {
+    }
 }

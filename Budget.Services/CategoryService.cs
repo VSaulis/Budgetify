@@ -5,10 +5,9 @@ using Budget.Contracts;
 using Budget.Contracts.Category;
 using Budget.Dtos.Category;
 using Budget.Models;
+using Budget.Models.Filters;
 using Budget.Models.Repositories;
 using Budget.Models.Services;
-using Budget.System.Helpers;
-using NotImplementedException = System.NotImplementedException;
 
 namespace Budget.Services
 {
@@ -19,7 +18,8 @@ namespace Budget.Services
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper, IAuthenticationService authenticationService, IUnitOfWork unitOfWork)
+        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper,
+            IAuthenticationService authenticationService, IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _authenticationService = authenticationService;
@@ -41,7 +41,7 @@ namespace Budget.Services
         {
             var category = await _categoryRepository.GetAsync(category => category.Id == request.Id);
             if (category == null) return new BaseResponse("Category is not found");
-            
+
             category.Name = request.Name;
             _categoryRepository.Update(category);
             await _unitOfWork.SaveChangesAsync();
@@ -52,7 +52,7 @@ namespace Budget.Services
         {
             var category = await _categoryRepository.GetAsync(category => category.Id == id);
             if (category == null) return new BaseResponse("Category is not found");
-            
+
             _categoryRepository.Delete(category);
             await _unitOfWork.SaveChangesAsync();
             return new BaseResponse();
@@ -66,7 +66,7 @@ namespace Budget.Services
                 if (category == null) return new BaseResponse("Category is not found");
                 _categoryRepository.Delete(category);
             }
-            
+
             await _unitOfWork.SaveChangesAsync();
             return new BaseResponse();
         }
@@ -75,19 +75,20 @@ namespace Budget.Services
         {
             var category = await _categoryRepository.GetAsync(category => category.Id == id);
             if (category == null) return new ResultResponse<CategoryDto>("Category is not found");
-            
+
             var categoryDto = _mapper.Map<Category, CategoryDto>(category);
             return new ResultResponse<CategoryDto>(categoryDto);
         }
 
         public async Task<ListResponse<CategoriesListItemDto>> ListAsync(ListCategoriesRequest request)
         {
-            var paging = ListHelper.FormatPaging(request);
-            var sort = ListHelper.FormatSort<Category>(request);
+            var paging = _mapper.Map<ListCategoriesRequest, Paging>(request);
+            var sort = _mapper.Map<ListCategoriesRequest, Sort>(request);
+            var filter = _mapper.Map<ListCategoriesRequest, CategoriesFilter>(request);
 
-            var categories = await _categoryRepository.GetListAsync(null, sort, paging);
-            var categoriesCount = await _categoryRepository.CountAsync(null);
-            
+            var categories = await _categoryRepository.GetListAsync(filter, sort, paging);
+            var categoriesCount = await _categoryRepository.CountAsync(filter);
+
             var categoriesDtosList = _mapper.Map<List<Category>, List<CategoriesListItemDto>>(categories);
             return new ListResponse<CategoriesListItemDto>(categoriesDtosList, categoriesCount);
         }

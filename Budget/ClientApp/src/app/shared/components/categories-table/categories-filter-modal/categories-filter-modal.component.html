@@ -1,1 +1,29 @@
-<p>categories-filter-modal works!</p>
+<span (click)="activeModal.close()" class="close-icon"><i class="material-icons">clear</i></span>
+<div class="modal-container">
+    <form (ngSubmit)="apply()" class="form" [formGroup]="form">
+        <div class="modal-header">
+            <h3>Categories filter</h3>
+        </div>
+        <div class="modal-body">
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.
+            </p>
+            <div class="form-fields">
+                <app-input [abstractControl]="form.get('totalFrom')" type="number" label="Total from" formControlName="totalFrom"></app-input>
+                <app-input [abstractControl]="form.get('totalTo')" type="number" label="Total to" formControlName="totalTo"></app-input>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" (click)="reset()" class="button secondary">
+                <span class="title">Reset</span>
+                <span class="icon-container"><i class="material-icons">reply</i></span>
+            </button>
+            <button ngbAutofocus type="submit" class="button primary">
+                <span class="title">Apply</span>
+                <span class="icon-container"><i class="material-icons">save_alt</i></span>
+            </button>
+        </div>
+    </form>
+</div>
+

@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Budget.Contracts;
 using Budget.Contracts.Operation;
 using Budget.Dtos.Operation;
 using Budget.Models;
+using Budget.Models.Filters;
 using Budget.Models.Repositories;
 using Budget.Models.Services;
-using Budget.System.Helpers;
 
 namespace Budget.Services
 {
@@ -83,26 +81,15 @@ namespace Budget.Services
 
         public async Task<ListResponse<OperationsListItemDto>> ListAsync(ListOperationsRequest request)
         {
-            var paging = ListHelper.FormatPaging(request);
-            var sort = ListHelper.FormatSort<Operation>(request);
-            var filter = FormatFilter(request);
+            var paging = _mapper.Map<ListOperationsRequest, Paging>(request);
+            var sort = _mapper.Map<ListOperationsRequest, Sort>(request);
+            var filter = _mapper.Map<ListOperationsRequest, OperationsFilter>(request);
 
-            var operations = await _operationRepository.GetListAsync(null, sort, paging);
+            var operations = await _operationRepository.GetListAsync(filter, sort, paging);
             var operationsCount = await _operationRepository.CountAsync(filter);
 
             var operationsDtosList = _mapper.Map<List<Operation>, List<OperationsListItemDto>>(operations);
             return new ListResponse<OperationsListItemDto>(operationsDtosList, operationsCount);
-        }
-
-        private Expression<Func<Operation, bool>> FormatFilter(ListOperationsRequest request)
-        {
-            return operation =>
-                request.DateTo.HasValue && operation.Date <= request.DateTo.Value &&
-                request.DateFrom.HasValue && operation.Date >= request.DateTo.Value &&
-                request.AmountFrom.HasValue && operation.Amount >= request.AmountFrom.Value &&
-                request.AmountTo.HasValue && operation.Amount <= request.AmountTo.Value &&
-                request.CategoriesIds != null && request.CategoriesIds.Contains(operation.CategoryId) &&
-                request.UsersIds != null && request.UsersIds.Contains(operation.UserId);
         }
     }
 }

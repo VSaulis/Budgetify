@@ -10,14 +10,14 @@
         </div>
     </th>
     <ng-container *ngFor="let column of columns">
-        <th [class.active]="column.sortable && sort.value.column === column.id"
+        <th [class.active]="column.sortable && sort.column === column.id"
             (click)="column.sortable && updateSort(column.id)"
             [class.sortable]="column.sortable"
             [ngClass]="column.class">
             <div>
                 <span>{{column.name}}</span>
-                <i *ngIf="sort.value.column === column.id && sort.value.type === sortTypes.desc" class="material-icons">arrow_drop_down</i>
-                <i *ngIf="sort.value.column === column.id && sort.value.type === sortTypes.asc" class="material-icons">arrow_drop_up</i>
+                <i *ngIf="sort.column === column.id && sort.type === sortTypes.desc" class="material-icons">arrow_drop_down</i>
+                <i *ngIf="sort.column === column.id && sort.type === sortTypes.asc" class="material-icons">arrow_drop_up</i>
             </div>
         </th>
     </ng-container>

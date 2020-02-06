@@ -53,8 +53,8 @@ export class OperationsFilterModalComponent implements OnInit {
 
     private mapFilter(): OperationsFilter {
         return {
-            dateFrom: DateFormatter.toDateString(this.form.value.dateFrom),
-            dateTo: DateFormatter.toDateString(this.form.value.dateTo),
+            dateFrom: this.form.value.dateFrom,
+            dateTo: this.form.value.dateTo,
             amountFrom: this.form.value.amountFrom,
             amountTo: this.form.value.amountTo,
             categoriesIds: this.form.value.categoriesIds,
@@ -63,8 +63,8 @@ export class OperationsFilterModalComponent implements OnInit {
     }
 
     private setForm(filter: OperationsFilter): void {
-        this.form.get('dateFrom').setValue(filter.dateFrom ? DateFormatter.toBootstrapObject(filter.dateFrom) : null);
-        this.form.get('dateTo').setValue(filter.dateTo ? DateFormatter.toBootstrapObject(filter.dateTo) : null);
+        this.form.get('dateFrom').setValue(filter.dateFrom ? filter.dateFrom : null);
+        this.form.get('dateTo').setValue(filter.dateTo ? filter.dateTo : null);
         this.form.get('amountFrom').setValue(filter.amountFrom ? filter.amountFrom : null);
         this.form.get('amountTo').setValue(filter.amountTo ? filter.amountTo : null);
         this.form.get('categoriesIds').setValue(filter.categoriesIds ? filter.categoriesIds : null);

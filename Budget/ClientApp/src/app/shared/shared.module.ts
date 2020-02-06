@@ -109,7 +109,8 @@ import { SelectComponent } from './components/form/select/select.component';
         CategoryDetailsModalComponent,
         OperationDetailsModalComponent,
         UserDetailsModalComponent,
-        OperationsFilterModalComponent
+        OperationsFilterModalComponent,
+        CategoriesFilterModalComponent
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

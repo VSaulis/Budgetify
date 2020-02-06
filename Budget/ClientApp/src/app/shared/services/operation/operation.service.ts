@@ -14,6 +14,7 @@ import {EditOperationRequest} from '../../contracts/operation/EditOperationReque
 import {AddOperationRequest} from '../../contracts/operation/AddOperationRequest';
 import {Operation} from '../../models/operation/Operation';
 import {ProfileService} from '../profile/profile.service';
+import {SortTypes} from '../../enums/SortTypes';
 
 @Injectable({
     providedIn: 'root'
@@ -57,12 +58,15 @@ export class OperationService {
 
         if (sort) {
             if (sort.column) {
-                params.sortColumn = StringHelper.capitalize(sort.column);
+                params.sortColumn = sort.column;
             }
 
             if (sort.type) {
                 params.sortType = sort.type;
             }
+        } else {
+            params.sortColumn = 'created';
+            params.sortType = SortTypes.desc;
         }
 
         if (paging) {
@@ -73,6 +77,9 @@ export class OperationService {
             if (paging.offset || paging.offset === 0) {
                 params.offset = paging.offset;
             }
+        } else {
+            params.limit = 20;
+            params.offset = 0;
         }
 
         return this.http.get<ListResponse<OperationsListItem>>(this.operationsUrl, {params});

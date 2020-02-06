@@ -15,6 +15,7 @@ import {CategoryDetailsModalComponent} from '../categories-table/category-detail
 import {OperationDetailsModalComponent} from './operation-details-modal/operation-details-modal.component';
 import {OperationsFilterModalComponent} from './operations-filter-modal/operations-filter-modal.component';
 import {OperationsFilter} from '../../contracts/operation/OperationsFilter';
+import {SortTypes} from '../../enums/SortTypes';
 
 @Component({
     selector: 'app-operations-table',
@@ -23,16 +24,17 @@ import {OperationsFilter} from '../../contracts/operation/OperationsFilter';
 })
 export class OperationsTableComponent implements OnInit {
 
+    filter: OperationsFilter = {};
+    paging: Paging = {limit: 20, offset: 0};
+    sort: Sort = {column: 'created', type: SortTypes.desc};
+
     operations: OperationsListItem[] = [];
     selectedOperationsIds: number[] = [];
     operationsCount = 0;
     colspan = 8;
-    paging: Paging;
-    sort: Sort;
-    filter: OperationsFilter = {};
     isLoading = true;
     columns: DatatableColumn[] = [
-        {id: 'category.name', name: 'Category', sortable: true},
+        {id: 'category', name: 'Category', sortable: true},
         {id: 'amount', name: 'Amount', sortable: true, class: 'center medium-column'},
         {id: 'user', name: 'User', sortable: true, class: 'user-column'},
         {id: 'date', name: 'Date', sortable: true, class: 'center medium-column'},
@@ -69,6 +71,7 @@ export class OperationsTableComponent implements OnInit {
 
     sortChange(sort: Sort): void {
         this.sort = sort;
+        this.paging = {...this.paging, offset: 0};
         this.getOperations();
     }
 
@@ -79,6 +82,7 @@ export class OperationsTableComponent implements OnInit {
 
     filterChange(filter: OperationsFilter): void {
         this.filter = filter;
+        this.paging = {...this.paging, offset: 0};
         this.getOperations();
     }
 
@@ -94,7 +98,7 @@ export class OperationsTableComponent implements OnInit {
     }
 
     openFilterOperationsModal(): void {
-        const modalRef = this.modalService.open(OperationsFilterModalComponent, {backdrop: false});
+        const modalRef = this.modalService.open(OperationsFilterModalComponent, {backdrop: false, windowClass: 'wide-modal'});
         modalRef.componentInstance.filter = this.filter;
 
         modalRef.result.then((result) => {

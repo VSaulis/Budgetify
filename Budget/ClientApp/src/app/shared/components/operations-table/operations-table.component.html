@@ -15,7 +15,8 @@
                 [rowsCount]="operations.length"
                 [selectedRowsCount]="selectedOperationsIds.length"
                 (selectAll)="selectAll($event)"
-                (sort)="sortChange($event)">
+                [sort]="sort"
+                (sortChange)="sortChange($event)">
             </app-datatable-header>
             <tbody>
             <tr (click)="openOperationDetailsModal(operation.id)" *ngFor="let operation of operations">
@@ -42,12 +43,13 @@
                     </div>
                 </td>
             </tr>
-            <tr *ngIf="operationsCount === 0">
+            <tr *ngIf="operations.length === 0">
                 <td class="center" [colSpan]="colspan">No data</td>
             </tr>
             </tbody>
             <app-datatable-footer
-                (paging)="pagingChange($event)"
+                [paging]="paging"
+                (pagingChange)="pagingChange($event)"
                 [colspan]="colspan"
                 [count]="operationsCount">
             </app-datatable-footer>

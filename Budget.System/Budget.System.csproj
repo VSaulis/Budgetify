@@ -27,4 +27,8 @@
       <ProjectReference Include="..\Budget.Models\Budget.Models.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Helpers" />
+    </ItemGroup>
+
 </Project>
