@@ -1,173 +1,181 @@
-.ng-select {
+app-select {
+    display: block;
     width: 100%;
 
-    &:focus,
-    &.has-value,
-    &.ng-select-opened {
-        .ng-select-container {
-            border-bottom: 1px solid $color-primary;
+    &.has-focus,
+    &.has-value {
+        .ng-select {
+            .ng-select-container {
+                border-bottom: 1px solid $color-primary;
+            }
         }
 
-        &+label {
+        label {
             color: $color-primary;
             top: 1px;
             font-size: 11px;
         }
     }
 
-    &.has-value,
-    &.ng-touched {
-
+    &.ng-touched,
+    &.has-value {
         &.ng-valid {
-
-            .ng-select-container {
-                border-bottom: 1px solid $color-success !important;
+            .ng-select {
+                .ng-select-container {
+                    border-bottom: 1px solid $color-success;
+                }
             }
 
-            &+label {
+            label {
                 color: $color-success;
             }
         }
 
         &.ng-invalid {
-            .ng-select-container {
-                border-bottom: 1px solid $color-danger !important;
+            .ng-select {
+                .ng-select-container {
+                    border-bottom: 1px solid $color-danger;
+                }
             }
 
-            &+label {
+            label {
                 color: $color-danger;
             }
         }
     }
 
-    .ng-clear-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .ng-select {
+        width: 100%;
 
-        .ng-clear {
-            color: $color-text-secondary;
-        }
+        .ng-clear-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-        &:hover {
             .ng-clear {
-                color: $color-primary;
+                color: $color-text-secondary;
+            }
+
+            &:hover {
+                .ng-clear {
+                    color: $color-primary;
+                }
             }
         }
-    }
 
-    &.ng-select-opened {
+        &.ng-select-opened {
+
+            .ng-arrow-wrapper {
+                .ng-arrow {
+                    transform: rotate(180deg) translateY(2px);
+                }
+
+                &:hover {
+                    .ng-arrow {
+                        border-color: $color-primary transparent transparent;
+                    }
+                }
+            }
+        }
 
         .ng-arrow-wrapper {
+            width: 25px;
+            padding-right: 5px;
+            padding-left: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
             .ng-arrow {
-                transform: rotate(180deg) translateY(2px);
+                border-color: $color-text-secondary transparent transparent;
+                border-style: solid;
+                transform: translateY(1px);
+                border-width: 5px 5px 2.5px
             }
 
             &:hover {
                 .ng-arrow {
-                    border-color: $color-primary transparent transparent;
+                    border-top-color: $color-text;
                 }
             }
         }
-    }
 
-    .ng-arrow-wrapper {
-        width: 25px;
-        padding-right: 5px;
-        padding-left: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        .ng-select-container {
+            font-size: 13px;
+            width: 100%;
+            z-index: 2;
+            height: 35px;
+            background-color: transparent;
+            color: $color-text;
+            border-bottom: 1px solid $color-text-secondary;
 
-        .ng-arrow {
-            border-color: $color-text-secondary transparent transparent;
-            border-style: solid;
-            transform: translateY(1px);
-            border-width: 5px 5px 2.5px
-        }
+            .ng-value-container {
 
-        &:hover {
-            .ng-arrow {
-                border-top-color: $color-text;
-            }
-        }
-    }
-
-    .ng-select-container {
-        font-size: 13px;
-        width: 100%;
-        z-index: 2;
-        height: 35px;
-        background-color: transparent;
-        color: $color-text;
-        border-bottom: 1px solid $color-text-secondary;
-
-        .ng-value-container {
-
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            flex-wrap: wrap;
-
-            .ng-value {
-                box-sizing: border-box;
                 display: flex;
-                align-items: stretch;
+                align-items: center;
                 justify-content: flex-start;
-                height: 25px;
+                flex-wrap: wrap;
 
-                .ng-value-icon {
-                    font-size: 17px;
-                    padding: 0 6px;
-                    margin-right: 5px;
-                    border-right: 1px solid $color-text;
-                    color: $color-text;
+                .ng-value {
+                    box-sizing: border-box;
                     display: flex;
-                    align-items: center;
-                    justify-content: center;
+                    align-items: stretch;
+                    justify-content: flex-start;
+                    height: 25px;
+
+                    .ng-value-icon {
+                        font-size: 17px;
+                        padding: 0 6px;
+                        margin-right: 5px;
+                        border-right: 1px solid $color-text;
+                        color: $color-text;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    .ng-value-label {
+                        font-size: 13px;
+                        color: $color-text;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding-right: 5px;
+                    }
                 }
 
-                .ng-value-label {
-                    font-size: 13px;
-                    color: $color-text;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding-right: 5px;
-                }
-            }
-
-            .ng-input {
-                height: 100%;
-                padding-right: 50px;
-
-                > input {
-                    box-sizing: border-box !important;
+                .ng-input {
                     height: 100%;
-                    color: $color-text;
-                    font-size: 11px;
+                    padding-right: 50px;
+
+                    > input {
+                        box-sizing: border-box !important;
+                        height: 100%;
+                        color: $color-text;
+                        font-size: 11px;
+                    }
                 }
             }
         }
-    }
 
-    .ng-dropdown-panel {
-        background-color: $color-white;
-        border: 1px solid $color-text-secondary;
-        border-top: none;
+        .ng-dropdown-panel {
+            background-color: $color-white;
+            border: 1px solid $color-text-secondary;
+            border-top: none;
 
-        .ng-option {
-            color: $color-text-secondary;
-            font-size: 11px;
-            padding: 10px;
+            .ng-option {
+                color: $color-text-secondary;
+                font-size: 11px;
+                padding: 10px;
 
-            &:hover,
-            &.ng-option-selected,
-            &.ng-option-marked {
-                background-color: $color-background;
+                &:hover,
+                &.ng-option-selected,
+                &.ng-option-marked {
+                    background-color: $color-background;
 
-                span {
-                    color: $color-text;
+                    span {
+                        color: $color-text;
+                    }
                 }
             }
         }

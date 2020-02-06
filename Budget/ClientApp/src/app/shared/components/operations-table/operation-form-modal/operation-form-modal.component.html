@@ -11,44 +11,24 @@
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.
                 </p>
-                <div class="form-field">
-                    <input [appFormControl]="form.get('amount')" id="amount" type="number" formControlName="amount">
-                    <label for="amount">Amount :</label>
-                    <small [appFormError]="form.get('amount')" errorType="required">Field is required</small>
-                </div>
                 <div class="form-fields">
-                    <div class="form-field">
-                        <input [appFormControl]="form.get('date')" autocomplete="off" (click)="datepicker.toggle()" ngbDatepicker #datepicker="ngbDatepicker" id="date" formControlName="date">
-                        <label for="date">Date :</label>
-                        <small [appFormError]="form.get('date')" errorType="required">Field is required</small>
-                    </div>
-                    <div class="form-field">
-                        <ng-select id="categories"
-                                   [appFormControl]="form.get('categoryId')"
-                                   [items]="categories"
-                                   formControlName="categoryId"
-                                   bindLabel="name"
-                                   bindValue="id">
-                        </ng-select>
-                        <label for="categories">Category :</label>
-                        <small [appFormError]="form.get('categoryId')" errorType="required">Field is required</small>
-                    </div>
-                    <div class="form-field">
-                        <ng-select id="users"
-                                   [appFormControl]="form.get('userId')"
-                                   [items]="users"
-                                   formControlName="userId"
-                                   bindLabel="email"
-                                   bindValue="id">
-                        </ng-select>
-                        <label for="users">User: </label>
-                        <small [appFormError]="form.get('userId')" errorType="required">Field is required</small>
-                    </div>
-                    <div class="form-field">
-                        <input [appFormControl]="form.get('description')" id="description" formControlName="description">
-                        <label for="description">Description :</label>
-                        <small [appFormError]="form.get('description')" errorType="required">Field is required</small>
-                    </div>
+                    <app-input [abstractControl]="form.get('amount')" type="number" label="Amount" formControlName="amount"></app-input>
+                    <app-datepicker [abstractControl]="form.get('date')" label="Date" formControlName="date"></app-datepicker>
+                    <app-select bindLabel="name"
+                                [abstractControl]="form.get('categoryId')"
+                                bindValue="id"
+                                [items]="categories"
+                                label="Category"
+                                formControlName="categoryId">
+                    </app-select>
+                    <app-select bindLabel="email"
+                                [abstractControl]="form.get('userId')"
+                                bindValue="id"
+                                [items]="users"
+                                label="User"
+                                formControlName="userId">
+                    </app-select>
+                    <app-input label="Description" formControlName="description" [abstractControl]="form.get('description')"></app-input>
                 </div>
             </div>
             <div class="modal-footer">
@@ -56,7 +36,7 @@
                     <span class="title">Cancel</span>
                     <span class="icon-container"><i class="material-icons">reply</i></span>
                 </button>
-                <button type="submit" class="button primary">
+                <button ngbAutofocus type="submit" class="button primary">
                     <span class="title">Save</span>
                     <span class="icon-container"><i class="material-icons">save_alt</i></span>
                 </button>

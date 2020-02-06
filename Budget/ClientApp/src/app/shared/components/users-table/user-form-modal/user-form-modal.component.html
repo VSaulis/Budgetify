@@ -12,33 +12,15 @@
                     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.
                 </p>
                 <div class="form-fields">
-                    <div class="form-field">
-                        <input [appFormControl]="form.get('email')" id="email" formControlName="email">
-                        <label for="email">Email :</label>
-                        <small [appFormError]="form.get('email')" errorType="required">Field is required</small>
-                    </div>
-                    <div class="form-field">
-                        <input [appFormControl]="form.get('firstName')" id="firstName" formControlName="firstName">
-                        <label for="firstName">First name :</label>
-                        <small [appFormError]="form.get('firstName')" errorType="required">Field is required</small>
-                    </div>
-                    <div class="form-field">
-                        <input [appFormControl]="form.get('lastName')" id="lastName" formControlName="lastName">
-                        <label for="lastName">Last name :</label>
-                        <small [appFormError]="form.get('lastName')" errorType="required">Field is required</small>
-                    </div>
-                    <div class="form-field inline">
-                        <ng-select id="roles"
-                                   [appFormControl]="form.get('roles')"
-                                   [items]="['Owner', 'FamilyMember', 'Guest']"
-                                   formControlName="roles"
-                                   [multiple]="true"
-                                   bindLabel="title"
-                                   bindValue="id">
-                        </ng-select>
-                        <label for="roles">Roles :</label>
-                        <small [appFormError]="form.get('roles')" errorType="required">Field is required</small>
-                    </div>
+                    <app-input [abstractControl]="form.get('email')" type="email" label="Email" formControlName="email"></app-input>
+                    <app-input [abstractControl]="form.get('firstName')" type="firstName" label="First name" formControlName="firstName"></app-input>
+                    <app-input [abstractControl]="form.get('lastName')" type="lastName" label="Last name" formControlName="lastName"></app-input>
+                    <app-select [items]="['Owner', 'FamilyMember', 'Guest']"
+                                [abstractControl]="form.get('roles')"
+                                label="Roles"
+                                [multiple]="true"
+                                formControlName="roles">
+                    </app-select>
                 </div>
             </div>
             <div class="modal-footer">
@@ -46,7 +28,7 @@
                     <span class="title">Cancel</span>
                     <span class="icon-container"><i class="material-icons">reply</i></span>
                 </button>
-                <button type="submit" class="button primary">
+                <button ngbAutofocus type="submit" class="button primary">
                     <span class="title">Save</span>
                     <span class="icon-container"><i class="material-icons">save_alt</i></span>
                 </button>

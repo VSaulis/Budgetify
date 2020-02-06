@@ -33,6 +33,26 @@ export class OperationService {
             if (filter.dateFrom) {
                 params.dateFrom = filter.dateFrom;
             }
+
+            if (filter.dateTo) {
+                params.dateTo = filter.dateTo;
+            }
+
+            if (filter.amountFrom) {
+                params.amountFrom = filter.amountFrom;
+            }
+
+            if (filter.amountTo) {
+                params.amountTo = filter.amountTo;
+            }
+
+            if (filter.categoriesIds) {
+                params.categoriesIds = filter.categoriesIds;
+            }
+
+            if (filter.usersIds) {
+                params.categoriesIds = filter.categoriesIds;
+            }
         }
 
         if (sort) {

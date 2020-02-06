@@ -1,0 +1,14 @@
+<div class="form-field">
+    <input (dateSelect)="dateSelect($event)"
+           (input)="change($event.target.value)"
+           (blur)="blur($event.target.value)"
+           (focus)="setFocus()"
+           (closed)="onDatepickerClose()"
+           ngbDatepicker
+           [value]="value"
+           #datepicker="ngbDatepicker"
+           [id]="formControlName">
+    <label [for]="formControlName">{{label}} :</label>
+    <i class="material-icons" (click)="toggleDatepicker()">date_range</i>
+    <small [appFormError]="abstractControl" errorType="required">Field is required</small>
+</div>

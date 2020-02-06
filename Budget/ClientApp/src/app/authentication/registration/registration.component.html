@@ -2,21 +2,9 @@
     <h2>Sign up</h2>
     <form [formGroup]="form" (ngSubmit)="register()" novalidate>
         <div class="form-fields">
-            <div class="form-field">
-                <input id="email" formControlName="email">
-                <label for="email">Email : </label>
-                <small [appFormError]="form.get('email')" errorType="required">Field is required</small>
-            </div>
-            <div class="form-field">
-                <input [appFormControl]="form.get('password')" id="password" type="password" formControlName="password">
-                <label for="password">Password : </label>
-                <small [appFormError]="form.get('password')" errorType="required">Field is required</small>
-            </div>
-            <div class="form-field">
-                <input [appFormControl]="form.get('repeatPassword')" id="repeatPassword" type="password" formControlName="repeatPassword">
-                <label for="repeatPassword">Repeat password : </label>
-                <small [appFormError]="form.get('repeatPassword')" errorType="required">Field is required</small>
-            </div>
+            <app-input [abstractControl]="form.get('email')" label="Email" type="email" formControlName="email"></app-input>
+            <app-input [abstractControl]="form.get('password')" label="Password" type="password" formControlName="password"></app-input>
+            <app-input [abstractControl]="form.get('repeatPassword')" label="Repeat password" type="password" formControlName="repeatPassword"></app-input>
             <div class="choice-row">
                 <input id="termsAndConditions" type="checkbox">
                 <label for="termsAndConditions">Agree with terms and conditions</label>
@@ -28,7 +16,7 @@
         </button>
         <div class="link">
             <p>Already have an account?</p>
-            <a routerLink="/login">Sign up</a>
+            <a routerLink="/login">Sign in</a>
         </div>
     </form>
 </div>

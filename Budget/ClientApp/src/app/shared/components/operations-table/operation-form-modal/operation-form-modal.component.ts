@@ -70,11 +70,10 @@ export class OperationFormModalComponent implements OnInit {
 
     private setForm(operation: Operation): void {
         this.form.get('categoryId').setValue(operation.category.id);
-        this.form.get('date').setValue(DateFormatter.toBootstrapObject(operation.date));
+        this.form.get('date').setValue(operation.date);
         this.form.get('description').setValue(operation.description);
         this.form.get('amount').setValue(operation.amount);
         this.form.get('userId').setValue(operation.user.id);
-        FormHelper.markFormAsTouched(this.form);
     }
 
     private createForm(): void {
@@ -90,7 +89,7 @@ export class OperationFormModalComponent implements OnInit {
     private mapAddOperationRequest(): AddOperationRequest {
         return {
             categoryId: this.form.value.categoryId,
-            date: DateFormatter.toDateString(this.form.value.date),
+            date: this.form.value.date,
             description: this.form.value.description,
             amount: this.form.value.amount,
             userId: this.form.value.userId
@@ -102,7 +101,7 @@ export class OperationFormModalComponent implements OnInit {
             id: this.id,
             version: this.operation.updated,
             categoryId: this.form.value.categoryId,
-            date: DateFormatter.toDateString(this.form.value.date),
+            date: this.form.value.date,
             description: this.form.value.description,
             amount: this.form.value.amount,
             userId: this.form.value.userId

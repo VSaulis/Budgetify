@@ -2,16 +2,8 @@
     <h2>Sign in</h2>
     <form [formGroup]="form" (ngSubmit)="login()" novalidate>
         <div class="form-fields">
-            <div class="form-field">
-                <input [appFormControl]="form.get('email')" id="email" formControlName="email">
-                <label for="email">Email : </label>
-                <small [appFormError]="form.get('email')" errorType="required">Field is required</small>
-            </div>
-            <div class="form-field">
-                <input [appFormControl]="form.get('password')" id="password" type="password" formControlName="password">
-                <label for="password">Password : </label>
-                <small [appFormError]="form.get('password')" errorType="required">Field is required</small>
-            </div>
+            <app-input [abstractControl]="form.get('email')" label="Email" type="email" formControlName="email"></app-input>
+            <app-input [abstractControl]="form.get('password')" label="Password" type="password" formControlName="password"></app-input>
         </div>
         <button type="submit" class="button primary full-width">
             <span class="title">Sign in</span>
@@ -19,7 +11,7 @@
         </button>
         <div class="link">
             <p>Do not have an account?</p>
-            <a routerLink="/registration">Sign in</a>
+            <a routerLink="/registration">Sign up</a>
         </div>
     </form>
 </div>

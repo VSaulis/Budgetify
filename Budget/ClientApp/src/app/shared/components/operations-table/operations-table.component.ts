@@ -13,6 +13,8 @@ import {ButtonClasses} from '../../enums/ButtonClasses';
 import {ListResponse} from '../../contracts/ListResponse';
 import {CategoryDetailsModalComponent} from '../categories-table/category-details-modal/category-details-modal.component';
 import {OperationDetailsModalComponent} from './operation-details-modal/operation-details-modal.component';
+import {OperationsFilterModalComponent} from './operations-filter-modal/operations-filter-modal.component';
+import {OperationsFilter} from '../../contracts/operation/OperationsFilter';
 
 @Component({
     selector: 'app-operations-table',
@@ -27,6 +29,7 @@ export class OperationsTableComponent implements OnInit {
     colspan = 8;
     paging: Paging;
     sort: Sort;
+    filter: OperationsFilter = {};
     isLoading = true;
     columns: DatatableColumn[] = [
         {id: 'category.name', name: 'Category', sortable: true},
@@ -74,6 +77,11 @@ export class OperationsTableComponent implements OnInit {
         this.getOperations();
     }
 
+    filterChange(filter: OperationsFilter): void {
+        this.filter = filter;
+        this.getOperations();
+    }
+
     openAddOperationFormModal(): void {
         const modalRef = this.modalService.open(OperationFormModalComponent, {backdrop: false});
 
@@ -81,6 +89,17 @@ export class OperationsTableComponent implements OnInit {
             if (result) {
                 this.appService.setMessage({text: 'Operation is successfully added', type: MessagesTypes.success});
                 this.getOperations();
+            }
+        });
+    }
+
+    openFilterOperationsModal(): void {
+        const modalRef = this.modalService.open(OperationsFilterModalComponent, {backdrop: false});
+        modalRef.componentInstance.filter = this.filter;
+
+        modalRef.result.then((result) => {
+            if (result) {
+                this.filterChange(result);
             }
         });
     }
@@ -118,7 +137,7 @@ export class OperationsTableComponent implements OnInit {
 
     private getOperations(): void {
         this.isLoading = true;
-        this.operationService.getOperations(null, this.sort, this.paging).subscribe((operationsListResponse: ListResponse<OperationsListItem>) => {
+        this.operationService.getOperations(this.filter, this.sort, this.paging).subscribe((operationsListResponse: ListResponse<OperationsListItem>) => {
             this.operations = operationsListResponse.result;
             this.operationsCount = operationsListResponse.count;
             this.isLoading = false;

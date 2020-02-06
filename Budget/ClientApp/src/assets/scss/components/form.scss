@@ -1,8 +1,42 @@
-.form-fields {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-wrap: wrap;
+app-datepicker, app-input {
+    display: block;
+    width: 100%;
+
+    &.has-focus,
+    &.has-value {
+        label {
+            color: $color-primary;
+            top: 1px;
+            font-size: 11px;
+        }
+
+        input {
+            border-bottom: 1px solid $color-primary;
+        }
+    }
+
+    &.ng-touched,
+    &.has-value {
+        &.ng-valid {
+            label {
+                color: $color-success;
+            }
+
+            input {
+                border-bottom: 1px solid $color-success ;
+            }
+        }
+
+        &.ng-invalid {
+            label {
+                color: $color-danger;
+            }
+
+            input {
+                border-bottom: 1px solid $color-danger;
+            }
+        }
+    }
 }
 
 .form-field {
@@ -10,6 +44,20 @@
     position: relative;
     padding-top: 15px;
     margin-bottom: 10px;
+
+    i {
+        position: absolute;
+        top: 22px;
+        color: $color-text-secondary;
+        font-size: 20px;
+        right: 2px;
+        z-index: 99;
+
+        &:hover {
+            color: $color-primary;
+            cursor: pointer;
+        }
+    }
 
     label {
         display: block;
@@ -23,7 +71,7 @@
         transition: all 0.2s ease;
     }
 
-    input, select, textarea {
+    input {
         font-size: 13px;
         background-color: transparent;
         width: 100%;
@@ -33,37 +81,6 @@
         color: $color-text;
         border: none;
         border-bottom: 1px solid $color-text-secondary;
-
-        &:focus,
-        &.has-value {
-            border-bottom: 1px solid $color-primary;
-
-            &+label {
-                color: $color-primary;
-                top: 1px;
-                font-size: 11px;
-            }
-        }
-
-        &.has-value,
-        &.ng-touched {
-
-            &.ng-valid {
-                border-bottom: 1px solid $color-success !important;
-
-                &+label {
-                    color: $color-success;
-                }
-            }
-
-            &.ng-invalid {
-                border-bottom: 1px solid $color-danger !important;
-
-                &+label {
-                    color: $color-danger;
-                }
-            }
-        }
     }
 
     small {

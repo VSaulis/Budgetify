@@ -1,0 +1,10 @@
+<div class="form-field">
+    <input (input)="change($event.target.value)"
+           (blur)="blur($event.target.value)"
+           (focus)="setFocus()"
+           [value]="value"
+           [type]="type"
+           [id]="formControlName">
+    <label [for]="formControlName">{{label}} :</label>
+    <small [appFormError]="abstractControl" errorType="required">Field is required</small>
+</div>

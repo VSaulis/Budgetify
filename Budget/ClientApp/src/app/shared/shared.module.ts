@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './interceptors/jwt/jwt.interceptor';
 import {NgxPermissionsModule} from 'ngx-permissions';
@@ -28,6 +28,10 @@ import { UserBoxComponent } from './components/user-box/user-box.component';
 import { FormControlDirective } from './directives/form-control/form-control.directive';
 import {FormErrorDirective} from './directives/form-error/form-error.directive';
 import { CategoriesFilterModalComponent } from './components/categories-table/categories-filter-modal/categories-filter-modal.component';
+import { OperationsFilterModalComponent } from './components/operations-table/operations-filter-modal/operations-filter-modal.component';
+import { DatepickerComponent } from './components/form/datepicker/datepicker.component';
+import { InputComponent } from './components/form/input/input.component';
+import { SelectComponent } from './components/form/select/select.component';
 
 @NgModule({
     declarations: [
@@ -52,7 +56,11 @@ import { CategoriesFilterModalComponent } from './components/categories-table/ca
         UserBoxComponent,
         FormControlDirective,
         FormErrorDirective,
-        CategoriesFilterModalComponent
+        CategoriesFilterModalComponent,
+        OperationsFilterModalComponent,
+        DatepickerComponent,
+        InputComponent,
+        SelectComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -62,7 +70,8 @@ import { CategoriesFilterModalComponent } from './components/categories-table/ca
         NgbModalModule,
         NgSelectModule,
         NgbDropdownModule,
-        NgbDatepickerModule
+        NgbDatepickerModule,
+        FormsModule
     ],
     exports: [
         ReactiveFormsModule,
@@ -87,7 +96,10 @@ import { CategoriesFilterModalComponent } from './components/categories-table/ca
         OperationFormModalComponent,
         AvatarComponent,
         UserBoxComponent,
-        FormErrorDirective
+        FormErrorDirective,
+        DatepickerComponent,
+        InputComponent,
+        SelectComponent
     ],
     entryComponents: [
         ConfirmModalComponent,
@@ -96,7 +108,8 @@ import { CategoriesFilterModalComponent } from './components/categories-table/ca
         OperationFormModalComponent,
         CategoryDetailsModalComponent,
         OperationDetailsModalComponent,
-        UserDetailsModalComponent
+        UserDetailsModalComponent,
+        OperationsFilterModalComponent
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

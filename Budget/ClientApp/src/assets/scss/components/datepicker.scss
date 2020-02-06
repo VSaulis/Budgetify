@@ -7,13 +7,6 @@ ngb-datepicker {
     &.dropdown-menu {
         right: auto !important;
         top: -4px !important;
-
-        &.show {
-            &+label {
-                top: 1px;
-                font-size: 11px;
-            }
-        }
     }
 
     .ngb-dp-header {

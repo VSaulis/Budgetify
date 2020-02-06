@@ -12,11 +12,7 @@
                     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when.
                 </p>
                 <div class="form-fields">
-                    <div class="form-field">
-                        <input [appFormControl]="form.get('name')" id="name" formControlName="name">
-                        <label for="name">Name : </label>
-                        <small [appFormError]="form.get('name')" errorType="required">Field is required</small>
-                    </div>
+                    <app-input [abstractControl]="form.get('name')" label="Name" formControlName="name"></app-input>
                 </div>
             </div>
             <div class="modal-footer">
@@ -24,7 +20,7 @@
                     <span class="title">Cancel</span>
                     <span class="icon-container"><i class="material-icons">reply</i></span>
                 </button>
-                <button type="submit" class="button primary">
+                <button ngbAutofocus type="submit" class="button primary">
                     <span class="title">Save</span>
                     <span class="icon-container"><i class="material-icons">save_alt</i></span>
                 </button>

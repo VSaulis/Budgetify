@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using Budget.Contracts;
@@ -83,12 +85,24 @@ namespace Budget.Services
         {
             var paging = ListHelper.FormatPaging(request);
             var sort = ListHelper.FormatSort<Operation>(request);
+            var filter = FormatFilter(request);
 
             var operations = await _operationRepository.GetListAsync(null, sort, paging);
-            var operationsCount = await _operationRepository.CountAsync(null);
+            var operationsCount = await _operationRepository.CountAsync(filter);
 
             var operationsDtosList = _mapper.Map<List<Operation>, List<OperationsListItemDto>>(operations);
             return new ListResponse<OperationsListItemDto>(operationsDtosList, operationsCount);
+        }
+
+        private Expression<Func<Operation, bool>> FormatFilter(ListOperationsRequest request)
+        {
+            return operation =>
+                request.DateTo.HasValue && operation.Date <= request.DateTo.Value &&
+                request.DateFrom.HasValue && operation.Date >= request.DateTo.Value &&
+                request.AmountFrom.HasValue && operation.Amount >= request.AmountFrom.Value &&
+                request.AmountTo.HasValue && operation.Amount <= request.AmountTo.Value &&
+                request.CategoriesIds != null && request.CategoriesIds.Contains(operation.CategoryId) &&
+                request.UsersIds != null && request.UsersIds.Contains(operation.UserId);
         }
     }
 }

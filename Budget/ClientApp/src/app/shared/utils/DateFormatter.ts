@@ -9,7 +9,12 @@ export class DateFormatter {
         return date.toISOString().split('T')[0];
     }
 
-    static toBootstrapObject(dateString): any {
+    static trimDate(dateString: string): string {
+        const date = new Date(dateString);
+        return date.toISOString().split('T')[0];
+    }
+
+    static toBootstrapObject(dateString: string): any {
         if (!dateString) {
             return null;
         }

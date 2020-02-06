@@ -1,0 +1,15 @@
+<div class="form-field">
+    <ng-select [id]="formControlName"
+               (change)="change($event[bindValue])"
+               (blur)="blur($event[bindValue])"
+               [items]="items"
+               (open)="setFocus()"
+               (close)="setFocus(false)"
+               [multiple]="multiple"
+               [bindLabel]="bindLabel"
+               [(ngModel)]="value"
+               [bindValue]="bindValue">
+    </ng-select>
+    <label [for]="formControlName">{{label}} :</label>
+    <small [appFormError]="abstractControl" errorType="required">Field is required</small>
+</div>
