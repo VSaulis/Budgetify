@@ -16,9 +16,7 @@ namespace Budget.Repositories
 
         protected override IQueryable<User> FormatQuery(IQueryable<User> query)
         {
-            return query
-                .Include(user => user.Categories)
-                    .ThenInclude(category => category.Operations);
+            return query;
         }
 
         protected override IQueryable<User> ApplyFilter(IQueryable<User> query, UsersFilter filter)

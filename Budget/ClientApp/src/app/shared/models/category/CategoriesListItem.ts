@@ -4,5 +4,5 @@ import {UsersListItem} from '../user/UsersListItem';
 export interface CategoriesListItem extends BaseModel {
     name: string;
     total: number;
-    user: UsersListItem;
+    createdBy: UsersListItem;
 }

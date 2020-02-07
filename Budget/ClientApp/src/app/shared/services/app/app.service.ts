@@ -3,6 +3,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {Profile} from '../../models/profile/Profile';
 import {LoggedUser} from '../../models/authentication/LoggedUser';
 import {Message} from '../../models/message/Message';
+import {NotificationService} from '../notification/notification.service';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,7 @@ export class AppService {
     private profile = new BehaviorSubject<Profile>(null);
     private loggedUser = new BehaviorSubject<LoggedUser>(null);
 
-    constructor() {
+    constructor(private notificationService: NotificationService) {
     }
 
     setTitle(title: string): void {
@@ -63,5 +64,9 @@ export class AppService {
 
     removeMessages(): void {
         this.messagesBehaviorSubject.next([]);
+    }
+
+    getNotifications(): Observable<Notification[]> {
+        return this.notificationService.getNotificationsObservable();
     }
 }

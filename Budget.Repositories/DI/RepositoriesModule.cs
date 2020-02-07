@@ -16,6 +16,7 @@ namespace Budget.Repositories.DI
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IOperationRepository, OperationRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
         }
     }
 }

@@ -32,6 +32,7 @@ import { OperationsFilterModalComponent } from './components/operations-table/op
 import { DatepickerComponent } from './components/form/datepicker/datepicker.component';
 import { InputComponent } from './components/form/input/input.component';
 import { SelectComponent } from './components/form/select/select.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 @NgModule({
     declarations: [
@@ -60,7 +61,8 @@ import { SelectComponent } from './components/form/select/select.component';
         OperationsFilterModalComponent,
         DatepickerComponent,
         InputComponent,
-        SelectComponent
+        SelectComponent,
+        NotificationsComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -99,7 +101,8 @@ import { SelectComponent } from './components/form/select/select.component';
         FormErrorDirective,
         DatepickerComponent,
         InputComponent,
-        SelectComponent
+        SelectComponent,
+        NotificationsComponent
     ],
     entryComponents: [
         ConfirmModalComponent,

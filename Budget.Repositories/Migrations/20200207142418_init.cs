@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Budget.Repositories.Migrations
 {
-    public partial class Init1 : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,6 +16,8 @@ namespace Budget.Repositories.Migrations
                     Created = table.Column<DateTime>(nullable: false),
                     Updated = table.Column<DateTime>(nullable: true),
                     Email = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
                     Status = table.Column<string>(nullable: false),
                     PasswordSalt = table.Column<byte[]>(nullable: true),
                     PasswordHash = table.Column<byte[]>(nullable: true),
@@ -36,17 +38,44 @@ namespace Budget.Repositories.Migrations
                     Created = table.Column<DateTime>(nullable: false),
                     Updated = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: false),
-                    UserId = table.Column<int>(nullable: true)
+                    CreatedById = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Categories_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Categories_Users_CreatedById",
+                        column: x => x.CreatedById,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Notifications",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Created = table.Column<DateTime>(nullable: false),
+                    Updated = table.Column<DateTime>(nullable: true),
+                    Type = table.Column<string>(nullable: false),
+                    ReceiverId = table.Column<int>(nullable: false),
+                    NotifierId = table.Column<int>(nullable: false),
+                    IsViewed = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Notifications_Users_NotifierId",
+                        column: x => x.NotifierId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Notifications_Users_ReceiverId",
+                        column: x => x.ReceiverId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -59,6 +88,7 @@ namespace Budget.Repositories.Migrations
                     Updated = table.Column<DateTime>(nullable: true),
                     CategoryId = table.Column<int>(nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    CreatedById = table.Column<int>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: false)
@@ -73,6 +103,11 @@ namespace Budget.Repositories.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Operations_Users_CreatedById",
+                        column: x => x.CreatedById,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Operations_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
@@ -81,14 +116,29 @@ namespace Budget.Repositories.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_UserId",
+                name: "IX_Categories_CreatedById",
                 table: "Categories",
-                column: "UserId");
+                column: "CreatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_NotifierId",
+                table: "Notifications",
+                column: "NotifierId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_ReceiverId",
+                table: "Notifications",
+                column: "ReceiverId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Operations_CategoryId",
                 table: "Operations",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Operations_CreatedById",
+                table: "Operations",
+                column: "CreatedById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Operations_UserId",
@@ -98,6 +148,9 @@ namespace Budget.Repositories.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Notifications");
+
             migrationBuilder.DropTable(
                 name: "Operations");
 

@@ -5,6 +5,6 @@ namespace Budget.Dtos.Category
     public class CategoryDto : BaseDto
     {
         public string Name { get; set; }
-        public UsersListItemDto User { get; set; }
+        public UsersListItemDto CreatedBy { get; set; }
     }
 }

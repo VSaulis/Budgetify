@@ -5,6 +5,7 @@ using Budget.Models;
 using Budget.Models.Filters;
 using Budget.Models.Repositories;
 using Budget.Repositories.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Budget.Repositories
 {
@@ -16,7 +17,9 @@ namespace Budget.Repositories
 
         protected override IQueryable<Category> FormatQuery(IQueryable<Category> query)
         {
-            return query;
+            return query
+                .Include(category => category.CreatedBy)
+                .Include(category => category.Operations);
         }
 
         protected override IQueryable<Category> ApplyFilter(IQueryable<Category> query, CategoriesFilter filter)
@@ -48,8 +51,8 @@ namespace Budget.Repositories
                 
                 if (sort.Column == "createdBy")
                 {
-                    if (sort.Type == SortTypes.Asc) query = query.OrderBy(category => category.User.FirstName).ThenBy(category => category.User.LastName);
-                    if (sort.Type == SortTypes.Desc) query = query.OrderByDescending(category => category.User.FirstName).ThenBy(category => category.User.LastName);
+                    if (sort.Type == SortTypes.Asc) query = query.OrderBy(category => category.CreatedBy.FirstName).ThenBy(category => category.CreatedBy.LastName);
+                    if (sort.Type == SortTypes.Desc) query = query.OrderByDescending(category => category.CreatedBy.FirstName).ThenBy(category => category.CreatedBy.LastName);
                 }
                 
                 if (sort.Column == "updated")

@@ -1,5 +1,7 @@
 using System;
 using System.Text;
+using Budget.Hubs;
+using Budget.Hubs.DI;
 using Budget.Repositories.DI;
 using Budget.Services.DI;
 using Budget.System.Converters;
@@ -27,6 +29,7 @@ namespace Budget
         {
             RepositoriesModule.RegisterDependencies(services, Configuration);
             ServicesModule.RegisterDependencies(services);
+            HubsModule.RegisterDependencies(services);
 
             services.AddCors(options =>
             {
@@ -34,6 +37,7 @@ namespace Budget
                 {
                     builder.WithOrigins("http://localhost:4200")
                         .AllowAnyHeader()
+                        .AllowCredentials()
                         .AllowAnyMethod();
                 });
             });
@@ -73,7 +77,11 @@ namespace Budget
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapHub<NotificationHub>("/api/notify");
+            });
         }
     }
 }

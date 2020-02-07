@@ -2,10 +2,12 @@
 using AutoMapper;
 using Budget.Contracts;
 using Budget.Contracts.Category;
+using Budget.Contracts.Notification;
 using Budget.Contracts.Operation;
 using Budget.Contracts.User;
 using Budget.Dtos.Authentication;
 using Budget.Dtos.Category;
+using Budget.Dtos.Notification;
 using Budget.Dtos.Operation;
 using Budget.Dtos.Profile;
 using Budget.Dtos.User;
@@ -78,8 +80,13 @@ namespace Budget.Services.Mapper
             CreateMap<User, ProfileDto>()
                 .ForMember(
                     dest => dest.Balance,
-                    opt => opt.MapFrom(src => src.Categories.SelectMany(category => category.Operations).Sum(operation => operation.Amount))
+                    opt => opt.MapFrom(src => src.CreatedCategories.SelectMany(category => category.Operations).Sum(operation => operation.Amount))
                 );
+            
+            CreateMap<Notification, NotificationsListItemDto>();
+            CreateMap<AddNotificationRequest, Notification>();
+            CreateMap<ListNotificationsRequest, NotificationsFilter>();
+            CreateMap<Notification, NotificationDto>();
         }
     }
 }

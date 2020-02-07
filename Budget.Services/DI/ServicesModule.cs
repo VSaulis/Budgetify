@@ -20,6 +20,7 @@ namespace Budget.Services.DI
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IOperationService, OperationService>();
             services.AddScoped<IProfileService, ProfileService>();
+            services.AddScoped<INotificationService, NotificationService>();
         }
     }
 }

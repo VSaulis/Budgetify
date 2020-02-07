@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Budget.Services", "Budget.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Budget.UnitTests", "Budget.UnitTests\Budget.UnitTests.csproj", "{05F17425-5ED9-4231-A4B6-1E4727996BAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Budget.Hubs", "Budget.Hubs\Budget.Hubs.csproj", "{9995CE02-FA31-4AA0-984E-20A688059FDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +62,9 @@ Global
 		{05F17425-5ED9-4231-A4B6-1E4727996BAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05F17425-5ED9-4231-A4B6-1E4727996BAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05F17425-5ED9-4231-A4B6-1E4727996BAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9995CE02-FA31-4AA0-984E-20A688059FDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9995CE02-FA31-4AA0-984E-20A688059FDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9995CE02-FA31-4AA0-984E-20A688059FDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9995CE02-FA31-4AA0-984E-20A688059FDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

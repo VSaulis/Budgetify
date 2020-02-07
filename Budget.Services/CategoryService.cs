@@ -31,7 +31,7 @@ namespace Budget.Services
         {
             var loggedUser = await _authenticationService.GetLoggedUserAsync();
             var category = _mapper.Map<AddCategoryRequest, Category>(request);
-            category.UserId = loggedUser.User.Id;
+            category.CreatedById = loggedUser.User.Id;
             await _categoryRepository.AddAsync(category);
             await _unitOfWork.SaveChangesAsync();
             return new BaseResponse();

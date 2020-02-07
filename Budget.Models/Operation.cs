@@ -15,6 +15,9 @@ namespace Budget.Models
         [Column(TypeName = "decimal(10,2)")]
         public decimal Amount { get; set; }
         
+        public int? CreatedById { get; set; }
+        public User CreatedBy { get; set; }
+        
         [Required]
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }

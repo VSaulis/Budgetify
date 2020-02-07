@@ -25,7 +25,13 @@ namespace Budget.Models
         [Required]
         public List<Roles> Roles { get; set; }
         
-        public List<Category> Categories { get; set; }
+        public List<Category> CreatedCategories { get; set; }
         public List<Operation> Operations { get; set; }
+        
+        public List<Notification> ReceivedNotifications { get; set; }
+        
+        public List<Notification> SendNotifications { get; set; }
+        
+        public List<Operation> CreatedOperations { get; set; }
     }
 }

@@ -19,17 +19,52 @@ namespace Budget.Repositories.Context
                 jsonRoles => JsonConvert.DeserializeObject<List<Roles>>(jsonRoles)
             );
             
+            // Conversions
+            
             modelBuilder
                 .Entity<User>()
                 .Property(user => user.Status)
                 .HasConversion(new EnumToStringConverter<UserStatuses>());
+            
+            modelBuilder
+                .Entity<Notification>()
+                .Property(notification => notification.Type)
+                .HasConversion(new EnumToStringConverter<NotificationTypes>());
+            
+            modelBuilder
+                .Entity<User>()
+                .Property(user => user.Roles)
+                .HasConversion(rolesConverter);
+            
+            // Relationships
 
             modelBuilder
                 .Entity<Category>()
-                .HasOne(category => category.User)
-                .WithMany(user => user.Categories)
-                .HasForeignKey(category => category.UserId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .HasOne(category => category.CreatedBy)
+                .WithMany(user => user.CreatedCategories)
+                .HasForeignKey(category => category.CreatedById)
+                .OnDelete(DeleteBehavior.NoAction);
+            
+            modelBuilder
+                .Entity<Notification>()
+                .HasOne(notification => notification.Receiver)
+                .WithMany(receiver => receiver.ReceivedNotifications)
+                .HasForeignKey(notification => notification.ReceiverId)
+                .OnDelete(DeleteBehavior.NoAction);
+            
+            modelBuilder
+                .Entity<Notification>()
+                .HasOne(notification => notification.Notifier)
+                .WithMany(receiver => receiver.SendNotifications)
+                .HasForeignKey(notification => notification.NotifierId)
+                .OnDelete(DeleteBehavior.NoAction);
+            
+            modelBuilder
+                .Entity<Operation>()
+                .HasOne(operation => operation.CreatedBy)
+                .WithMany(user => user.CreatedOperations)
+                .HasForeignKey(operation => operation.CreatedById)
+                .OnDelete(DeleteBehavior.NoAction);
             
             modelBuilder
                 .Entity<Operation>()
@@ -42,15 +77,11 @@ namespace Budget.Repositories.Context
                 .HasOne(operation => operation.Category)
                 .WithMany(category => category.Operations)
                 .HasForeignKey(operation => operation.CategoryId);
-
-            modelBuilder
-                .Entity<User>()
-                .Property(user => user.Roles)
-                .HasConversion(rolesConverter);
         }
         
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
         public DbSet<Operation> Operations { get; set; }
     }
 }

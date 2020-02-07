@@ -119,6 +119,7 @@ namespace Budget.Services
             var roles = new List<Roles> {Roles.Owner};
             user = new User {Email = request.Email, PasswordHash = passwordHash, PasswordSalt = passwordSalt, Roles = roles};
             await _userRepository.AddAsync(user);
+            await _unitOfWork.SaveChangesAsync();
             return new BaseResponse();
         }
     }

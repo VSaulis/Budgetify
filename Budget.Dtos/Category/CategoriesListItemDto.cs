@@ -6,6 +6,6 @@ namespace Budget.Dtos.Category
     {
         public string Name { get; set; }
         public decimal Total { get; set; }
-        public UsersListItemDto User { get; set; }
+        public UsersListItemDto CreatedBy { get; set; }
     }
 }
