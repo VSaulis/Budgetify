@@ -30,6 +30,7 @@ export class CategoriesTableComponent implements OnInit {
     categories: CategoriesListItem[] = [];
     selectedCategoriesIds: number[] = [];
     categoriesCount = 0;
+    categoriesTotal = 0;
     colspan = 7;
     isLoading = true;
     columns: DatatableColumn[] = [
@@ -142,6 +143,7 @@ export class CategoriesTableComponent implements OnInit {
         this.categoryService.getCategories(this.filter, this.sort, this.paging).subscribe((categoriesListResponse: ListResponse<CategoriesListItem>) => {
             this.categories = categoriesListResponse.result;
             this.categoriesCount = categoriesListResponse.count;
+            this.categoriesTotal = categoriesListResponse.total;
             this.isLoading = false;
         });
     }

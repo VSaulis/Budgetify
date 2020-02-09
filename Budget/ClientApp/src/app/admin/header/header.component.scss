@@ -36,6 +36,22 @@ header.header {
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        position: relative;
+
+        .count {
+            top: 4px;
+            right: 4px;
+            width: 18px;
+            height: 18px;
+            text-align: center;
+            line-height: 18px;
+            position: absolute;
+            color: $color-white;
+            background-color: $color-primary;
+            font-size: 9px;
+            font-weight: 500;
+            border-radius: 50%;
+        }
 
         &:hover,
         &.active {

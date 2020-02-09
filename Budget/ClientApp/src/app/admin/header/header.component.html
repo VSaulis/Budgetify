@@ -6,8 +6,12 @@
         <div routerLink="/admin/settings" routerLinkActive="active" class="header-box">
             <i class="material-icons">settings</i>
         </div>
-        <div class="header-box">
+        <div autoClose="outside" ngbDropdown ngbDropdownToggle class="header-box">
             <i class="material-icons">notifications</i>
+            <span class="count">3</span>
+            <div ngbDropdownMenu>
+                <app-notifications-dropdown></app-notifications-dropdown>
+            </div>
         </div>
         <div routerLink="/admin/profile" routerLinkActive="active" *ngIf="profile" class="header-box profile">
             <app-user-box [user]="profile"></app-user-box>

@@ -31,6 +31,7 @@ export class OperationsTableComponent implements OnInit {
     operations: OperationsListItem[] = [];
     selectedOperationsIds: number[] = [];
     operationsCount = 0;
+    operationsTotal = 0;
     colspan = 8;
     isLoading = true;
     columns: DatatableColumn[] = [
@@ -144,6 +145,7 @@ export class OperationsTableComponent implements OnInit {
         this.operationService.getOperations(this.filter, this.sort, this.paging).subscribe((operationsListResponse: ListResponse<OperationsListItem>) => {
             this.operations = operationsListResponse.result;
             this.operationsCount = operationsListResponse.count;
+            this.operationsTotal = operationsListResponse.total;
             this.isLoading = false;
         });
     }

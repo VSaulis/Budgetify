@@ -11,10 +11,9 @@
     position: absolute;
 
     .lds-ring {
-        display: inline-block;
         position: relative;
-        width: 53px;
-        height: 53px;
+        width: 40px;
+        height: 40px;
 
         div {
             box-sizing: border-box;
@@ -22,7 +21,6 @@
             position: absolute;
             width: 40px;
             height: 40px;
-            margin: 2px;
             border: 2px solid;
             border-radius: 50%;
             animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;

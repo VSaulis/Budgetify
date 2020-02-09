@@ -6,11 +6,14 @@ namespace Budget.Contracts
     {
         public ListResponse(string message) : base(message) { }
 
-        public ListResponse(List<T> result, int count) : base(result)
+        public ListResponse(List<T> result, int count, decimal? total = null) : base(result)
         {
             Count = count;
+            Total = total;
         }
-        
+
         public int Count { get; set; }
+        
+        public decimal? Total { get; set; }
     }
 }

@@ -10,6 +10,7 @@ export class DatatableFooterComponent implements OnChanges {
 
     @Input() colspan: number;
     @Input() count: number;
+    @Input() total: number;
     @Input() paging: Paging;
     @Output() pagingChange = new EventEmitter<Paging>();
 

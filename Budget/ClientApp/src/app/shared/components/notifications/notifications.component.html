@@ -1,1 +1,7 @@
-<p>notifications works!</p>
+<div class="notifications">
+    <div (click)="openOperationDetailsModal(5)" *ngFor="let notification of notifications" class="notification">
+        <span class="close-icon"><i class="material-icons">clear</i></span>
+        <app-user-box [user]="notification.notifier"></app-user-box>
+        <span class="success">{{200 | money}}</span>
+    </div>
+</div>

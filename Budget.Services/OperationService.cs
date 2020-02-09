@@ -98,9 +98,10 @@ namespace Budget.Services
 
             var operations = await _operationRepository.GetListAsync(filter, sort, paging);
             var operationsCount = await _operationRepository.CountAsync(filter);
+            var operationsTotal = await _operationRepository.TotalAsync(filter);
 
             var operationsDtosList = _mapper.Map<List<Operation>, List<OperationsListItemDto>>(operations);
-            return new ListResponse<OperationsListItemDto>(operationsDtosList, operationsCount);
+            return new ListResponse<OperationsListItemDto>(operationsDtosList, operationsCount, operationsTotal);
         }
     }
 }

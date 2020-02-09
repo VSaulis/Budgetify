@@ -1,7 +1,12 @@
 <tr>
     <td [colSpan]="colspan">
         <div class="pagination-container">
-            <span class="total">Count : {{ count }}</span>
+            <ng-container *ngIf="total">
+                <span class="total">Total : <b [class.success]="total >= 0" [class.danger]="total < 0">{{ total | money }}</b> ({{count}})</span>
+            </ng-container>
+            <ng-container *ngIf="!total">
+                <span class="total">Count : {{ count }}</span>
+            </ng-container>
             <div class="pagination">
                 <ng-container *ngIf="pagesCount > 1">
                     <ng-container *ngIf="currentPage !== 1">

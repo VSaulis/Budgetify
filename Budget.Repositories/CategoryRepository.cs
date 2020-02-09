@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Budget.Constants.Enums;
 using Budget.Contracts;
 using Budget.Models;
@@ -69,6 +70,14 @@ namespace Budget.Repositories
             }
            
             return query;
+        }
+
+        public async Task<decimal> TotalAsync(CategoriesFilter filter = null)
+        {
+            IQueryable<Category> models = Context.Categories;
+            models = FormatQuery(models);
+            models = ApplyFilter(models, filter);
+            return await models.Select(category => category.Operations.Sum(operation => operation.Amount)).FirstOrDefaultAsync();
         }
     }
 }

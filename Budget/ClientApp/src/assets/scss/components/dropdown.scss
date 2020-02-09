@@ -21,15 +21,51 @@
 
 .dropdown-menu {
     position: absolute;
-    right: 0 !important;
     transform: translate(-1px, 54px) !important;
     z-index: 1000;
     display: none;
+    right: -2px !important;
+    left: auto !important;
     font-size: 12px;
     color: $color-text;
     text-align: left;
     background-color: $color-white;
     border: 1px solid $color-border;
+
+    .dropdown-header {
+        border-bottom: solid 1px $color-border;
+        background-color: $color-background;
+        height: 33px;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        h4 {
+            font-weight: 500;
+            font-size: 11px;
+            color: $color-primary;
+        }
+    }
+
+    .dropdown-footer {
+        background-color: $color-background;
+        height: 33px;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        span {
+            color: $color-text;
+            font-size: 11px;
+        }
+
+        &:hover {
+            background-color: darken($color-background, 5%);
+            cursor: pointer;
+        }
+    }
 }
 
 .dropdown-item {
@@ -49,7 +85,7 @@
 
     &:hover {
         background-color: darken($color-white, 5%);
-        color: $color-white;
+        color: $color-text;
         cursor: pointer;
     }
 

@@ -5,6 +5,9 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
 import {ListResponse} from '../../contracts/ListResponse';
 import {NotificationsListItem} from '../../models/notification/NotificationsListItem';
+import {Sort} from '../../contracts/Sort';
+import {Paging} from '../../contracts/Paging';
+import {Notification} from '../../models/notification/Notification';
 
 @Injectable({
     providedIn: 'root'
@@ -18,8 +21,30 @@ export class NotificationService {
     constructor(private http: HttpClient) {
     }
 
-    getNotifications(): Observable<ListResponse<NotificationsListItem>> {
-        return this.http.get<ListResponse<NotificationsListItem>>(this.notificationsUrl);
+    getNotifications(sort: Sort = null, paging: Paging = null): Observable<ListResponse<NotificationsListItem>> {
+        const params: any = {};
+
+        if (sort) {
+            if (sort.column) {
+                params.sortColumn = sort.column;
+            }
+
+            if (sort.type) {
+                params.sortType = sort.type;
+            }
+        }
+
+        if (paging) {
+            if (paging.limit) {
+                params.limit = paging.limit;
+            }
+
+            if (paging.offset || paging.offset === 0) {
+                params.offset = paging.offset;
+            }
+        }
+
+        return this.http.get<ListResponse<NotificationsListItem>>(this.notificationsUrl, {params});
     }
 
     getNotificationsObservable(): Observable<Notification[]> {

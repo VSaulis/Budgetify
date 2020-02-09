@@ -33,9 +33,11 @@ namespace Budget.Services
 
         public async Task<ListResponse<NotificationsListItemDto>> ListAsync(ListNotificationsRequest request)
         {
+            var loggedUser = await _authenticationService.GetLoggedUserAsync();
+            
             var paging = _mapper.Map<ListNotificationsRequest, Paging>(request);
             var sort = _mapper.Map<ListNotificationsRequest, Sort>(request);
-            var filter = _mapper.Map<ListNotificationsRequest, NotificationsFilter>(request);
+            var filter = new NotificationsFilter {NotifierId = loggedUser.User.Id};
 
             var notifications = await _notificationRepository.GetListAsync(filter, sort, paging);
             var notificationsCount = await _notificationRepository.CountAsync(filter);

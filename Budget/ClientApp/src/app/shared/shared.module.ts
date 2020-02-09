@@ -33,6 +33,7 @@ import { DatepickerComponent } from './components/form/datepicker/datepicker.com
 import { InputComponent } from './components/form/input/input.component';
 import { SelectComponent } from './components/form/select/select.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { NotificationsDropdownComponent } from './components/notifications-dropdown/notifications-dropdown.component';
 
 @NgModule({
     declarations: [
@@ -62,7 +63,8 @@ import { NotificationsComponent } from './components/notifications/notifications
         DatepickerComponent,
         InputComponent,
         SelectComponent,
-        NotificationsComponent
+        NotificationsComponent,
+        NotificationsDropdownComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -102,7 +104,8 @@ import { NotificationsComponent } from './components/notifications/notifications
         DatepickerComponent,
         InputComponent,
         SelectComponent,
-        NotificationsComponent
+        NotificationsComponent,
+        NotificationsDropdownComponent
     ],
     entryComponents: [
         ConfirmModalComponent,

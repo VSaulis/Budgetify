@@ -4,6 +4,7 @@ import {Profile} from '../../models/profile/Profile';
 import {LoggedUser} from '../../models/authentication/LoggedUser';
 import {Message} from '../../models/message/Message';
 import {NotificationService} from '../notification/notification.service';
+import {Notification} from '../../models/notification/Notification';
 
 @Injectable({
     providedIn: 'root'

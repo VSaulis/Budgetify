@@ -12,7 +12,7 @@
         {
             Result = result;
         }
-        
+
         public T Result { get; set; }
     }
 }

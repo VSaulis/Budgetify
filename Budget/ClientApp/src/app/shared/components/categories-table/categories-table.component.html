@@ -47,6 +47,7 @@
             </tr>
             </tbody>
             <app-datatable-footer
+                [total]="categoriesTotal"
                 [paging]="paging"
                 (onPagingChange)="pagingChange($event)"
                 [colspan]="colspan"

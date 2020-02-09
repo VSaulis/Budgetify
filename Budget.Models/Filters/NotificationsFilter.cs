@@ -2,6 +2,6 @@
 {
     public class NotificationsFilter : BaseFilter
     {
-        
+        public int? NotifierId { get; set; }
     }
 }

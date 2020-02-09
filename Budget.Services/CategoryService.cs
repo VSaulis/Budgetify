@@ -88,9 +88,10 @@ namespace Budget.Services
 
             var categories = await _categoryRepository.GetListAsync(filter, sort, paging);
             var categoriesCount = await _categoryRepository.CountAsync(filter);
+            var categoriesTotal = await _categoryRepository.TotalAsync(filter);
 
             var categoriesDtosList = _mapper.Map<List<Category>, List<CategoriesListItemDto>>(categories);
-            return new ListResponse<CategoriesListItemDto>(categoriesDtosList, categoriesCount);
+            return new ListResponse<CategoriesListItemDto>(categoriesDtosList, categoriesCount, categoriesTotal);
         }
     }
 }
