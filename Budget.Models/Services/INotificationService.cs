@@ -7,7 +7,7 @@ namespace Budget.Models.Services
 {
     public interface INotificationService
     {
-        Task<ListResponse<NotificationsListItemDto>> ListAsync(ListNotificationsRequest request);
+        Task<ListResponse<NotificationDto>> ListAsync(ListNotificationsRequest request);
         Task<BaseResponse> AddAsync(AddNotificationRequest request);
     }
 }

@@ -46,25 +46,7 @@
 
         </div>
     </div>
-    <div class="box one-third-width">
-        <div class="box-header">
-            <h4>Last operations</h4>
-        </div>
-        <div class="box-content">
-            <div class="operations">
-                <div class="operation" *ngFor="let operation of operations">
-                    <div>
-                        <app-avatar [user]="operation.user"></app-avatar>
-                        <div class="details">
-                            <span>{{operation.category.name}}</span>
-                            <small>{{operation.date | date}}</small>
-                        </div>
-                    </div>
-                    <span [class.success]="operation.amount >= 0" [class.danger]="operation.amount < 0" class="amount">{{operation.amount | money}}</span>
-                </div>
-            </div>
-        </div>
-    </div>
+    <app-operations-small-table class="one-third-width" [operations]="operations" title="Last operations"></app-operations-small-table>
 </section>
 
 <section class="section">
@@ -76,25 +58,7 @@
 
         </div>
     </div>
-    <div class="box one-third-width">
-        <div class="box-header">
-            <h4>Most profitable categories</h4>
-        </div>
-        <div class="box-content">
-            <div class="operations">
-                <div class="operation" *ngFor="let operation of operations">
-                    <div>
-                        <app-avatar [user]="operation.user"></app-avatar>
-                        <div class="details">
-                            <span>{{operation.category.name}}</span>
-                            <small>{{operation.date | date}}</small>
-                        </div>
-                    </div>
-                    <span [class.success]="operation.amount >= 0" [class.danger]="operation.amount < 0" class="amount">{{operation.amount | money}}</span>
-                </div>
-            </div>
-        </div>
-    </div>
+    <app-operations-small-table [operations]="operations" title="Most profitable categories"></app-operations-small-table>
 </section>
 
 <section class="section">
@@ -106,23 +70,5 @@
 
         </div>
     </div>
-    <div class="box one-third-width">
-        <div class="box-header">
-            <h4>Most profitable users</h4>
-        </div>
-        <div class="box-content">
-            <div class="operations">
-                <div class="operation" *ngFor="let operation of operations">
-                    <div>
-                        <app-avatar [user]="operation.user"></app-avatar>
-                        <div class="details">
-                            <span>{{operation.category.name}}</span>
-                            <small>{{operation.date | date}}</small>
-                        </div>
-                    </div>
-                    <span [class.success]="operation.amount >= 0" [class.danger]="operation.amount < 0" class="amount">{{operation.amount | money}}</span>
-                </div>
-            </div>
-        </div>
-    </div>
+    <app-operations-small-table [operations]="operations" title="Most profitable users"></app-operations-small-table>
 </section>

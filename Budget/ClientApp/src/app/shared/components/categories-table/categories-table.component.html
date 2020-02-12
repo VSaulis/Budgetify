@@ -32,7 +32,6 @@
                 </td>
                 <td>{{category.name}}</td>
                 <td [class.success]="category.total >= 0" [class.danger]="category.total < 0" class="center">{{category.total | money}}</td>
-                <td><app-user-box [user]="category.createdBy"></app-user-box></td>
                 <td class="center">{{category.updated | date: true}}</td>
                 <td class="center">{{category.created | date: true}}</td>
                 <td (click)="$event.stopPropagation()" class="center">

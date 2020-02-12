@@ -31,6 +31,7 @@ namespace Budget.Repositories
             if (filter.DateTo.HasValue) query = query.Where(operation => operation.Date <= filter.DateTo.Value);
             if (filter.CategoriesIds.Count > 0) query = query.Where(operation => filter.CategoriesIds.Contains(operation.CategoryId));
             if (filter.UsersIds.Count > 0) query = query.Where(operation => filter.UsersIds.Contains(operation.UserId));
+            if (filter.Deleted.HasValue) query = query.Where(operation => operation.Deleted == filter.Deleted.Value || operation.Deleted == false);
             return query;
         }
 

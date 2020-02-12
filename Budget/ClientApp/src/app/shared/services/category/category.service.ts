@@ -14,6 +14,7 @@ import {CategoriesListItem} from '../../models/category/CategoriesListItem';
 import {AddCategoryRequest} from '../../contracts/category/AddCategoryRequest';
 import {EditCategoryRequest} from '../../contracts/category/EditCategoryRequest';
 import {SortTypes} from '../../enums/SortTypes';
+import {ValueHelper} from '../../utils/ValueHelper';
 
 @Injectable({
     providedIn: 'root'
@@ -29,21 +30,25 @@ export class CategoryService {
         const params: any = {};
 
         if (filter) {
-            if (filter.totalFrom) {
+            if (ValueHelper.hasValue(filter.totalFrom)) {
                 params.totalFrom = filter.totalFrom;
             }
 
-            if (filter.totalTo) {
+            if (ValueHelper.hasValue(filter.deleted)) {
+                params.deleted = filter.deleted;
+            }
+
+            if (ValueHelper.hasValue(filter.totalTo)) {
                 params.totalTo = filter.totalTo;
             }
         }
 
         if (sort) {
-            if (sort.column) {
+            if (ValueHelper.hasValue(sort.column)) {
                 params.sortColumn = sort.column;
             }
 
-            if (sort.type) {
+            if (ValueHelper.hasValue(sort.type)) {
                 params.sortType = sort.type;
             }
         } else {
@@ -52,11 +57,11 @@ export class CategoryService {
         }
 
         if (paging) {
-            if (paging.limit) {
+            if (ValueHelper.hasValue(paging.limit)) {
                 params.limit = paging.limit;
             }
 
-            if (paging.offset || paging.offset === 0) {
+            if (ValueHelper.hasValue(paging.offset)) {
                 params.offset = paging.offset;
             }
         } else {

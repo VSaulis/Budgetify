@@ -69,6 +69,15 @@ namespace Budget.Controllers
             if (!response.IsValid) return BadRequest(response.Message);
             return Ok(response);
         }
+        
+        [HttpDelete("{id}/hard")]
+        [PermissionRequirement(Permissions.CanHardDeleteOperations)]
+        public async Task<IActionResult> HardDelete([FromRoute] int id)
+        {
+            var response = await _categoryService.HardDeleteAsync(id);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
+        }
 
         [HttpDelete]
         [PermissionRequirement(Permissions.CanDeleteCategories)]

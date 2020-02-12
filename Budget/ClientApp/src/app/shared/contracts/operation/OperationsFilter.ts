@@ -1,4 +1,6 @@
-export interface OperationsFilter {
+import {BaseFilter} from '../BaseFilter';
+
+export interface OperationsFilter extends BaseFilter {
     dateFrom?: string;
     dateTo?: string;
     amountFrom?: number;

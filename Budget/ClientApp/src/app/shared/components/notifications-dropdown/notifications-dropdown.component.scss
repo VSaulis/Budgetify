@@ -1,14 +1,33 @@
+@import "../../../../assets/scss/variables/module";
+
 .notifications {
-    width: 325px;
-    min-height: 70px;
+    width: 375px;
+    min-height: 60px;
     position: relative;
 
-    .notification {
+    app-notification-box {
+        border-bottom: 1px solid $color-border;
+        display: block;
+
+        &:last-of-type {
+            border-bottom: none;
+        }
+
+        &:nth-of-type(even) {
+            background-color: $color-background;
+        }
+    }
+
+    .no-data {
         width: 100%;
         height: 60px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        padding: 10px 15px;
+        justify-content: center;
+
+        span {
+            color: $color-text-secondary;
+            font-size: 11px;
+        }
     }
 }

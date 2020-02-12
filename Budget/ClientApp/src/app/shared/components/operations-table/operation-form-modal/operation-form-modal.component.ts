@@ -117,7 +117,7 @@ export class OperationFormModalComponent implements OnInit {
     }
 
     private getData(): void {
-        forkJoin([this.categoryService.getCategories(), this.userService.getUsers()]).subscribe(response => {
+        forkJoin([this.categoryService.getCategories({deleted: false}), this.userService.getUsers({deleted: false})]).subscribe(response => {
             this.categories = response[0].result;
             this.users = response[1].result;
             this.id ? this.getOperation(this.id) : this.isLoading = false;

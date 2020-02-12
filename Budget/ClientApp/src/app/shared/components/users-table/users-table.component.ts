@@ -15,6 +15,7 @@ import {ButtonClasses} from '../../enums/ButtonClasses';
 import {CategoryDetailsModalComponent} from '../categories-table/category-details-modal/category-details-modal.component';
 import {UserDetailsModalComponent} from './user-details-modal/user-details-modal.component';
 import {SortTypes} from '../../enums/SortTypes';
+import {UsersFilter} from '../../contracts/user/UsersFilter';
 
 @Component({
     selector: 'app-users-table',
@@ -25,6 +26,7 @@ export class UsersTableComponent implements OnInit {
 
     paging: Paging = {limit: 20, offset: 0};
     sort: Sort = {column: 'created', type: SortTypes.desc};
+    filter: UsersFilter = {deleted: false};
 
     users: UsersListItem[] = [];
     usersCount = 0;
@@ -123,7 +125,7 @@ export class UsersTableComponent implements OnInit {
 
     private getUsers(): void {
         this.isLoading = true;
-        this.userService.getUsers(null, this.sort, this.paging).subscribe((usersListResponse: ListResponse<UsersListItem>) => {
+        this.userService.getUsers(this.filter, this.sort, this.paging).subscribe((usersListResponse: ListResponse<UsersListItem>) => {
             this.users = usersListResponse.result;
             this.usersCount = usersListResponse.count;
             this.isLoading = false;

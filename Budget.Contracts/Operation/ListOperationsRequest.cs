@@ -11,5 +11,6 @@ namespace Budget.Contracts.Operation
         public decimal? AmountTo { get; set; }
         public List<int> CategoriesIds { get; set; }
         public List<int> UsersIds { get; set; }
+        public bool? Deleted { get; set; }
     }
 }

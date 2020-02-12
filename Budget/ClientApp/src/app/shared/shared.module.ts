@@ -34,6 +34,9 @@ import { InputComponent } from './components/form/input/input.component';
 import { SelectComponent } from './components/form/select/select.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { NotificationsDropdownComponent } from './components/notifications-dropdown/notifications-dropdown.component';
+import { NotificationBoxComponent } from './components/notification-box/notification-box.component';
+import { OperationBoxComponent } from './components/operation-box/operation-box.component';
+import { OperationsSmallTableComponent } from './components/operations-small-table/operations-small-table.component';
 
 @NgModule({
     declarations: [
@@ -64,7 +67,10 @@ import { NotificationsDropdownComponent } from './components/notifications-dropd
         InputComponent,
         SelectComponent,
         NotificationsComponent,
-        NotificationsDropdownComponent
+        NotificationsDropdownComponent,
+        NotificationBoxComponent,
+        OperationBoxComponent,
+        OperationsSmallTableComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -105,7 +111,8 @@ import { NotificationsDropdownComponent } from './components/notifications-dropd
         InputComponent,
         SelectComponent,
         NotificationsComponent,
-        NotificationsDropdownComponent
+        NotificationsDropdownComponent,
+        OperationsSmallTableComponent
     ],
     entryComponents: [
         ConfirmModalComponent,

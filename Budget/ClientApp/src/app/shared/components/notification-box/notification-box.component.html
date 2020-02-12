@@ -1,0 +1,7 @@
+<div (click)="openDetailsModal()" class="notification" ngbDropdownItem>
+    <app-user-box [text]="notification.type" [date]="notification.date" [user]="notification.notifier"></app-user-box>
+    <div>
+        <span [class.success]="notification.decimalValue >= 0" [class.danger]="notification.decimalValue < 0">{{notification.decimalValue | money}}</span>
+        <small>{{notification.stringValue}}</small>
+    </div>
+</div>

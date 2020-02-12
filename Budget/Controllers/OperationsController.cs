@@ -72,6 +72,15 @@ namespace Budget.Controllers
             return Ok(response);
         }
         
+        [HttpDelete("{id}/hard")]
+        [PermissionRequirement(Permissions.CanHardDeleteOperations)]
+        public async Task<IActionResult> HardDelete([FromRoute] int id)
+        {
+            var response = await _operationService.HardDeleteAsync(id);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
+        }
+        
         [HttpDelete]
         [PermissionRequirement(Permissions.CanDeleteOperations)]
         public async Task<IActionResult> Delete([FromRoute] DeleteOperationsRequest request)

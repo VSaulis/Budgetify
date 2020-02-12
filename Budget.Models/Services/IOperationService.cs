@@ -9,6 +9,7 @@ namespace Budget.Models.Services
     {
         Task<BaseResponse> AddAsync(AddOperationRequest request);
         Task<BaseResponse> EditAsync(EditOperationRequest request);
+        Task<BaseResponse> HardDeleteAsync(int id);
         Task<BaseResponse> DeleteAsync(int id);
         Task<ResultResponse<OperationDto>> GetAsync(int id);
         Task<BaseResponse> DeleteListAsync(DeleteOperationsRequest request);

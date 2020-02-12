@@ -61,7 +61,7 @@ table {
             }
 
             &:hover {
-                background-color: $color-background;
+                background-color: darken($color-background, 2%);
                 cursor: pointer;
             }
 
@@ -174,13 +174,13 @@ table {
 
                                 &:hover {
                                     color: $color-primary;
-                                    background-color: darken($color-white, 5%);
+                                    background-color: darken($color-background, 2%);
                                     cursor: pointer;
                                 }
 
                                 &.active{
                                     color: $color-primary;
-                                    background-color: darken($color-white, 5%);
+                                    background-color: darken($color-background, 2%);
                                 }
                             }
                         }

@@ -4,12 +4,8 @@
 <div class="notifications">
     <app-loader *ngIf="isLoading"></app-loader>
     <ng-container *ngIf="!isLoading">
-        <div (click)="openOperationDetailsModal(5)" *ngFor="let notification of notifications" class="notification" ngbDropdownItem>
-            <app-user-box [user]="notification.notifier"></app-user-box>
-            <span class="success">{{200 | money}}</span>
-        </div>
-        <div *ngIf="notifications.length < notificationsCount" class="dropdown-footer">
-            <span>See all</span>
-        </div>
+        <app-notification-box *ngFor="let notification of notifications" [notification]="notification"></app-notification-box>
+        <div *ngIf="notificationsCount === 0" class="no-data"><span>No notifications yet</span></div>
+        <div *ngIf="notifications.length < notificationsCount" class="dropdown-footer"><span>See all</span></div>
     </ng-container>
 </div>

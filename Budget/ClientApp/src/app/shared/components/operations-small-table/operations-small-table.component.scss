@@ -1,0 +1,17 @@
+@import "../../../../assets/scss/variables/module";
+
+.operations {
+
+    app-operation-box {
+        display: block;
+        border-bottom: 1px solid $color-border;
+
+        &:last-of-type {
+            border-bottom: none;
+        }
+
+        &:nth-of-type(even) {
+            background-color: $color-background;
+        }
+    }
+}

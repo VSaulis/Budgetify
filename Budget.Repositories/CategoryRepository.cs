@@ -29,6 +29,8 @@ namespace Budget.Repositories
             {
                 if (filter.TotalFrom.HasValue) query = query.Where(category => category.Operations.Sum(operation => operation.Amount) >= filter.TotalFrom.Value);
                 if (filter.TotalTo.HasValue) query = query.Where(category => category.Operations.Sum(operation => operation.Amount) <= filter.TotalTo.Value);
+                if (filter.TotalTo.HasValue) query = query.Where(category => category.Operations.Sum(operation => operation.Amount) <= filter.TotalTo.Value);
+                if (filter.Deleted.HasValue) query = query.Where(category => category.Deleted == filter.Deleted.Value || category.Deleted == false);
             }
             
             return query;

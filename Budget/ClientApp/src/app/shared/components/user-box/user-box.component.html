@@ -1,7 +1,7 @@
 <div class="user-box">
     <app-avatar [user]="user"></app-avatar>
     <div class="details">
-        <span>{{fullName}}</span>
-        <small>{{user.roles}}</small>
+        <span><b>{{fullName}}</b> {{text}}</span>
+        <small>{{date ? date : user.roles}}</small>
     </div>
 </div>

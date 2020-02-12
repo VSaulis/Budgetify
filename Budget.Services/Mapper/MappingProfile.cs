@@ -14,6 +14,7 @@ using Budget.Dtos.User;
 using Budget.Models;
 using Budget.Models.Filters;
 using Budget.Services.Mapper.Resolvers;
+using Budget.System.Extensions;
 
 namespace Budget.Services.Mapper
 {
@@ -40,7 +41,7 @@ namespace Budget.Services.Mapper
                 )
                 .ForMember(
                     dest => dest.Roles,
-                    opt => opt.MapFrom(src => src.User.Roles)
+                    opt => opt.MapFrom(src => src.User.Roles.Select(role => role.GetDescription()))
                 )
                 .ForMember(
                     dest => dest.RefreshToken,
@@ -83,10 +84,15 @@ namespace Budget.Services.Mapper
                     opt => opt.MapFrom(src => src.CreatedCategories.SelectMany(category => category.Operations).Sum(operation => operation.Amount))
                 );
             
-            CreateMap<Notification, NotificationsListItemDto>();
-            CreateMap<AddNotificationRequest, Notification>();
+            
             CreateMap<ListNotificationsRequest, NotificationsFilter>();
-            CreateMap<Notification, NotificationDto>();
+            
+            CreateMap<AddNotificationRequest, Notification>();
+            CreateMap<Notification, NotificationDto>()
+                .ForMember(
+                    dest => dest.Type,
+                    opt => opt.MapFrom(src => src.Type.GetDescription())
+                );
         }
     }
 }

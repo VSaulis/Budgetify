@@ -48,7 +48,7 @@ export class OperationsFilterModalComponent implements OnInit {
     }
 
     reset(): void {
-        this.activeModal.close({});
+        this.activeModal.close({deleted: false});
     }
 
     private mapFilter(): OperationsFilter {
@@ -58,7 +58,8 @@ export class OperationsFilterModalComponent implements OnInit {
             amountFrom: this.form.value.amountFrom,
             amountTo: this.form.value.amountTo,
             categoriesIds: this.form.value.categoriesIds,
-            usersIds: this.form.value.usersIds
+            usersIds: this.form.value.usersIds,
+            deleted: this.form.value.deleted
         };
     }
 
@@ -69,6 +70,7 @@ export class OperationsFilterModalComponent implements OnInit {
         this.form.get('amountTo').setValue(filter.amountTo ? filter.amountTo : null);
         this.form.get('categoriesIds').setValue(filter.categoriesIds ? filter.categoriesIds : null);
         this.form.get('usersIds').setValue(filter.usersIds ? filter.usersIds : null);
+        this.form.get('deleted').setValue(filter.deleted ? filter.deleted : false);
     }
 
     private createForm(): void {
@@ -78,7 +80,8 @@ export class OperationsFilterModalComponent implements OnInit {
             amountFrom: [null],
             amountTo: [null],
             categoriesIds: [null],
-            usersIds: [null]
+            usersIds: [null],
+            deleted: [false]
         });
     }
 

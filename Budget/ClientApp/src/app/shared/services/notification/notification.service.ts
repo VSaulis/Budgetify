@@ -4,7 +4,6 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
 import {ListResponse} from '../../contracts/ListResponse';
-import {NotificationsListItem} from '../../models/notification/NotificationsListItem';
 import {Sort} from '../../contracts/Sort';
 import {Paging} from '../../contracts/Paging';
 import {Notification} from '../../models/notification/Notification';
@@ -21,7 +20,7 @@ export class NotificationService {
     constructor(private http: HttpClient) {
     }
 
-    getNotifications(sort: Sort = null, paging: Paging = null): Observable<ListResponse<NotificationsListItem>> {
+    getNotifications(sort: Sort = null, paging: Paging = null): Observable<ListResponse<Notification>> {
         const params: any = {};
 
         if (sort) {
@@ -44,7 +43,7 @@ export class NotificationService {
             }
         }
 
-        return this.http.get<ListResponse<NotificationsListItem>>(this.notificationsUrl, {params});
+        return this.http.get<ListResponse<Notification>>(this.notificationsUrl, {params});
     }
 
     getNotificationsObservable(): Observable<Notification[]> {

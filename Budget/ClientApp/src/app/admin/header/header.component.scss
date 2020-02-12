@@ -55,7 +55,7 @@ header.header {
 
         &:hover,
         &.active {
-            background-color: darken($color-white, 5%);
+            background-color: darken($color-background, 2%);
         }
 
         &.profile {

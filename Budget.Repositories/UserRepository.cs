@@ -21,6 +21,7 @@ namespace Budget.Repositories
 
         protected override IQueryable<User> ApplyFilter(IQueryable<User> query, UsersFilter filter)
         {
+            if (filter.Deleted.HasValue) query = query.Where(user => user.Deleted == filter.Deleted.Value || user.Deleted == false);
             return query;
         }
 

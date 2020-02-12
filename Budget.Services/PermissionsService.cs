@@ -21,16 +21,19 @@ namespace Budget.Services
                         permissions.Add(Permissions.CanEditUsers);
                         permissions.Add(Permissions.CanDeleteUsers);
                         permissions.Add(Permissions.CanViewUsers);
+                        permissions.Add(Permissions.CanHardDeleteUsers);
                         // Categories
                         permissions.Add(Permissions.CanAddCategories);
                         permissions.Add(Permissions.CanEditCategories);
                         permissions.Add(Permissions.CanDeleteCategories);
                         permissions.Add(Permissions.CanViewCategories);
+                        permissions.Add(Permissions.CanHardDeleteCategories);
                         // Operations
                         permissions.Add(Permissions.CanAddOperations);
                         permissions.Add(Permissions.CanEditOperations);
                         permissions.Add(Permissions.CanDeleteOperations);
                         permissions.Add(Permissions.CanViewOperations);
+                        permissions.Add(Permissions.CanHardDeleteOperations);
                         // Settings
                         permissions.Add(Permissions.CanViewSettings);
                         permissions.Add(Permissions.CanEditSettings);

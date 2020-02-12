@@ -14,6 +14,7 @@ import {EditUserRequest} from '../../contracts/user/EditUserRequest';
 import {map} from 'rxjs/operators';
 import {StringHelper} from '../../utils/StringHelper';
 import {SortTypes} from '../../enums/SortTypes';
+import {ValueHelper} from '../../utils/ValueHelper';
 
 @Injectable({
     providedIn: 'root'
@@ -29,17 +30,21 @@ export class UserService {
         const params: any = {};
 
         if (filter) {
-            if (filter.email) {
+            if (ValueHelper.hasValue(filter.email)) {
                 params.email = filter.email;
+            }
+
+            if (ValueHelper.hasValue(filter.deleted)) {
+                params.deleted = filter.deleted;
             }
         }
 
         if (sort) {
-            if (sort.column) {
+            if (ValueHelper.hasValue(sort.column)) {
                 params.sortColumn = sort.column;
             }
 
-            if (sort.type) {
+            if (ValueHelper.hasValue(sort.type)) {
                 params.sortType = sort.type;
             }
         } else {
@@ -48,11 +53,11 @@ export class UserService {
         }
 
         if (paging) {
-            if (paging.limit) {
+            if (ValueHelper.hasValue(paging.limit)) {
                 params.limit = paging.limit;
             }
 
-            if (paging.offset || paging.offset === 0) {
+            if (ValueHelper.hasValue(paging.offset)) {
                 params.offset = paging.offset;
             }
         } else {

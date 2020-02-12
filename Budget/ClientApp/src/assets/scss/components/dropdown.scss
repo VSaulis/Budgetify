@@ -49,6 +49,7 @@
     }
 
     .dropdown-footer {
+        border-top: 1px solid $color-border;
         background-color: $color-background;
         height: 33px;
         padding: 0 15px;
@@ -62,7 +63,7 @@
         }
 
         &:hover {
-            background-color: darken($color-background, 5%);
+            background-color: darken($color-background, 2%);
             cursor: pointer;
         }
     }
@@ -84,7 +85,7 @@
     }
 
     &:hover {
-        background-color: darken($color-white, 5%);
+        background-color: darken($color-background, 2%);
         color: $color-text;
         cursor: pointer;
     }

@@ -25,6 +25,7 @@ namespace Budget.Repositories
         protected override IQueryable<Notification> ApplyFilter(IQueryable<Notification> query, NotificationsFilter filter)
         {
             if (filter.NotifierId.HasValue) query = query.Where(notification => notification.NotifierId == filter.NotifierId);
+            if (filter.ReceiverId.HasValue) query = query.Where(notification => notification.ReceiverId == filter.ReceiverId);
             return query;
         }
 

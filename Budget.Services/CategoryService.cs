@@ -8,6 +8,7 @@ using Budget.Models;
 using Budget.Models.Filters;
 using Budget.Models.Repositories;
 using Budget.Models.Services;
+using NotImplementedException = System.NotImplementedException;
 
 namespace Budget.Services
 {
@@ -54,6 +55,16 @@ namespace Budget.Services
             if (category == null) return new BaseResponse("Category is not found");
 
             _categoryRepository.Delete(category);
+            await _unitOfWork.SaveChangesAsync();
+            return new BaseResponse();
+        }
+
+        public async Task<BaseResponse> HardDeleteAsync(int id)
+        {
+            var category = await _categoryRepository.GetAsync(category => category.Id == id);
+            if (category == null) return new BaseResponse("Category is not found");
+
+            _categoryRepository.HardDelete(category);
             await _unitOfWork.SaveChangesAsync();
             return new BaseResponse();
         }

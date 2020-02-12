@@ -38,25 +38,28 @@ export class CategoriesFilterModalComponent implements OnInit {
     }
 
     reset(): void {
-        this.activeModal.close({});
+        this.activeModal.close({deleted: false});
     }
 
     private mapFilter(): CategoriesFilter {
         return {
             totalFrom: this.form.value.totalFrom,
-            totalTo: this.form.value.totalTo
+            totalTo: this.form.value.totalTo,
+            deleted: this.form.value.deleted
         };
     }
 
     private setForm(filter: CategoriesFilter): void {
         this.form.get('totalFrom').setValue(filter.totalFrom ? filter.totalFrom : null);
         this.form.get('totalTo').setValue(filter.totalTo ? filter.totalTo : null);
+        this.form.get('deleted').setValue(filter.deleted ? filter.deleted : false);
     }
 
     private createForm(): void {
         this.form = this.fb.group({
             totalFrom: [null],
-            totalTo: [null]
+            totalTo: [null],
+            deleted: [false]
         });
     }
 

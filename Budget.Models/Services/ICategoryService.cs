@@ -10,6 +10,7 @@ namespace Budget.Models.Services
         Task<BaseResponse> AddAsync(AddCategoryRequest request);
         Task<BaseResponse> EditAsync(EditCategoryRequest request);
         Task<BaseResponse> DeleteAsync(int id);
+        Task<BaseResponse> HardDeleteAsync(int id);
         Task<BaseResponse> DeleteListAsync(DeleteCategoriesRequest request);
         Task<ResultResponse<CategoryDto>> GetAsync(int id);
         Task<ListResponse<CategoriesListItemDto>> ListAsync(ListCategoriesRequest request);

@@ -53,6 +53,16 @@ namespace Budget.Services
             return new BaseResponse();
         }
 
+        public async Task<BaseResponse> HardDeleteAsync(int id)
+        {
+            var user = await _userRepository.GetAsync(user => user.Id == id);
+            if (user == null) return new BaseResponse("User is not found");
+
+            _userRepository.HardDelete(user);
+            await _unitOfWork.SaveChangesAsync();
+            return new BaseResponse();
+        }
+
         public async Task<BaseResponse> DeleteAsync(int id)
         {
             var user = await _userRepository.GetAsync(user => user.Id == id);

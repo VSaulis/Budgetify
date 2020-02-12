@@ -71,6 +71,17 @@ namespace Budget.Controllers
             if (!response.IsValid) return BadRequest(response.Message);
             return Ok(response);
         }
+        
+        [HttpDelete("{id}")]
+        [PermissionRequirement(Permissions.CanHardDeleteUsers)]
+        public async Task<IActionResult> HardDelete([FromRoute] int id)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
+
+            var response = await _userService.HardDeleteAsync(id);
+            if (!response.IsValid) return BadRequest(response.Message);
+            return Ok(response);
+        }
 
         [HttpDelete]
         [PermissionRequirement(Permissions.CanDeleteUsers)]

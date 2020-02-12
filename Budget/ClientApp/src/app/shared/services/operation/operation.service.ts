@@ -15,6 +15,7 @@ import {AddOperationRequest} from '../../contracts/operation/AddOperationRequest
 import {Operation} from '../../models/operation/Operation';
 import {ProfileService} from '../profile/profile.service';
 import {SortTypes} from '../../enums/SortTypes';
+import {ValueHelper} from '../../utils/ValueHelper';
 
 @Injectable({
     providedIn: 'root'
@@ -31,37 +32,41 @@ export class OperationService {
         const params: any = {};
 
         if (filter) {
-            if (filter.dateFrom) {
+            if (ValueHelper.hasValue(filter.dateFrom)) {
                 params.dateFrom = filter.dateFrom;
             }
 
-            if (filter.dateTo) {
+            if (ValueHelper.hasValue(filter.dateTo)) {
                 params.dateTo = filter.dateTo;
             }
 
-            if (filter.amountFrom) {
+            if (ValueHelper.hasValue(filter.amountFrom)) {
                 params.amountFrom = filter.amountFrom;
             }
 
-            if (filter.amountTo) {
+            if (ValueHelper.hasValue(filter.amountTo)) {
                 params.amountTo = filter.amountTo;
             }
 
-            if (filter.categoriesIds) {
+            if (ValueHelper.hasValue(filter.categoriesIds)) {
                 params.categoriesIds = filter.categoriesIds;
             }
 
-            if (filter.usersIds) {
+            if (ValueHelper.hasValue(filter.usersIds)) {
                 params.categoriesIds = filter.categoriesIds;
+            }
+
+            if (ValueHelper.hasValue(filter.deleted)) {
+                params.deleted = filter.deleted;
             }
         }
 
         if (sort) {
-            if (sort.column) {
+            if (ValueHelper.hasValue(sort.column)) {
                 params.sortColumn = sort.column;
             }
 
-            if (sort.type) {
+            if (ValueHelper.hasValue(sort.type)) {
                 params.sortType = sort.type;
             }
         } else {
@@ -70,11 +75,11 @@ export class OperationService {
         }
 
         if (paging) {
-            if (paging.limit) {
+            if (ValueHelper.hasValue(paging.limit)) {
                 params.limit = paging.limit;
             }
 
-            if (paging.offset || paging.offset === 0) {
+            if (ValueHelper.hasValue(paging.offset)) {
                 params.offset = paging.offset;
             }
         } else {

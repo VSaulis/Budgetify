@@ -11,7 +11,6 @@ import {MessagesTypes} from '../../enums/MessagesTypes';
 import {ConfirmModalComponent} from '../confirm-modal/confirm-modal.component';
 import {ButtonClasses} from '../../enums/ButtonClasses';
 import {ListResponse} from '../../contracts/ListResponse';
-import {CategoryDetailsModalComponent} from '../categories-table/category-details-modal/category-details-modal.component';
 import {OperationDetailsModalComponent} from './operation-details-modal/operation-details-modal.component';
 import {OperationsFilterModalComponent} from './operations-filter-modal/operations-filter-modal.component';
 import {OperationsFilter} from '../../contracts/operation/OperationsFilter';
@@ -24,7 +23,7 @@ import {SortTypes} from '../../enums/SortTypes';
 })
 export class OperationsTableComponent implements OnInit {
 
-    filter: OperationsFilter = {};
+    filter: OperationsFilter = {deleted: false};
     paging: Paging = {limit: 20, offset: 0};
     sort: Sort = {column: 'created', type: SortTypes.desc};
 

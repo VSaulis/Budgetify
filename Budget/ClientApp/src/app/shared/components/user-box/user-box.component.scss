@@ -13,8 +13,14 @@
         margin-left: 10px;
 
         span {
-            color: $color-text;
-            font-size: 12px;
+            color: $color-text-secondary;
+            font-size: 11px;
+
+            b {
+                color: $color-text;
+                font-weight: normal;
+                font-size: 12px;
+            }
         }
 
         small {

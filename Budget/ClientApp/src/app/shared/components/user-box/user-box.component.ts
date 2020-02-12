@@ -11,6 +11,8 @@ import {Profile} from '../../models/profile/Profile';
 export class UserBoxComponent implements OnInit {
 
     @Input() user: User | UsersListItem | Profile;
+    @Input() date: string;
+    @Input() text: string;
     fullName: string;
 
     constructor() {
