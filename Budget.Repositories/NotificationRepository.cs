@@ -28,19 +28,5 @@ namespace Budget.Repositories
             if (filter.ReceiverId.HasValue) query = query.Where(notification => notification.ReceiverId == filter.ReceiverId);
             return query;
         }
-
-        protected override IQueryable<Notification> ApplySort(IQueryable<Notification> query, Sort sort)
-        {
-            if (sort != null)
-            {
-                if (sort.Column == "created")
-                {
-                    if (sort.Type == SortTypes.Asc) query = query.OrderBy(notification => notification.Created);
-                    if (sort.Type == SortTypes.Desc) query = query.OrderByDescending(notification => notification.Created);
-                }
-            }
-           
-            return query;
-        }
     }
 }

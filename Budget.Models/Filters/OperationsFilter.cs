@@ -5,6 +5,7 @@ namespace Budget.Models.Filters
 {
     public class OperationsFilter : BaseFilter
     {
+        public int? GroupId { get; set; }
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }
         public decimal? AmountFrom { get; set; }

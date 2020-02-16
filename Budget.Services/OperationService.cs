@@ -17,15 +17,13 @@ namespace Budget.Services
     {
         private readonly IOperationRepository _operationRepository;
         private readonly ICategoryRepository _categoryRepository;
-        private readonly IAuthenticationService _authenticationService;
         private readonly INotificationService _notificationService;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public OperationService(ICategoryRepository categoryRepository, IOperationRepository operationRepository, IMapper mapper, IUnitOfWork unitOfWork, INotificationService notificationService, IAuthenticationService authenticationService)
+        public OperationService(ICategoryRepository categoryRepository, IOperationRepository operationRepository, IMapper mapper, IUnitOfWork unitOfWork, INotificationService notificationService)
         {
             _categoryRepository = categoryRepository;
-            _authenticationService = authenticationService;
             _notificationService = notificationService;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -37,10 +35,7 @@ namespace Budget.Services
             var category = await _categoryRepository.GetAsync(category => category.Id == request.CategoryId);
             if (category == null) return new BaseResponse("Category is not found");
             
-            var loggedUser = await _authenticationService.GetLoggedUserAsync();
             var operation = _mapper.Map<AddOperationRequest, Operation>(request);
-            operation.CreatedById = loggedUser.User.Id;
-
             await _operationRepository.AddAsync(operation);
             await _unitOfWork.SaveChangesAsync();
 

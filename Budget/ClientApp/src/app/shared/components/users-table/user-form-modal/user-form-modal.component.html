@@ -15,12 +15,6 @@
                     <app-input [abstractControl]="form.get('email')" type="email" label="Email" formControlName="email"></app-input>
                     <app-input [abstractControl]="form.get('firstName')" type="firstName" label="First name" formControlName="firstName"></app-input>
                     <app-input [abstractControl]="form.get('lastName')" type="lastName" label="Last name" formControlName="lastName"></app-input>
-                    <app-select [items]="['Owner', 'FamilyMember', 'Guest']"
-                                [abstractControl]="form.get('roles')"
-                                label="Roles"
-                                [multiple]="true"
-                                formControlName="roles">
-                    </app-select>
                 </div>
             </div>
             <div class="modal-footer">

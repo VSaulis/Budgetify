@@ -25,6 +25,7 @@ namespace Budget.Repositories
 
         protected override IQueryable<Operation> ApplyFilter(IQueryable<Operation> query, OperationsFilter filter)
         {
+            if (filter.GroupId.HasValue) query = query.Where(operation => operation.Category.GroupId == filter.GroupId.Value);
             if (filter.AmountFrom.HasValue) query = query.Where(operation => operation.Amount >= filter.AmountFrom.Value);
             if (filter.AmountTo.HasValue) query = query.Where(operation => operation.Amount <= filter.AmountTo.Value);
             if (filter.DateFrom.HasValue) query = query.Where(operation => operation.Date >= filter.DateFrom.Value);

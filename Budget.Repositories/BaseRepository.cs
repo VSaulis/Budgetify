@@ -15,6 +15,8 @@ namespace Budget.Repositories
 {
     public abstract class BaseRepository<TModel, TFilter> : IBaseRepository<TModel, TFilter> where TModel : BaseModel where TFilter : BaseFilter
     {
+        private const int Limit = 20;
+        private const int Offset = 0;
         protected readonly SqlContext Context;
 
         protected BaseRepository(SqlContext context)
@@ -75,9 +77,20 @@ namespace Budget.Repositories
             if (paging != null) query = query.Skip(paging.Offset).Take(paging.Limit);
             return query;
         }
-        
-        protected abstract IQueryable<TModel> FormatQuery(IQueryable<TModel> query);
-        protected abstract IQueryable<TModel> ApplyFilter(IQueryable<TModel> query, TFilter filter);
-        protected abstract IQueryable<TModel> ApplySort(IQueryable<TModel> query, Sort sort);
+
+        protected virtual IQueryable<TModel> FormatQuery(IQueryable<TModel> query)
+        {
+            return query;
+        }
+
+        protected virtual IQueryable<TModel> ApplyFilter(IQueryable<TModel> query, TFilter filter)
+        {
+            return query.Skip(Offset).Take(Limit);
+        }
+
+        protected virtual IQueryable<TModel> ApplySort(IQueryable<TModel> query, Sort sort)
+        {
+            return query.OrderBy(model => model.Created);
+        }
     }
 }

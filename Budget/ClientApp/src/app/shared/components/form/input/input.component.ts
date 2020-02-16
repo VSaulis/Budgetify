@@ -1,6 +1,5 @@
-import {Component, forwardRef, HostBinding, Input, OnInit} from '@angular/core';
+import {Component, forwardRef, HostBinding, Input} from '@angular/core';
 import {AbstractControl, ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {DateFormatter} from '../../../utils/DateFormatter';
 
 @Component({
     selector: 'app-input',
@@ -34,8 +33,10 @@ export class InputComponent implements ControlValueAccessor {
     isFocused: boolean;
     value: string;
 
-    onChange = (value: any) => {};
-    onBlur = (value: any) => {};
+    onChange = (value: any) => {
+    };
+    onBlur = (value: any) => {
+    };
 
     registerOnChange(change: (value: any) => {}): void {
         this.onChange = change;

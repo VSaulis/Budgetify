@@ -8,7 +8,6 @@ namespace Budget.Models.Services
     public interface IAuthenticationService
     {
         Task<ResultResponse<LoggedUserDto>> LoginAsync(LoginRequest request);
-        Task<BaseResponse> ChangePasswordAsync(ChangePasswordRequest request);
         Task<ResultResponse<LoggedUserDto>> GetLoggedUserDtoAsync(string refreshToken = null);
         Task<LoggedUser> GetLoggedUserAsync(string refreshToken = null);
         Task<ResultResponse<LoggedUserDto>> RefreshTokenAsync(RefreshTokenRequest request);

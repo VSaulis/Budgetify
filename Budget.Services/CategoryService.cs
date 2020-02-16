@@ -8,31 +8,25 @@ using Budget.Models;
 using Budget.Models.Filters;
 using Budget.Models.Repositories;
 using Budget.Models.Services;
-using NotImplementedException = System.NotImplementedException;
 
 namespace Budget.Services
 {
     public class CategoryService : ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
-        private readonly IAuthenticationService _authenticationService;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper,
-            IAuthenticationService authenticationService, IUnitOfWork unitOfWork)
+        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper, IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _authenticationService = authenticationService;
             _mapper = mapper;
             _categoryRepository = categoryRepository;
         }
 
         public async Task<BaseResponse> AddAsync(AddCategoryRequest request)
         {
-            var loggedUser = await _authenticationService.GetLoggedUserAsync();
             var category = _mapper.Map<AddCategoryRequest, Category>(request);
-            category.CreatedById = loggedUser.User.Id;
             await _categoryRepository.AddAsync(category);
             await _unitOfWork.SaveChangesAsync();
             return new BaseResponse();

@@ -40,18 +40,6 @@ namespace Budget.Controllers
             return Ok(response);
         }
 
-        [Route("change-password")]
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
-        {
-            if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
-
-            var response = await _authenticationService.ChangePasswordAsync(request);
-            if (!response.IsValid) return BadRequest(response.Message);
-            return Ok(response);
-        }
-
         [Route("logged-user")]
         [Authorize]
         [HttpGet]

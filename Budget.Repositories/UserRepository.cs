@@ -27,40 +27,15 @@ namespace Budget.Repositories
 
         protected override IQueryable<User> ApplySort(IQueryable<User> query, Sort sort)
         {
-            if (sort != null)
+            return sort.Column switch
             {
-                if (sort.Column == "email")
-                {
-                    if (sort.Type == SortTypes.Asc) query = query.OrderBy(user => user.Email);
-                    if (sort.Type == SortTypes.Desc) query = query.OrderByDescending(user => user.Email);
-                }
-                
-                if (sort.Column == "firstName")
-                {
-                    if (sort.Type == SortTypes.Asc) query = query.OrderBy(user => user.FirstName);
-                    if (sort.Type == SortTypes.Desc) query = query.OrderByDescending(user => user.FirstName);
-                }
-                
-                if (sort.Column == "lastName")
-                {
-                    if (sort.Type == SortTypes.Asc) query = query.OrderBy(user => user.LastName);
-                    if (sort.Type == SortTypes.Desc) query = query.OrderByDescending(user => user.LastName);
-                }
-                
-                if (sort.Column == "updated")
-                {
-                    if (sort.Type == SortTypes.Asc) query = query.OrderBy(user => user.Updated);
-                    if (sort.Type == SortTypes.Desc) query = query.OrderByDescending(user => user.Updated);
-                }
-                
-                if (sort.Column == "created")
-                {
-                    if (sort.Type == SortTypes.Asc) query = query.OrderBy(user => user.Created);
-                    if (sort.Type == SortTypes.Desc) query = query.OrderByDescending(user => user.Created);
-                }
-            }
-           
-            return query;
+                "email" => (sort.Type == SortTypes.Asc ? query.OrderBy(user => user.Email) : query.OrderByDescending(user => user.Email)),
+                "firstName" => (sort.Type == SortTypes.Asc ? query.OrderBy(user => user.FirstName) : query.OrderByDescending(user => user.FirstName)),
+                "lastName" => (sort.Type == SortTypes.Asc ? query.OrderBy(user => user.LastName) : query.OrderByDescending(user => user.LastName)),
+                "updated" => (sort.Type == SortTypes.Asc ? query.OrderBy(user => user.Updated) : query.OrderByDescending(user => user.Updated)),
+                "created" => (sort.Type == SortTypes.Asc ? query.OrderBy(user => user.Created) : query.OrderByDescending(user => user.Created)),
+                _ => query
+            };
         }
     }
 }

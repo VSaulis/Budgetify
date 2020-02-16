@@ -4,10 +4,7 @@ import {ListResponse} from '../../contracts/ListResponse';
 import {Paging} from '../../contracts/Paging';
 import {Sort} from '../../contracts/Sort';
 import {SortTypes} from '../../enums/SortTypes';
-import {OperationDetailsModalComponent} from '../operations-table/operation-details-modal/operation-details-modal.component';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Notification} from '../../models/notification/Notification';
-import {AppService} from '../../services/app/app.service';
 
 @Component({
     selector: 'app-notifications-dropdown',
@@ -22,8 +19,7 @@ export class NotificationsDropdownComponent implements OnInit {
     paging: Paging = {limit: 5, offset: 0};
     sort: Sort = {type: SortTypes.desc, column: 'created'};
 
-    constructor(private notificationService: NotificationService,
-                private appService: AppService) {
+    constructor(private notificationService: NotificationService) {
     }
 
     ngOnInit() {
@@ -31,7 +27,7 @@ export class NotificationsDropdownComponent implements OnInit {
     }
 
     private getNotifications(): void {
-        this.appService.getNotifications().subscribe(() => {
+        this.notificationService.getNotificationsObservable().subscribe(() => {
             this.isLoading = true;
             this.notificationService.getNotifications(this.sort, this.paging).subscribe((notificationsListResponse: ListResponse<Notification>) => {
                 this.notifications = notificationsListResponse.result;

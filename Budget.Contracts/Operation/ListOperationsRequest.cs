@@ -5,6 +5,7 @@ namespace Budget.Contracts.Operation
 {
     public class ListOperationsRequest : ListRequest
     {
+        public int? GroupId { get; set; }
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }
         public decimal? AmountFrom { get; set; }

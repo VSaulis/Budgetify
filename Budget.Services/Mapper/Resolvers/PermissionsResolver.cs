@@ -17,7 +17,7 @@ namespace Budget.Services.Mapper.Resolvers
 
         public List<Permissions> Resolve(User user, object destination, List<Permissions> destMember, ResolutionContext context)
         {
-            return _permissionsService.GetPermissions(user.Roles);
+            return _permissionsService.GetPermissions(new List<Roles>{Roles.Owner});
         }
     }
 }

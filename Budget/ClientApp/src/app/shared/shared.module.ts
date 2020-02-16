@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {Component, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -20,23 +20,23 @@ import {UsersTableComponent} from './components/users-table/users-table.componen
 import {UserFormModalComponent} from './components/users-table/user-form-modal/user-form-modal.component';
 import {CategoryFormModalComponent} from './components/categories-table/category-form-modal/category-form-modal.component';
 import {OperationFormModalComponent} from './components/operations-table/operation-form-modal/operation-form-modal.component';
-import {AvatarComponent} from './components/avatar/avatar.component';
 import {CategoryDetailsModalComponent} from './components/categories-table/category-details-modal/category-details-modal.component';
 import {OperationDetailsModalComponent} from './components/operations-table/operation-details-modal/operation-details-modal.component';
 import {UserDetailsModalComponent} from './components/users-table/user-details-modal/user-details-modal.component';
-import { UserBoxComponent } from './components/user-box/user-box.component';
-import { FormControlDirective } from './directives/form-control/form-control.directive';
+import {UserBoxComponent} from './components/user-box/user-box.component';
+import {FormControlDirective} from './directives/form-control/form-control.directive';
 import {FormErrorDirective} from './directives/form-error/form-error.directive';
-import { CategoriesFilterModalComponent } from './components/categories-table/categories-filter-modal/categories-filter-modal.component';
-import { OperationsFilterModalComponent } from './components/operations-table/operations-filter-modal/operations-filter-modal.component';
-import { DatepickerComponent } from './components/form/datepicker/datepicker.component';
-import { InputComponent } from './components/form/input/input.component';
-import { SelectComponent } from './components/form/select/select.component';
-import { NotificationsComponent } from './components/notifications/notifications.component';
-import { NotificationsDropdownComponent } from './components/notifications-dropdown/notifications-dropdown.component';
-import { NotificationBoxComponent } from './components/notification-box/notification-box.component';
-import { OperationBoxComponent } from './components/operation-box/operation-box.component';
-import { OperationsSmallTableComponent } from './components/operations-small-table/operations-small-table.component';
+import {CategoriesFilterModalComponent} from './components/categories-table/categories-filter-modal/categories-filter-modal.component';
+import {OperationsFilterModalComponent} from './components/operations-table/operations-filter-modal/operations-filter-modal.component';
+import {DatepickerComponent} from './components/form/datepicker/datepicker.component';
+import {InputComponent} from './components/form/input/input.component';
+import {SelectComponent} from './components/form/select/select.component';
+import {NotificationsComponent} from './components/notifications/notifications.component';
+import {NotificationsDropdownComponent} from './components/notifications-dropdown/notifications-dropdown.component';
+import {NotificationBoxComponent} from './components/notification-box/notification-box.component';
+import {OperationBoxComponent} from './components/operation-box/operation-box.component';
+import {OperationsSmallTableComponent} from './components/operations-small-table/operations-small-table.component';
+import {ComponentsModule} from '../../components/components.module';
 
 @NgModule({
     declarations: [
@@ -54,7 +54,6 @@ import { OperationsSmallTableComponent } from './components/operations-small-tab
         UserFormModalComponent,
         CategoryFormModalComponent,
         OperationFormModalComponent,
-        AvatarComponent,
         CategoryDetailsModalComponent,
         OperationDetailsModalComponent,
         UserDetailsModalComponent,
@@ -81,7 +80,8 @@ import { OperationsSmallTableComponent } from './components/operations-small-tab
         NgSelectModule,
         NgbDropdownModule,
         NgbDatepickerModule,
-        FormsModule
+        FormsModule,
+        ComponentsModule
     ],
     exports: [
         ReactiveFormsModule,
@@ -104,7 +104,6 @@ import { OperationsSmallTableComponent } from './components/operations-small-tab
         UserFormModalComponent,
         CategoryFormModalComponent,
         OperationFormModalComponent,
-        AvatarComponent,
         UserBoxComponent,
         FormErrorDirective,
         DatepickerComponent,

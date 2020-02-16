@@ -14,10 +14,7 @@ namespace Budget.Models
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(10,2)")]
         public decimal Amount { get; set; }
-        
-        public int? CreatedById { get; set; }
-        public User CreatedBy { get; set; }
-        
+
         [Required]
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
@@ -25,8 +22,7 @@ namespace Budget.Models
         [Required]
         public int UserId { get; set; }
         public User User { get; set; }
-
-        [Required]
+        
         public string Description { get; set; }
     }
 }

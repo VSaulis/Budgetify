@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Budget.Constants.Enums;
-using Budget.Contracts;
 using Budget.Contracts.Operation;
-using Budget.Dtos.Operation;
 using Budget.Models.Services;
 using Budget.System.Attributes;
 using Budget.System.Extensions;
@@ -22,40 +20,40 @@ namespace Budget.Controllers
         }
 
         [HttpGet]
-        [PermissionRequirement(Permissions.CanViewOperations)]
+        [GroupPermissionRequirement(GroupPermissions.CanViewOperations)]
         public async Task<IActionResult> List([FromQuery] ListOperationsRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
-            
+
             var response = await _operationService.ListAsync(request);
             if (!response.IsValid) return BadRequest(response.Message);
             return Ok(response);
         }
 
         [HttpPost]
-        [PermissionRequirement(Permissions.CanAddOperations)]
+        [GroupPermissionRequirement(GroupPermissions.CanAddOperations)]
         public async Task<IActionResult> Add([FromBody] AddOperationRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
-            
+
             var response = await _operationService.AddAsync(request);
             if (!response.IsValid) return BadRequest(response.Message);
             return Ok(response);
         }
 
         [HttpPut]
-        [PermissionRequirement(Permissions.CanEditOperations)]
+        [GroupPermissionRequirement(GroupPermissions.CanEditOperations)]
         public async Task<IActionResult> Edit([FromBody] EditOperationRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
-            
+
             var response = await _operationService.EditAsync(request);
             if (!response.IsValid) return BadRequest(response.Message);
             return Ok(response);
         }
 
         [HttpGet("{id}")]
-        [PermissionRequirement(Permissions.CanViewOperations)]
+        [GroupPermissionRequirement(GroupPermissions.CanViewOperations)]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
             var response = await _operationService.GetAsync(id);
@@ -64,29 +62,29 @@ namespace Budget.Controllers
         }
 
         [HttpDelete("{id}")]
-        [PermissionRequirement(Permissions.CanDeleteOperations)]
+        [GroupPermissionRequirement(GroupPermissions.CanDeleteOperations)]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var response = await _operationService.DeleteAsync(id);
             if (!response.IsValid) return BadRequest(response.Message);
             return Ok(response);
         }
-        
+
         [HttpDelete("{id}/hard")]
-        [PermissionRequirement(Permissions.CanHardDeleteOperations)]
+        [GroupPermissionRequirement(GroupPermissions.CanHardDeleteOperations)]
         public async Task<IActionResult> HardDelete([FromRoute] int id)
         {
             var response = await _operationService.HardDeleteAsync(id);
             if (!response.IsValid) return BadRequest(response.Message);
             return Ok(response);
         }
-        
+
         [HttpDelete]
-        [PermissionRequirement(Permissions.CanDeleteOperations)]
+        [GroupPermissionRequirement(GroupPermissions.CanDeleteOperations)]
         public async Task<IActionResult> Delete([FromRoute] DeleteOperationsRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
-            
+
             var response = await _operationService.DeleteListAsync(request);
             if (!response.IsValid) return BadRequest(response.Message);
             return Ok(response);

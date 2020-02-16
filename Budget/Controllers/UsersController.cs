@@ -20,7 +20,7 @@ namespace Budget.Controllers
         }
 
         [HttpGet]
-        [PermissionRequirement(Permissions.CanViewUsers)]
+        [UserPermissionRequirement(Permissions.CanViewUsers)]
         public async Task<IActionResult> List([FromQuery] ListUsersRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
@@ -31,7 +31,7 @@ namespace Budget.Controllers
         }
 
         [HttpPost]
-        [PermissionRequirement(Permissions.CanAddUsers)]
+        [UserPermissionRequirement(Permissions.CanAddUsers)]
         public async Task<IActionResult> Add([FromBody] AddUserRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
@@ -42,7 +42,7 @@ namespace Budget.Controllers
         }
 
         [HttpPut]
-        [PermissionRequirement(Permissions.CanEditUsers)]
+        [UserPermissionRequirement(Permissions.CanEditUsers)]
         public async Task<IActionResult> Edit([FromBody] EditUserRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
@@ -53,7 +53,7 @@ namespace Budget.Controllers
         }
 
         [HttpGet("{id}")]
-        [PermissionRequirement(Permissions.CanViewUsers)]
+        [UserPermissionRequirement(Permissions.CanViewUsers)]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
             var response = await _userService.GetAsync(id);
@@ -62,7 +62,7 @@ namespace Budget.Controllers
         }
 
         [HttpDelete("{id}")]
-        [PermissionRequirement(Permissions.CanDeleteUsers)]
+        [UserPermissionRequirement(Permissions.CanDeleteUsers)]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
@@ -73,7 +73,7 @@ namespace Budget.Controllers
         }
         
         [HttpDelete("{id}")]
-        [PermissionRequirement(Permissions.CanHardDeleteUsers)]
+        [UserPermissionRequirement(Permissions.CanHardDeleteUsers)]
         public async Task<IActionResult> HardDelete([FromRoute] int id)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
@@ -84,7 +84,7 @@ namespace Budget.Controllers
         }
 
         [HttpDelete]
-        [PermissionRequirement(Permissions.CanDeleteUsers)]
+        [UserPermissionRequirement(Permissions.CanDeleteUsers)]
         public async Task<IActionResult> Delete([FromRoute] DeleteUsersRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());

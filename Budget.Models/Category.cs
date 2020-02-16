@@ -8,8 +8,9 @@ namespace Budget.Models
         [Required]
         public string Name { get; set; }
         
-        public int? CreatedById { get; set; }
-        public User CreatedBy { get; set; }
+        [Required]
+        public int GroupId { get; set; }
+        public Group Group { get; set; }
 
         public List<Operation> Operations { get; set; }
     }

@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
             this.isSubmitting = true;
 
             this.authenticationService.login(this.mapLoginRequest()).subscribe(() => {
-                return this.router.navigateByUrl('/admin');
+                return this.router.navigateByUrl('/groups');
             }, (error) => {
                 this.error = error.error.errors;
                 this.isSubmitting = false;

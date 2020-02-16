@@ -74,7 +74,6 @@ export class AuthenticationService {
         this.appService.removeMessages();
         this.appService.setLoggedUser(loggedUser);
         this.notificationService.connect(loggedUser.token);
-        this.permissionService.loadPermissions(loggedUser.permissions);
         localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
         this.profileService.getProfile().subscribe(profile => this.appService.setProfile(profile));
 

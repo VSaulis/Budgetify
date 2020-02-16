@@ -9,9 +9,7 @@ using Budget.Dtos.Authentication;
 using Budget.Models;
 using Budget.Models.Repositories;
 using Budget.Models.Services;
-using Budget.System.Exceptions;
 using Microsoft.AspNetCore.Http;
-using NotImplementedException = System.NotImplementedException;
 
 namespace Budget.Services
 {
@@ -63,11 +61,6 @@ namespace Budget.Services
             return new ResultResponse<LoggedUserDto>(loggedUserDto);
         }
 
-        public Task<BaseResponse> ChangePasswordAsync(ChangePasswordRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<ResultResponse<LoggedUserDto>> GetLoggedUserDtoAsync(string refreshToken = null)
         {
             var loggedUser = await GetLoggedUserAsync();
@@ -116,8 +109,14 @@ namespace Budget.Services
             
             var passwordSalt = _encryptionService.CreateSalt();
             var passwordHash = _encryptionService.CreateHash(request.Password, passwordSalt);
-            var roles = new List<Roles> {Roles.Owner};
-            user = new User {Email = request.Email, PasswordHash = passwordHash, PasswordSalt = passwordSalt, Roles = roles};
+            user = new User
+            {
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email, 
+                PasswordHash = passwordHash, 
+                PasswordSalt = passwordSalt
+            };
             await _userRepository.AddAsync(user);
             await _unitOfWork.SaveChangesAsync();
             return new BaseResponse();

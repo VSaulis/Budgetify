@@ -8,26 +8,19 @@
         CanDeleteUsers,
         CanEditUsers,
         CanHardDeleteUsers,
-        
-        // Categories
-        CanViewCategories,
-        CanAddCategories,
-        CanDeleteCategories,
-        CanEditCategories,
-        CanHardDeleteCategories,
-        
-        // Operations
-        CanViewOperations,
-        CanAddOperations,
-        CanDeleteOperations,
-        CanEditOperations,
-        CanHardDeleteOperations,
 
         // Dashboard
         CanViewStatistics,
         
         // Settings
         CanViewSettings,
-        CanEditSettings
+        CanEditSettings,
+        
+        // Group
+        CanAddGroups,
+        CanEditGroups,
+        CanViewGroups,
+        CanDeleteGroups,
+        CanHardDeleteGroups
     }
 }

@@ -3,6 +3,7 @@ import {AppService} from '../../services/app/app.service';
 import {OperationDetailsModalComponent} from '../operations-table/operation-details-modal/operation-details-modal.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Notification} from '../../models/notification/Notification';
+import {NotificationService} from '../../services/notification/notification.service';
 
 @Component({
     selector: 'app-notifications',
@@ -13,7 +14,7 @@ export class NotificationsComponent implements OnInit {
 
     notifications: Notification[];
 
-    constructor(private appService: AppService,
+    constructor(private notificationService: NotificationService,
                 private modalService: NgbModal) {
     }
 
@@ -27,7 +28,7 @@ export class NotificationsComponent implements OnInit {
     }
 
     private getNotifications(): void {
-        this.appService.getNotifications().subscribe((notifications: Notification[]) => {
+        this.notificationService.getNotificationsObservable().subscribe((notifications: Notification[]) => {
             this.notifications = notifications;
         });
     }

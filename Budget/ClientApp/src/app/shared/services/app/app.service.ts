@@ -4,20 +4,28 @@ import {Profile} from '../../models/profile/Profile';
 import {LoggedUser} from '../../models/authentication/LoggedUser';
 import {Message} from '../../models/message/Message';
 import {NotificationService} from '../notification/notification.service';
-import {Notification} from '../../models/notification/Notification';
+import {GroupsListItem} from '../../models/group/GroupsListItem';
+import {MessageService} from '../message/message.service';
+import {GroupService} from '../group/group.service';
+import {ProfileService} from '../profile/profile.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AppService {
 
-    private messagesBehaviorSubject = new BehaviorSubject<Message[]>([]);
+
     private title = new BehaviorSubject<string>(null);
-    private profile = new BehaviorSubject<Profile>(null);
     private loggedUser = new BehaviorSubject<LoggedUser>(null);
 
-    constructor(private notificationService: NotificationService) {
+
+    constructor(private notificationService: NotificationService,
+                private messageService: MessageService,
+                private groupService: GroupService,
+                private profileService: ProfileService) {
     }
+
+    // Title
 
     setTitle(title: string): void {
         this.title.next(title);
@@ -27,13 +35,17 @@ export class AppService {
         return this.title.asObservable();
     }
 
+    // Profile
+
     getProfile(): Observable<Profile> {
-        return this.profile.asObservable();
+        return this.profileService.getCurrentProfile();
     }
 
     setProfile(profile: Profile): void {
-        this.profile.next(profile);
+        this.profileService.setProfile(profile);
     }
+
+    // Logged user
 
     setLoggedUser(loggedUser: LoggedUser): void {
         this.loggedUser.next(loggedUser);
@@ -43,31 +55,35 @@ export class AppService {
         return this.loggedUser.asObservable();
     }
 
+    // Group
+
+    setGroup(group: GroupsListItem): void {
+        this.groupService.selectGroup(group);
+    }
+
+    getGroup(): Observable<GroupsListItem> {
+        return this.groupService.getSelectedGroup();
+    }
+
+    // Messages
+
     getMessages(): Observable<Message[]> {
-        return this.messagesBehaviorSubject.asObservable();
+        return this.messageService.getMessages();
     }
 
     setMessage(message: Message): void {
-        this.messagesBehaviorSubject.next([message]);
+        this.messageService.setMessage(message);
     }
 
     addMessage(message: Message): void {
-        const messages = this.messagesBehaviorSubject.value;
-        messages.push(message);
-        this.messagesBehaviorSubject.next(messages);
+        this.messageService.addMessage(message);
     }
 
     removeMessage(message: Message): void {
-        let messages = this.messagesBehaviorSubject.value;
-        messages = messages.filter((m: Message) => m !== message);
-        this.messagesBehaviorSubject.next(messages);
+        this.messageService.removeMessage(message);
     }
 
     removeMessages(): void {
-        this.messagesBehaviorSubject.next([]);
-    }
-
-    getNotifications(): Observable<Notification[]> {
-        return this.notificationService.getNotificationsObservable();
+        this.messageService.removeMessages();
     }
 }

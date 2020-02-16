@@ -64,7 +64,6 @@ export class UserFormModalComponent implements OnInit {
         this.form.get('email').setValue(user.email);
         this.form.get('firstName').setValue(user.firstName);
         this.form.get('lastName').setValue(user.lastName);
-        this.form.get('roles').setValue(user.roles);
         FormHelper.markFormAsTouched(this.form);
     }
 
@@ -72,15 +71,13 @@ export class UserFormModalComponent implements OnInit {
         this.form = this.fb.group({
             email: [null, [Validators.required]],
             firstName: [null, [Validators.required]],
-            lastName: [null, [Validators.required]],
-            roles: [null, [Validators.required]]
+            lastName: [null, [Validators.required]]
         });
     }
 
     private mapAddUserRequest(): AddUserRequest {
         return {
             email: this.form.value.email,
-            roles: this.form.value.roles,
             firstName: this.form.value.firstName,
             lastName: this.form.value.lastName
         };
@@ -92,8 +89,7 @@ export class UserFormModalComponent implements OnInit {
             version: this.user.updated,
             email: this.form.value.email,
             firstName: this.form.value.firstName,
-            lastName: this.form.value.lastName,
-            roles: this.form.value.roles
+            lastName: this.form.value.lastName
         };
     }
 

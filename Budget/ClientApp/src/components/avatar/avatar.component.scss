@@ -1,0 +1,21 @@
+@import "../../assets/scss/variables/module";
+
+:host {
+    display: inline-block;
+
+    .avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $color-primary;
+
+        span {
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            color: $color-white;
+        }
+    }
+}
+
+

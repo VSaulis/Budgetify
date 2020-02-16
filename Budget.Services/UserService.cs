@@ -46,7 +46,6 @@ namespace Budget.Services
             user.Email = request.Email;
             user.FirstName = request.FirstName;
             user.LastName = request.LastName;
-            user.Roles = request.Roles.Select(Enum.Parse<Roles>).ToList();
 
             _userRepository.Update(user);
             await _unitOfWork.SaveChangesAsync();

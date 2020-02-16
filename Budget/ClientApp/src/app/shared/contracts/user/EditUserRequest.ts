@@ -3,6 +3,5 @@ export interface EditUserRequest {
     email: string;
     firstName: string;
     lastName: string;
-    roles: string[];
     version: string;
 }

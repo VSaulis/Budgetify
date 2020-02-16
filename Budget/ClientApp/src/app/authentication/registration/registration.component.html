@@ -3,6 +3,8 @@
     <form [formGroup]="form" (ngSubmit)="register()" novalidate>
         <div class="form-fields">
             <app-input [abstractControl]="form.get('email')" label="Email" type="email" formControlName="email"></app-input>
+            <app-input [abstractControl]="form.get('firstName')" label="First name" formControlName="firstName"></app-input>
+            <app-input [abstractControl]="form.get('lastName')" label="Last name" formControlName="lastName"></app-input>
             <app-input [abstractControl]="form.get('password')" label="Password" type="password" formControlName="password"></app-input>
             <app-input [abstractControl]="form.get('repeatPassword')" label="Repeat password" type="password" formControlName="repeatPassword"></app-input>
             <div class="choice-row">
