@@ -12,8 +12,6 @@ namespace Budget.Models.Repositories
         Task AddAsync(TModel model);
 
         void Delete(TModel model);
-        
-        void HardDelete(TModel model);
 
         void Update(TModel model);
 

@@ -11,17 +11,12 @@ namespace Budget.Services.DI
             services.AddAutoMapper(typeof(ServicesModule));
             
             services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped<IPermissionsService, PermissionsService>();
             services.AddScoped<IEncryptionService, EncryptionService>();
-            services.AddScoped<IEmailService, EmailService>();
 
             services.AddScoped<IAuthenticationService, AuthenticationService>();
-            services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IOperationService, OperationService>();
             services.AddScoped<IProfileService, ProfileService>();
-            services.AddScoped<INotificationService, NotificationService>();
-            services.AddScoped<IGroupService, GroupService>();
         }
     }
 }

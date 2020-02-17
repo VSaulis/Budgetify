@@ -1,4 +1,4 @@
-import {Component, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -16,14 +16,10 @@ import {MoneyPipe} from './pipes/money/money.pipe';
 import {DatePipe} from './pipes/date/date.pipe';
 import {CategoriesTableComponent} from './components/categories-table/categories-table.component';
 import {OperationsTableComponent} from './components/operations-table/operations-table.component';
-import {UsersTableComponent} from './components/users-table/users-table.component';
-import {UserFormModalComponent} from './components/users-table/user-form-modal/user-form-modal.component';
 import {CategoryFormModalComponent} from './components/categories-table/category-form-modal/category-form-modal.component';
 import {OperationFormModalComponent} from './components/operations-table/operation-form-modal/operation-form-modal.component';
 import {CategoryDetailsModalComponent} from './components/categories-table/category-details-modal/category-details-modal.component';
 import {OperationDetailsModalComponent} from './components/operations-table/operation-details-modal/operation-details-modal.component';
-import {UserDetailsModalComponent} from './components/users-table/user-details-modal/user-details-modal.component';
-import {UserBoxComponent} from './components/user-box/user-box.component';
 import {FormControlDirective} from './directives/form-control/form-control.directive';
 import {FormErrorDirective} from './directives/form-error/form-error.directive';
 import {CategoriesFilterModalComponent} from './components/categories-table/categories-filter-modal/categories-filter-modal.component';
@@ -34,8 +30,6 @@ import {SelectComponent} from './components/form/select/select.component';
 import {NotificationsComponent} from './components/notifications/notifications.component';
 import {NotificationsDropdownComponent} from './components/notifications-dropdown/notifications-dropdown.component';
 import {NotificationBoxComponent} from './components/notification-box/notification-box.component';
-import {OperationBoxComponent} from './components/operation-box/operation-box.component';
-import {OperationsSmallTableComponent} from './components/operations-small-table/operations-small-table.component';
 import {ComponentsModule} from '../../components/components.module';
 
 @NgModule({
@@ -50,14 +44,10 @@ import {ComponentsModule} from '../../components/components.module';
         DatePipe,
         CategoriesTableComponent,
         OperationsTableComponent,
-        UsersTableComponent,
-        UserFormModalComponent,
         CategoryFormModalComponent,
         OperationFormModalComponent,
         CategoryDetailsModalComponent,
         OperationDetailsModalComponent,
-        UserDetailsModalComponent,
-        UserBoxComponent,
         FormControlDirective,
         FormErrorDirective,
         CategoriesFilterModalComponent,
@@ -67,9 +57,7 @@ import {ComponentsModule} from '../../components/components.module';
         SelectComponent,
         NotificationsComponent,
         NotificationsDropdownComponent,
-        NotificationBoxComponent,
-        OperationBoxComponent,
-        OperationsSmallTableComponent
+        NotificationBoxComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -100,27 +88,21 @@ import {ComponentsModule} from '../../components/components.module';
         DatatableHeaderComponent,
         CategoriesTableComponent,
         OperationsTableComponent,
-        UsersTableComponent,
-        UserFormModalComponent,
         CategoryFormModalComponent,
         OperationFormModalComponent,
-        UserBoxComponent,
         FormErrorDirective,
         DatepickerComponent,
         InputComponent,
         SelectComponent,
         NotificationsComponent,
-        NotificationsDropdownComponent,
-        OperationsSmallTableComponent
+        NotificationsDropdownComponent
     ],
     entryComponents: [
         ConfirmModalComponent,
-        UserFormModalComponent,
         CategoryFormModalComponent,
         OperationFormModalComponent,
         CategoryDetailsModalComponent,
         OperationDetailsModalComponent,
-        UserDetailsModalComponent,
         OperationsFilterModalComponent,
         CategoriesFilterModalComponent
     ],

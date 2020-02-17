@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
-using Budget.Constants.Enums;
 using Budget.Contracts.Operation;
 using Budget.Models.Services;
-using Budget.System.Attributes;
 using Budget.System.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Budget.Controllers
@@ -20,7 +19,7 @@ namespace Budget.Controllers
         }
 
         [HttpGet]
-        [GroupPermissionRequirement(GroupPermissions.CanViewOperations)]
+        [Authorize]
         public async Task<IActionResult> List([FromQuery] ListOperationsRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
@@ -31,7 +30,7 @@ namespace Budget.Controllers
         }
 
         [HttpPost]
-        [GroupPermissionRequirement(GroupPermissions.CanAddOperations)]
+        [Authorize]
         public async Task<IActionResult> Add([FromBody] AddOperationRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
@@ -42,7 +41,7 @@ namespace Budget.Controllers
         }
 
         [HttpPut]
-        [GroupPermissionRequirement(GroupPermissions.CanEditOperations)]
+        [Authorize]
         public async Task<IActionResult> Edit([FromBody] EditOperationRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
@@ -53,7 +52,7 @@ namespace Budget.Controllers
         }
 
         [HttpGet("{id}")]
-        [GroupPermissionRequirement(GroupPermissions.CanViewOperations)]
+        [Authorize]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
             var response = await _operationService.GetAsync(id);
@@ -62,7 +61,7 @@ namespace Budget.Controllers
         }
 
         [HttpDelete("{id}")]
-        [GroupPermissionRequirement(GroupPermissions.CanDeleteOperations)]
+        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var response = await _operationService.DeleteAsync(id);
@@ -70,17 +69,8 @@ namespace Budget.Controllers
             return Ok(response);
         }
 
-        [HttpDelete("{id}/hard")]
-        [GroupPermissionRequirement(GroupPermissions.CanHardDeleteOperations)]
-        public async Task<IActionResult> HardDelete([FromRoute] int id)
-        {
-            var response = await _operationService.HardDeleteAsync(id);
-            if (!response.IsValid) return BadRequest(response.Message);
-            return Ok(response);
-        }
-
         [HttpDelete]
-        [GroupPermissionRequirement(GroupPermissions.CanDeleteOperations)]
+        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] DeleteOperationsRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());

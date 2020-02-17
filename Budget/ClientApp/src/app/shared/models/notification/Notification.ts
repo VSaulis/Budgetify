@@ -1,11 +1,6 @@
 import {BaseModel} from '../BaseModel';
-import {UsersListItem} from '../user/UsersListItem';
+import {Operation} from '../operation/Operation';
 
 export interface Notification extends BaseModel {
-    notifier: UsersListItem;
-    date: string;
-    stringValue?: string;
-    decimalValue?: number;
-    type: string;
-    entityId?: number;
+    operation: Operation;
 }

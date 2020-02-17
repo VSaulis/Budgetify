@@ -3,5 +3,4 @@ export interface AddOperationRequest {
     date: string;
     description: string;
     categoryId: number;
-    userId: number;
 }

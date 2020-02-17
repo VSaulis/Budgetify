@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Budget.Constants.Enums;
 using Budget.Contracts;
-using Budget.Contracts.Notification;
 using Budget.Contracts.Operation;
 using Budget.Dtos.Operation;
 using Budget.Models;
@@ -17,14 +15,12 @@ namespace Budget.Services
     {
         private readonly IOperationRepository _operationRepository;
         private readonly ICategoryRepository _categoryRepository;
-        private readonly INotificationService _notificationService;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
-        public OperationService(ICategoryRepository categoryRepository, IOperationRepository operationRepository, IMapper mapper, IUnitOfWork unitOfWork, INotificationService notificationService)
+        public OperationService(ICategoryRepository categoryRepository, IOperationRepository operationRepository, IMapper mapper, IUnitOfWork unitOfWork)
         {
             _categoryRepository = categoryRepository;
-            _notificationService = notificationService;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _operationRepository = operationRepository;
@@ -34,22 +30,11 @@ namespace Budget.Services
         {
             var category = await _categoryRepository.GetAsync(category => category.Id == request.CategoryId);
             if (category == null) return new BaseResponse("Category is not found");
-            
+
             var operation = _mapper.Map<AddOperationRequest, Operation>(request);
             await _operationRepository.AddAsync(operation);
             await _unitOfWork.SaveChangesAsync();
 
-            await _notificationService.AddAsync(new AddNotificationRequest
-            {
-                StringValue = category.Name,
-                NotifierId = operation.UserId,
-                DecimalValue = operation.Amount,
-                Date = operation.Created,
-                Type = NotificationTypes.AddOperation,
-                EntityId = operation.Id
-            });
-
-            await _unitOfWork.SaveChangesAsync();
             return new BaseResponse();
         }
 
@@ -58,22 +43,11 @@ namespace Budget.Services
             var operation = await _operationRepository.GetAsync(operation => operation.Id == request.Id);
             if (operation == null) return new BaseResponse("Operation is not found");
 
-            operation.UserId = request.UserId;
             operation.Date = request.Date;
             operation.Description = request.Description;
             operation.Amount = request.Amount;
             operation.CategoryId = request.CategoryId;
             _operationRepository.Update(operation);
-            await _unitOfWork.SaveChangesAsync();
-            return new BaseResponse();
-        }
-
-        public async Task<BaseResponse> HardDeleteAsync(int id)
-        {
-            var operation = await _operationRepository.GetAsync(operation => operation.Id == id);
-            if (operation == null) return new BaseResponse("Operation is not found");
-
-            _operationRepository.HardDelete(operation);
             await _unitOfWork.SaveChangesAsync();
             return new BaseResponse();
         }

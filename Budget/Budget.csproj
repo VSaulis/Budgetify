@@ -41,10 +41,5 @@
       <_ContentIncludedByDefault Remove="ClientApp\tslint.json" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Data\Avatars" />
-      <Folder Include="Data\Documents" />
-    </ItemGroup>
-
 
 </Project>

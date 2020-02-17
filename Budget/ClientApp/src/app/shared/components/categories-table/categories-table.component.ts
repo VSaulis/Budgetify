@@ -23,7 +23,7 @@ import {SortTypes} from '../../enums/SortTypes';
 })
 export class CategoriesTableComponent implements OnInit {
 
-    filter: CategoriesFilter = {deleted: false};
+    filter: CategoriesFilter = {};
     paging: Paging = {limit: 20, offset: 0};
     sort: Sort = {column: 'created', type: SortTypes.desc};
 

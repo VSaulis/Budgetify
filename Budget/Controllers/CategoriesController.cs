@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
-using Budget.Constants.Enums;
 using Budget.Contracts.Category;
 using Budget.Models.Services;
-using Budget.System.Attributes;
 using Budget.System.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Budget.Controllers
@@ -20,7 +19,7 @@ namespace Budget.Controllers
         }
 
         [HttpGet]
-        [GroupPermissionRequirement(GroupPermissions.CanViewCategories)]
+        [Authorize]
         public async Task<IActionResult> List([FromQuery] ListCategoriesRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
@@ -31,7 +30,7 @@ namespace Budget.Controllers
         }
 
         [HttpPost]
-        [GroupPermissionRequirement(GroupPermissions.CanAddCategories)]
+        [Authorize]
         public async Task<IActionResult> Add([FromBody] AddCategoryRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
@@ -42,7 +41,7 @@ namespace Budget.Controllers
         }
 
         [HttpPut]
-        [GroupPermissionRequirement(GroupPermissions.CanEditCategories)]
+        [Authorize]
         public async Task<IActionResult> Edit([FromBody] EditCategoryRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());
@@ -53,7 +52,7 @@ namespace Budget.Controllers
         }
 
         [HttpGet("{id}")]
-        [GroupPermissionRequirement(GroupPermissions.CanViewCategories)]
+        [Authorize]
         public async Task<IActionResult> Get([FromRoute] int id)
         {
             var response = await _categoryService.GetAsync(id);
@@ -62,25 +61,16 @@ namespace Budget.Controllers
         }
 
         [HttpDelete("{id}")]
-        [GroupPermissionRequirement(GroupPermissions.CanDeleteCategories)]
+        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var response = await _categoryService.DeleteAsync(id);
             if (!response.IsValid) return BadRequest(response.Message);
             return Ok(response);
         }
-        
-        [HttpDelete("{id}/hard")]
-        [GroupPermissionRequirement(GroupPermissions.CanHardDeleteCategories)]
-        public async Task<IActionResult> HardDelete([FromRoute] int id)
-        {
-            var response = await _categoryService.HardDeleteAsync(id);
-            if (!response.IsValid) return BadRequest(response.Message);
-            return Ok(response);
-        }
 
         [HttpDelete]
-        [GroupPermissionRequirement(GroupPermissions.CanDeleteCategories)]
+        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] DeleteCategoriesRequest request)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState.GetErrorMessages());

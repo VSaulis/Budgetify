@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {OperationService} from '../../../services/operation/operation.service';
-import {UserService} from '../../../services/user/user.service';
 import {CategoryService} from '../../../services/category/category.service';
 import {FormHelper} from '../../../utils/FormHelper';
 import {CategoriesFilter} from '../../../contracts/category/CategoriesFilter';
@@ -19,7 +18,6 @@ export class CategoriesFilterModalComponent implements OnInit {
 
     constructor(public activeModal: NgbActiveModal,
                 private operationService: OperationService,
-                private userService: UserService,
                 private categoryService: CategoryService,
                 private fb: FormBuilder) {
         this.createForm();
@@ -44,22 +42,19 @@ export class CategoriesFilterModalComponent implements OnInit {
     private mapFilter(): CategoriesFilter {
         return {
             totalFrom: this.form.value.totalFrom,
-            totalTo: this.form.value.totalTo,
-            deleted: this.form.value.deleted
+            totalTo: this.form.value.totalTo
         };
     }
 
     private setForm(filter: CategoriesFilter): void {
         this.form.get('totalFrom').setValue(filter.totalFrom ? filter.totalFrom : null);
         this.form.get('totalTo').setValue(filter.totalTo ? filter.totalTo : null);
-        this.form.get('deleted').setValue(filter.deleted ? filter.deleted : false);
     }
 
     private createForm(): void {
         this.form = this.fb.group({
             totalFrom: [null],
-            totalTo: [null],
-            deleted: [false]
+            totalTo: [null]
         });
     }
 

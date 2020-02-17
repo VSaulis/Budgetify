@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Roles} from '../../../enums/Roles';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormHelper} from '../../../utils/FormHelper';
 import {CategoryService} from '../../../services/category/category.service';
@@ -22,7 +21,6 @@ export class CategoryFormModalComponent implements OnInit {
 
     form: FormGroup;
     isSubmitting = false;
-    roles: Roles;
 
     constructor(public activeModal: NgbActiveModal,
                 private categoryService: CategoryService,

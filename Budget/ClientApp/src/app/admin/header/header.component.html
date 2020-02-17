@@ -1,0 +1,27 @@
+<header class="header">
+    <div>
+        <h2>{{title}}</h2>
+    </div>
+    <div>
+        <div class="header-box">
+            <i class="material-icons">settings</i>
+        </div>
+        <div autoClose="outside" ngbDropdown ngbDropdownToggle class="header-box">
+            <i class="material-icons">notifications</i>
+            <span class="count">3</span>
+            <div ngbDropdownMenu>
+                <app-notifications-dropdown></app-notifications-dropdown>
+            </div>
+        </div>
+        <div *ngIf="profile" class="header-box profile">
+            <app-avatar [initials]="profile.firstName[0] + profile.lastName[0]"></app-avatar>
+            <div class="details">
+                <span>{{profile.firstName}} {{profile.lastName}}</span>
+                <small>{{profile.email}}</small>
+            </div>
+        </div>
+        <div (click)="logout()" class="header-box">
+            <i class="material-icons">power_settings_new</i>
+        </div>
+    </div>
+</header>

@@ -19,7 +19,7 @@ namespace Budget.Repositories
         protected override IQueryable<Category> FormatQuery(IQueryable<Category> query)
         {
             return query
-                .Include(category => category.Group)
+                .Include(category => category.User)
                 .Include(category => category.Operations);
         }
 
@@ -28,9 +28,7 @@ namespace Budget.Repositories
             if (filter != null)
             {
                 if (filter.TotalFrom.HasValue) query = query.Where(category => category.Operations.Sum(operation => operation.Amount) >= filter.TotalFrom.Value);
-                if (filter.GroupId.HasValue) query = query.Where(category => category.GroupId == filter.GroupId);
                 if (filter.TotalTo.HasValue) query = query.Where(category => category.Operations.Sum(operation => operation.Amount) <= filter.TotalTo.Value);
-                if (filter.Deleted.HasValue) query = query.Where(category => category.Deleted == filter.Deleted.Value || category.Deleted == false);
             }
             
             return query;
@@ -73,7 +71,7 @@ namespace Budget.Repositories
             IQueryable<Category> models = Context.Categories;
             models = FormatQuery(models);
             models = ApplyFilter(models, filter);
-            return await models.Select(category => category.Operations.Sum(operation => operation.Amount)).FirstOrDefaultAsync();
+            return await models.SelectMany(category => category.Operations).SumAsync(operation => operation.Amount);
         }
     }
 }

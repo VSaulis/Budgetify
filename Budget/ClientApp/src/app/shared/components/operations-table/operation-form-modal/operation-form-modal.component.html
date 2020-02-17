@@ -21,13 +21,6 @@
                                 label="Category"
                                 formControlName="categoryId">
                     </app-select>
-                    <app-select bindLabel="email"
-                                [abstractControl]="form.get('userId')"
-                                bindValue="id"
-                                [items]="users"
-                                label="User"
-                                formControlName="userId">
-                    </app-select>
                     <app-input label="Description" formControlName="description" [abstractControl]="form.get('description')"></app-input>
                 </div>
             </div>

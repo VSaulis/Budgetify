@@ -1,0 +1,26 @@
+<aside class="side-navigation">
+    <div class="aside-header">
+        <img src="../../../assets/images/logo-white.png" alt="Budgetify">
+        <h1>Budgetify</h1>
+    </div>
+    <div *ngIf="profile" class="aside-balance">
+        <span>{{profile.balance | money }}</span>
+        <small>Current balance</small>
+    </div>
+    <nav class="navigation">
+        <div>
+            <a routerLink="/admin/dashboard" routerLinkActive="active" class="menu-item">
+                <i class="material-icons">assessment</i>
+                <span>Dashboard</span>
+            </a>
+            <a routerLink="/admin/categories" routerLinkActive="active" class="menu-item">
+                <i class="material-icons">apps</i>
+                <span>Categories</span>
+            </a>
+            <a routerLink="/admin/operations" routerLinkActive="active" class="menu-item">
+                <i class="material-icons">account_balance_wallet</i>
+                <span>Operations</span>
+            </a>
+        </div>
+    </nav>
+</aside>

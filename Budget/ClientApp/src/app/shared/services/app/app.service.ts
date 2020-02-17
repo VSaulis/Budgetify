@@ -4,9 +4,7 @@ import {Profile} from '../../models/profile/Profile';
 import {LoggedUser} from '../../models/authentication/LoggedUser';
 import {Message} from '../../models/message/Message';
 import {NotificationService} from '../notification/notification.service';
-import {GroupsListItem} from '../../models/group/GroupsListItem';
 import {MessageService} from '../message/message.service';
-import {GroupService} from '../group/group.service';
 import {ProfileService} from '../profile/profile.service';
 
 @Injectable({
@@ -21,7 +19,6 @@ export class AppService {
 
     constructor(private notificationService: NotificationService,
                 private messageService: MessageService,
-                private groupService: GroupService,
                 private profileService: ProfileService) {
     }
 
@@ -53,16 +50,6 @@ export class AppService {
 
     getLoggedUser(): Observable<LoggedUser> {
         return this.loggedUser.asObservable();
-    }
-
-    // Group
-
-    setGroup(group: GroupsListItem): void {
-        this.groupService.selectGroup(group);
-    }
-
-    getGroup(): Observable<GroupsListItem> {
-        return this.groupService.getSelectedGroup();
     }
 
     // Messages

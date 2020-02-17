@@ -20,19 +20,16 @@ namespace Budget.Repositories
         {
             return query
                 .Include(operation => operation.Category)
-                .Include(operation => operation.User);
+                .ThenInclude(category => category.User);
         }
 
         protected override IQueryable<Operation> ApplyFilter(IQueryable<Operation> query, OperationsFilter filter)
         {
-            if (filter.GroupId.HasValue) query = query.Where(operation => operation.Category.GroupId == filter.GroupId.Value);
             if (filter.AmountFrom.HasValue) query = query.Where(operation => operation.Amount >= filter.AmountFrom.Value);
             if (filter.AmountTo.HasValue) query = query.Where(operation => operation.Amount <= filter.AmountTo.Value);
             if (filter.DateFrom.HasValue) query = query.Where(operation => operation.Date >= filter.DateFrom.Value);
             if (filter.DateTo.HasValue) query = query.Where(operation => operation.Date <= filter.DateTo.Value);
             if (filter.CategoriesIds.Count > 0) query = query.Where(operation => filter.CategoriesIds.Contains(operation.CategoryId));
-            if (filter.UsersIds.Count > 0) query = query.Where(operation => filter.UsersIds.Contains(operation.UserId));
-            if (filter.Deleted.HasValue) query = query.Where(operation => operation.Deleted == filter.Deleted.Value || operation.Deleted == false);
             return query;
         }
 
@@ -57,13 +54,7 @@ namespace Budget.Repositories
                     if (sort.Type == SortTypes.Asc) query = query.OrderBy(operation => operation.Date);
                     if (sort.Type == SortTypes.Desc) query = query.OrderByDescending(operation => operation.Date);
                 }
-                
-                if (sort.Column == "user")
-                {
-                    if (sort.Type == SortTypes.Asc) query = query.OrderBy(operation => operation.User.FirstName).ThenBy(operation => operation.User.LastName);
-                    if (sort.Type == SortTypes.Desc) query = query.OrderByDescending(operation => operation.User.FirstName).ThenBy(operation => operation.User.LastName);
-                }
-                
+
                 if (sort.Column == "updated")
                 {
                     if (sort.Type == SortTypes.Asc) query = query.OrderBy(operation => operation.Updated);
@@ -85,7 +76,7 @@ namespace Budget.Repositories
             IQueryable<Operation> models = Context.Operations;
             models = FormatQuery(models);
             models = ApplyFilter(models, filter);
-            return await models.Select(operation => operation.Amount).FirstOrDefaultAsync();
+            return await models.SumAsync(operation => operation.Amount);
         }
     }
 }

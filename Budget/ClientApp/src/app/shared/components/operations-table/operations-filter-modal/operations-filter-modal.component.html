@@ -24,18 +24,6 @@
                                 label="Categories"
                                 formControlName="categoriesIds">
                     </app-select>
-                    <app-select bindLabel="email"
-                                [abstractControl]="form.get('usersIds')"
-                                bindValue="id"
-                                [multiple]="true"
-                                [items]="users"
-                                label="Users"
-                                formControlName="usersIds">
-                    </app-select>
-                    <div class="choice-row">
-                        <input id="termsAndConditions" formControlName="deleted" type="checkbox">
-                        <label for="termsAndConditions">Show deleted</label>
-                    </div>
                 </div>
             </div>
             <div class="modal-footer">

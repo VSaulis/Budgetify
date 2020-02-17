@@ -1,7 +1,0 @@
-<div (click)="openOperationDetailsModal(operation.id)" class="operation">
-    <app-user-box [date]="operation.date | date : false" [user]="operation.user"></app-user-box>
-    <div>
-        <span [class.success]="operation.amount >= 0" [class.danger]="operation.amount < 0">{{operation.amount | money}}</span>
-        <small>{{operation.category.name}}</small>
-    </div>
-</div>

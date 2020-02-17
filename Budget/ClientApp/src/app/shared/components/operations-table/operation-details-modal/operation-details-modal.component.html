@@ -12,15 +12,6 @@
             </p>
             <div class="details-header">
                 <div class="details-field">
-                    <label>Created by :</label>
-                    <div class="user">
-                        <app-avatar [initials]="operation.user.initials"></app-avatar>
-                        <div class="details">
-                            <span>{{operation.user.email}}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="details-field">
                     <label>Created :</label>
                     <span class="value">{{operation.created | date}}</span>
                 </div>
@@ -45,15 +36,6 @@
                 <div class="details-field">
                     <label>Description :</label>
                     <span class="value">{{operation.description }}</span>
-                </div>
-                <div class="details-field">
-                    <label>User :</label>
-                    <div class="user">
-                        <app-avatar [initials]="operation.user.initials"></app-avatar>
-                        <div class="details">
-                            <span>{{operation.user.email}}</span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

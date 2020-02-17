@@ -8,10 +8,7 @@ import {EditOperationRequest} from '../../../contracts/operation/EditOperationRe
 import {AddOperationRequest} from '../../../contracts/operation/AddOperationRequest';
 import {CategoriesListItem} from '../../../models/category/CategoriesListItem';
 import {CategoryService} from '../../../services/category/category.service';
-import {forkJoin} from 'rxjs';
-import {UserService} from '../../../services/user/user.service';
-import {UsersListItem} from '../../../models/user/UsersListItem';
-import {DateFormatter} from '../../../utils/DateFormatter';
+import {ListResponse} from '../../../contracts/ListResponse';
 
 @Component({
     selector: 'app-operation-form-modal',
@@ -28,11 +25,9 @@ export class OperationFormModalComponent implements OnInit {
     form: FormGroup;
     isSubmitting = false;
     categories: CategoriesListItem[] = [];
-    users: UsersListItem[] = [];
 
     constructor(public activeModal: NgbActiveModal,
                 private operationService: OperationService,
-                private userService: UserService,
                 private categoryService: CategoryService,
                 private fb: FormBuilder) {
         this.createForm();
@@ -73,7 +68,6 @@ export class OperationFormModalComponent implements OnInit {
         this.form.get('date').setValue(operation.date);
         this.form.get('description').setValue(operation.description);
         this.form.get('amount').setValue(operation.amount);
-        this.form.get('userId').setValue(operation.user.id);
     }
 
     private createForm(): void {
@@ -81,8 +75,7 @@ export class OperationFormModalComponent implements OnInit {
             categoryId: [null, [Validators.required]],
             date: [null, [Validators.required]],
             description: [null, [Validators.required]],
-            amount: [null, [Validators.required]],
-            userId: [null, [Validators.required]]
+            amount: [null, [Validators.required]]
         });
     }
 
@@ -91,8 +84,7 @@ export class OperationFormModalComponent implements OnInit {
             categoryId: this.form.value.categoryId,
             date: this.form.value.date,
             description: this.form.value.description,
-            amount: this.form.value.amount,
-            userId: this.form.value.userId
+            amount: this.form.value.amount
         };
     }
 
@@ -103,8 +95,7 @@ export class OperationFormModalComponent implements OnInit {
             categoryId: this.form.value.categoryId,
             date: this.form.value.date,
             description: this.form.value.description,
-            amount: this.form.value.amount,
-            userId: this.form.value.userId
+            amount: this.form.value.amount
         };
     }
 
@@ -117,9 +108,8 @@ export class OperationFormModalComponent implements OnInit {
     }
 
     private getData(): void {
-        forkJoin([this.categoryService.getCategories({deleted: false}), this.userService.getUsers({deleted: false})]).subscribe(response => {
-            this.categories = response[0].result;
-            this.users = response[1].result;
+        this.categoryService.getCategories({deleted: false}).subscribe((categoriesListResponse: ListResponse<CategoriesListItem>) => {
+            this.categories = categoriesListResponse.result;
             this.id ? this.getOperation(this.id) : this.isLoading = false;
         });
     }

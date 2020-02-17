@@ -3,5 +3,4 @@ export interface Profile {
     firstName: string;
     lastName: string;
     balance: number;
-    roles: string[];
 }

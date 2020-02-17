@@ -7,10 +7,10 @@ const routes: Routes = [
         path: '',
         component: AppComponent,
         children: [
-            {path: '', pathMatch: 'full', redirectTo: 'groups'},
+            {path: '', pathMatch: 'full', redirectTo: 'admin'},
             {
-                path: 'groups',
-                loadChildren: './group/group.module#GroupModule'
+                path: 'admin',
+                loadChildren: './admin/admin.module#AdminModule'
             },
             {
                 path: '',

@@ -9,7 +9,6 @@ import {RegisterRequest} from '../../contracts/authentication/RegisterRequest';
 import {BaseResponse} from '../../contracts/BaseResponse';
 import {RefreshTokenRequest} from '../../contracts/authentication/RefreshTokenRequest';
 import {environment} from '../../../../environments/environment';
-import {PermissionService} from '../permission/permission.service';
 import {AppService} from '../app/app.service';
 import {ProfileService} from '../profile/profile.service';
 import {NotificationService} from '../notification/notification.service';
@@ -22,7 +21,6 @@ export class AuthenticationService {
     private url = `${environment.apiUrl}/authentication`;
 
     constructor(private http: HttpClient,
-                private permissionService: PermissionService,
                 private notificationService: NotificationService,
                 private profileService: ProfileService,
                 private appService: AppService) {

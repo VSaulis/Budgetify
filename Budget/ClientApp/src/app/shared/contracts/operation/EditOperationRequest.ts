@@ -5,5 +5,4 @@ export interface EditOperationRequest {
     date: string;
     description: string;
     categoryId: number;
-    userId: number;
 }

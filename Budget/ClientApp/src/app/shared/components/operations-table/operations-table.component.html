@@ -32,7 +32,6 @@
                 </td>
                 <td>{{operation.category.name}}</td>
                 <td [class.success]="operation.amount >= 0" [class.danger]="operation.amount < 0" class="center">{{operation.amount | money}}</td>
-                <td><app-user-box [user]="operation.user"></app-user-box></td>
                 <td class="center">{{operation.date | date}}</td>
                 <td class="center">{{operation.updated | date: true}}</td>
                 <td class="center">{{operation.created | date: true}}</td>

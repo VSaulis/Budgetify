@@ -25,16 +25,7 @@ namespace Budget.Models
         public byte[] PasswordHash { get; set; }
         
         public string RefreshToken { get; set; }
-
-        public List<GroupUser> UserGroups { get; set; } 
-        public List<Operation> Operations { get; set; }
-        public List<Notification> ReceivedNotifications { get; set; }
-        public List<Notification> SendNotifications { get; set; }
         
-        public string Initials()
-        {
-            if (FirstName != null && LastName != null) return $"{FirstName[0]}{LastName[0]}";
-            return $"{Email[0]}{Email[1]}";
-        }
+        public List<Category> Categories { get; set; }
     }
 }

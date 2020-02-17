@@ -23,7 +23,7 @@ import {SortTypes} from '../../enums/SortTypes';
 })
 export class OperationsTableComponent implements OnInit {
 
-    filter: OperationsFilter = {deleted: false};
+    filter: OperationsFilter = {};
     paging: Paging = {limit: 20, offset: 0};
     sort: Sort = {column: 'created', type: SortTypes.desc};
 
@@ -31,12 +31,11 @@ export class OperationsTableComponent implements OnInit {
     selectedOperationsIds: number[] = [];
     operationsCount = 0;
     operationsTotal = 0;
-    colspan = 8;
+    colspan = 7;
     isLoading = true;
     columns: DatatableColumn[] = [
         {id: 'category', name: 'Category', sortable: true},
         {id: 'amount', name: 'Amount', sortable: true, class: 'center medium-column'},
-        {id: 'user', name: 'User', sortable: true, class: 'user-column'},
         {id: 'date', name: 'Date', sortable: true, class: 'center medium-column'},
         {id: 'updated', name: 'Updated', sortable: true, class: 'center medium-column'},
         {id: 'created', name: 'Created', sortable: true, class: 'center medium-column'}

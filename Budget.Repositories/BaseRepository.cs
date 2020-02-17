@@ -30,15 +30,9 @@ namespace Budget.Repositories
             await Context.Set<TModel>().AddAsync(model);
         }
 
-        public void HardDelete(TModel model)
-        {
-            Context.Set<TModel>().Remove(model);
-        }
-        
         public void Delete(TModel model)
         {
-            model.Deleted = true;
-            Context.Set<TModel>().Update(model);
+            Context.Set<TModel>().Remove(model);
         }
 
         public void Update(TModel model)

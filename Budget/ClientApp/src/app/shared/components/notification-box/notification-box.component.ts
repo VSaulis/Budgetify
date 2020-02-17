@@ -2,7 +2,6 @@ import {Component, Input} from '@angular/core';
 import {Notification} from '../../models/notification/Notification';
 import {OperationDetailsModalComponent} from '../operations-table/operation-details-modal/operation-details-modal.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {NotificationTypes} from '../../enums/NotificationTypes';
 
 @Component({
     selector: 'app-notification-box',
@@ -16,14 +15,8 @@ export class NotificationBoxComponent {
     constructor(private modalService: NgbModal) {
     }
 
-    openDetailsModal(): void {
-        if (this.notification.type === NotificationTypes.AddOperation) {
-            this.openOperationDetailsModal(this.notification.entityId);
-        }
-    }
-
-    private openOperationDetailsModal(id: number): void {
+    openOperationDetailsModal(): void {
         const modalRef = this.modalService.open(OperationDetailsModalComponent, {backdrop: false});
-        modalRef.componentInstance.id = id;
+        modalRef.componentInstance.id = this.notification.operation.id;
     }
 }

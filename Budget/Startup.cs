@@ -29,7 +29,6 @@ namespace Budget
         {
             RepositoriesModule.RegisterDependencies(services, Configuration);
             ServicesModule.RegisterDependencies(services);
-            HubsModule.RegisterDependencies(services);
 
             services.AddCors(options =>
             {
