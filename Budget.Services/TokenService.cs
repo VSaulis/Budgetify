@@ -47,10 +47,5 @@ namespace Budget.Services
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
-        public bool VerifyToken(string token)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
