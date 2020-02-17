@@ -26,7 +26,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Budget.Hubs\Budget.Hubs.csproj" />
       <ProjectReference Include="..\Budget.Models\Budget.Models.csproj" />
       <ProjectReference Include="..\Budget.System\Budget.System.csproj" />
     </ItemGroup>
