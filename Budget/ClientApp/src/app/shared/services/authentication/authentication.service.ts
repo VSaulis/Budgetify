@@ -11,7 +11,6 @@ import {RefreshTokenRequest} from '../../contracts/authentication/RefreshTokenRe
 import {environment} from '../../../../environments/environment';
 import {AppService} from '../app/app.service';
 import {ProfileService} from '../profile/profile.service';
-import {NotificationService} from '../notification/notification.service';
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +20,6 @@ export class AuthenticationService {
     private url = `${environment.apiUrl}/authentication`;
 
     constructor(private http: HttpClient,
-                private notificationService: NotificationService,
                 private profileService: ProfileService,
                 private appService: AppService) {
     }
@@ -71,9 +69,7 @@ export class AuthenticationService {
     private setUser(loggedUser: LoggedUser): void {
         this.appService.removeMessages();
         this.appService.setLoggedUser(loggedUser);
-        this.notificationService.connect(loggedUser.token);
         localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
         this.profileService.getProfile().subscribe(profile => this.appService.setProfile(profile));
-
     }
 }

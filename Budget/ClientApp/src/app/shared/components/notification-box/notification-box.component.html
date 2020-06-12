@@ -1,6 +1,0 @@
-<div (click)="openOperationDetailsModal()" class="notification" ngbDropdownItem>
-    <div>
-        <span [class.success]="notification.operation.amount >= 0" [class.danger]="notification.operation.amount < 0">{{notification.operation.amount | money}}</span>
-        <small>{{notification.operation.category.name}}</small>
-    </div>
-</div>

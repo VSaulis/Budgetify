@@ -6,13 +6,6 @@
         <div class="header-box">
             <i class="material-icons">settings</i>
         </div>
-        <div autoClose="outside" ngbDropdown ngbDropdownToggle class="header-box">
-            <i class="material-icons">notifications</i>
-            <span class="count">3</span>
-            <div ngbDropdownMenu>
-                <app-notifications-dropdown></app-notifications-dropdown>
-            </div>
-        </div>
         <div *ngIf="profile" class="header-box profile">
             <app-avatar [initials]="profile.firstName[0] + profile.lastName[0]"></app-avatar>
             <div class="details">

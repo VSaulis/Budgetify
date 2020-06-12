@@ -108,7 +108,7 @@ export class OperationFormModalComponent implements OnInit {
     }
 
     private getData(): void {
-        this.categoryService.getCategories({deleted: false}).subscribe((categoriesListResponse: ListResponse<CategoriesListItem>) => {
+        this.categoryService.getCategories().subscribe((categoriesListResponse: ListResponse<CategoriesListItem>) => {
             this.categories = categoriesListResponse.result;
             this.id ? this.getOperation(this.id) : this.isLoading = false;
         });

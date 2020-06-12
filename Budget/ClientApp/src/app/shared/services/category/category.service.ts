@@ -34,10 +34,6 @@ export class CategoryService {
                 params.totalFrom = filter.totalFrom;
             }
 
-            if (ValueHelper.hasValue(filter.deleted)) {
-                params.deleted = filter.deleted;
-            }
-
             if (ValueHelper.hasValue(filter.totalTo)) {
                 params.totalTo = filter.totalTo;
             }

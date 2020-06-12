@@ -55,10 +55,6 @@ export class OperationService {
             if (ValueHelper.hasValue(filter.usersIds)) {
                 params.categoriesIds = filter.categoriesIds;
             }
-
-            if (ValueHelper.hasValue(filter.deleted)) {
-                params.deleted = filter.deleted;
-            }
         }
 
         if (sort) {

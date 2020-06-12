@@ -21,10 +21,6 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route.params.subscribe(params => {
-            console.log(params);
-        });
-
         this.getProfile();
         this.getTitle();
     }

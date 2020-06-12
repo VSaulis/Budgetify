@@ -27,9 +27,6 @@ import {OperationsFilterModalComponent} from './components/operations-table/oper
 import {DatepickerComponent} from './components/form/datepicker/datepicker.component';
 import {InputComponent} from './components/form/input/input.component';
 import {SelectComponent} from './components/form/select/select.component';
-import {NotificationsComponent} from './components/notifications/notifications.component';
-import {NotificationsDropdownComponent} from './components/notifications-dropdown/notifications-dropdown.component';
-import {NotificationBoxComponent} from './components/notification-box/notification-box.component';
 import {ComponentsModule} from '../../components/components.module';
 
 @NgModule({
@@ -55,9 +52,6 @@ import {ComponentsModule} from '../../components/components.module';
         DatepickerComponent,
         InputComponent,
         SelectComponent,
-        NotificationsComponent,
-        NotificationsDropdownComponent,
-        NotificationBoxComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -94,8 +88,6 @@ import {ComponentsModule} from '../../components/components.module';
         DatepickerComponent,
         InputComponent,
         SelectComponent,
-        NotificationsComponent,
-        NotificationsDropdownComponent
     ],
     entryComponents: [
         ConfirmModalComponent,

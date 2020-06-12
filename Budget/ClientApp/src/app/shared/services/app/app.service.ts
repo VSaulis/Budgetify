@@ -3,7 +3,6 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {Profile} from '../../models/profile/Profile';
 import {LoggedUser} from '../../models/authentication/LoggedUser';
 import {Message} from '../../models/message/Message';
-import {NotificationService} from '../notification/notification.service';
 import {MessageService} from '../message/message.service';
 import {ProfileService} from '../profile/profile.service';
 
@@ -12,17 +11,11 @@ import {ProfileService} from '../profile/profile.service';
 })
 export class AppService {
 
-
     private title = new BehaviorSubject<string>(null);
     private loggedUser = new BehaviorSubject<LoggedUser>(null);
 
-
-    constructor(private notificationService: NotificationService,
-                private messageService: MessageService,
-                private profileService: ProfileService) {
+    constructor(private messageService: MessageService, private profileService: ProfileService) {
     }
-
-    // Title
 
     setTitle(title: string): void {
         this.title.next(title);
@@ -32,8 +25,6 @@ export class AppService {
         return this.title.asObservable();
     }
 
-    // Profile
-
     getProfile(): Observable<Profile> {
         return this.profileService.getCurrentProfile();
     }
@@ -42,8 +33,6 @@ export class AppService {
         this.profileService.setProfile(profile);
     }
 
-    // Logged user
-
     setLoggedUser(loggedUser: LoggedUser): void {
         this.loggedUser.next(loggedUser);
     }
@@ -51,8 +40,6 @@ export class AppService {
     getLoggedUser(): Observable<LoggedUser> {
         return this.loggedUser.asObservable();
     }
-
-    // Messages
 
     getMessages(): Observable<Message[]> {
         return this.messageService.getMessages();
